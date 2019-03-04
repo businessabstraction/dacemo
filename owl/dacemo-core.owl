@@ -1,0 +1,201 @@
+@prefix : <http://www.dacemo.org/dacemo/> .
+@prefix ant: <http://www.dacemo.org/annotations/> .
+@prefix dcm: <http://www.dacemo.org/dacemo/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.dacemo.org/dacemo/> .
+
+<http://www.dacemo.org/dacemo/> rdf:type owl:Ontology ;
+                                 owl:versionIRI <http://www.dacemo.org/dacemo/> .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.dacemo.org/dacemo/actsOn
+dcm:actsOn rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf dcm:tracesTransitive ;
+           rdfs:domain dcm:Capability ;
+           rdfs:range dcm:Entity ;
+           rdfs:comment "Capability acts on Entity in any way" .
+
+
+###  http://www.dacemo.org/dacemo/creates
+dcm:creates rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf dcm:modifies .
+
+
+###  http://www.dacemo.org/dacemo/dependsOn
+dcm:dependsOn rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf dcm:realates .
+
+
+###  http://www.dacemo.org/dacemo/eventCanTrigger
+dcm:eventCanTrigger rdf:type owl:ObjectProperty ;
+                    rdfs:domain dcm:Event ;
+                    rdfs:range dcm:Capability .
+
+
+###  http://www.dacemo.org/dacemo/extends
+dcm:extends rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf dcm:realates .
+
+
+###  http://www.dacemo.org/dacemo/generalizes
+dcm:generalizes rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf dcm:realates .
+
+
+###  http://www.dacemo.org/dacemo/includes
+dcm:includes rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf dcm:realates .
+
+
+###  http://www.dacemo.org/dacemo/modifies
+dcm:modifies rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf dcm:actsOn .
+
+
+###  http://www.dacemo.org/dacemo/reads
+dcm:reads rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf dcm:actsOn ;
+          rdfs:comment "Read-only use of data" .
+
+
+###  http://www.dacemo.org/dacemo/realates
+dcm:realates rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf dcm:tracesTransitive ;
+             rdfs:domain dcm:Capability ;
+             rdfs:range dcm:Capability ;
+             rdfs:comment "Relationships between Capabilities" .
+
+
+###  http://www.dacemo.org/dacemo/relatesTo
+dcm:relatesTo rdf:type owl:ObjectProperty ;
+              rdfs:domain dcm:Entity ;
+              rdfs:range dcm:Entity .
+
+
+###  http://www.dacemo.org/dacemo/traces
+dcm:traces rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf dcm:tracesTransitive ;
+           rdfs:comment "One artefact traces to another. In any way." .
+
+
+###  http://www.dacemo.org/dacemo/tracesTransitive
+dcm:tracesTransitive rdf:type owl:ObjectProperty ;
+                     rdfs:comment "Closure of traceability. Should be anyone to anyone." .
+
+
+###  http://www.dacemo.org/dacemo/triggers
+dcm:triggers rdf:type owl:ObjectProperty ;
+             rdfs:domain dcm:Entity ;
+             rdfs:range [ rdf:type owl:Class ;
+                          owl:unionOf ( dcm:Capability
+                                        dcm:Event
+                                      )
+                        ] .
+
+
+###  http://www.dacemo.org/dacemo/triggersBy
+dcm:triggersBy rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf dcm:reads .
+
+
+###  http://www.dacemo.org/dacemo/updates
+dcm:updates rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf dcm:modifies .
+
+
+###  http://www.dacemo.org/dacemo/uses
+dcm:uses rdf:type owl:ObjectProperty ;
+         rdfs:domain dcm:Role ;
+         rdfs:range dcm:Capability ;
+         rdfs:comment "Similar to UML uses, connects a Role to Use Case" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.dacemo.org/dacemo/optimisationTarget
+dcm:optimisationTarget rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf dcm:visibleData .
+
+
+###  http://www.dacemo.org/dacemo/visibleData
+dcm:visibleData rdf:type owl:DatatypeProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.dacemo.org/dacemo/Actor
+dcm:Actor rdf:type owl:Class ;
+          rdfs:comment "A System, Enterprise, Business Unit, with clear understood borders. Can be as big as Whole of Government." .
+
+
+###  http://www.dacemo.org/dacemo/AudienceClass
+dcm:AudienceClass rdf:type owl:Class .
+
+
+###  http://www.dacemo.org/dacemo/BusinessArtefact
+dcm:BusinessArtefact rdf:type owl:Class ;
+                     rdfs:subClassOf dcm:AudienceClass .
+
+
+###  http://www.dacemo.org/dacemo/BusinessMeasure
+dcm:BusinessMeasure rdf:type owl:Class .
+
+
+###  http://www.dacemo.org/dacemo/Capability
+dcm:Capability rdf:type owl:Class ;
+               rdfs:comment "Something that can be done. A capability of some System of description" .
+
+
+###  http://www.dacemo.org/dacemo/Entity
+dcm:Entity rdf:type owl:Class .
+
+
+###  http://www.dacemo.org/dacemo/Event
+dcm:Event rdf:type owl:Class ;
+          rdfs:comment "A thing that can happen. Subject of Event Processing or Complex Event Processing." .
+
+
+###  http://www.dacemo.org/dacemo/FunctionalArtefact
+dcm:FunctionalArtefact rdf:type owl:Class ;
+                       rdfs:subClassOf dcm:AudienceClass .
+
+
+###  http://www.dacemo.org/dacemo/Hypothesis
+dcm:Hypothesis rdf:type owl:Class .
+
+
+###  http://www.dacemo.org/dacemo/Implementation
+dcm:Implementation rdf:type owl:Class ;
+                   rdfs:comment "A Model Artefact describing implementation of a higher level capability." .
+
+
+###  http://www.dacemo.org/dacemo/Insight
+dcm:Insight rdf:type owl:Class .
+
+
+###  http://www.dacemo.org/dacemo/Role
+dcm:Role rdf:type owl:Class .
+
+
+###  http://www.dacemo.org/dacemo/StrategicArtefact
+dcm:StrategicArtefact rdf:type owl:Class ;
+                      rdfs:subClassOf dcm:AudienceClass .
+
+
+###  http://www.dacemo.org/dacemo/TechnicalArtefact
+dcm:TechnicalArtefact rdf:type owl:Class ;
+                      rdfs:subClassOf dcm:AudienceClass .
+
+
+###  Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi

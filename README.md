@@ -25,7 +25,7 @@ Taizhou Wang - u6273306 | Frontend/JS build & lifecycle
 
 ## TOOLS
 
-Communication: [Slack](https://slack.com/)
+Communication: [Slack](https://businessabstraction.slack.com/messages/CGMDE8ZCH/)
 * We use Slack to have communication within the team
 * People outside our team including our stakeholder, shadows, and anyone who is interested in our project can also reach us easily
 
@@ -51,7 +51,7 @@ Knowledge and Semantic Data Engineering, combining solid academic background
 with two decades in Enterprise IT.Highly experienced Architect and Visual Modelling mentor who trained dozens of respected Enterprise Architecture, Information Architecture and Application Architecture professionals
 
 ## CLIENT EXPECTATIONS
-* Implement and build solution structure (Maven and/or something else runs and builds (deploys) software
+* Implement and build solution structure (Maven and/or something else runs and builds (deploys) software)
 * Landing page (no styles)
 * Open Graph View (handle D3.js)
 * Present Top Level Concepts (graph of approx 4 nodes and no edges)

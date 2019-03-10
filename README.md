@@ -31,30 +31,15 @@ Documenting: [Google Drive](https://drive.google.com/open?id=1i6sF93Loz_3rUczXJP
 * Team members ()
 
 ## KEY STAKEHOLDERS
-### Dr Tony Travouillon
-Tony is the director of our project and represents the interest of RSAA. He provides valuable inputs to our team, such as reqirements and some technical solutions. He also helps the team by coordinating resources and managing the communication of important personals. Meetings in person between the team and Tony are planned fortnightly. He will eventually takes control of the project after completion or at the end of the semester.
+###
 
 
 ## CLIENT EXPECTATIONS
-This project is about building a VR video game. Tony and GMTO expect us to perform following tasks:
-* Simplify models, check geometry
-* Add materials, textures, reflection, colours
-* Animate the telescope (tilt, rotation, open/close shutters)
-* Impelemente a flying mode with collision disabled
-* Impelemente a walking mode with proper collision
 
-They also prefer to have following features:
-* Outdoor Scenery
-* Lasers during nighttime
-* Cars and trucks parked for scale
-* People for scale
-* Mirror Cell assembly mode
-* Backgourd sounds
-* Tour with narration
+
 
 ## DELIVERING VALUE
 ### For Alex
-The final product of this project will be counted as the contribution of RSAA. Since GMTO will assess the contributions of each parties (RSAA is one of them) and will split the usage of the GMT to each parties according to their contributions, the product can potentially gain valuable advantage for Australian astronomers. RSAA may also use the product as a way to promote themselves.
 
 ## DELIVERABLES
 
@@ -78,13 +63,13 @@ The team members are divided into 2 teams to work separately to process model tr
 ## PROJECT MILESTONE
 Week | Goal
 --- | --- 
-4 | Conversion of models from .SLDPRT format
-6 | Establishment of Unity Scene
-7 | Movement
-8 | Animation of the telescope
-10 | Completion of Texturing
-11 | Optimizing performance
-12 | Finalizing
+4 | 
+6 | 
+7 | 
+8 | 
+10 | 
+11 | 
+12 | 
 
 ## CONSTRAINTS
 * 

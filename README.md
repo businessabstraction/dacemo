@@ -102,6 +102,12 @@ Week | Goal
 * Mitigation strategies include clear meeting minutes and documentation, as well frequent (multiple times a week) virtual meetings.
 * Client is a consultant for multiple unrelated projects - time between communications can be longer than anticipated. 
 * Mitigation strategies are still being researched by the team.
+* The demand is not clearly defined (Severity: 2).
+* The demand may change during development (Severity: 3).
+* The data is dirty (Severity: 2). 
+
+Over budget (Severity: 4). For example, some business software is expensive and there is no educational license. 
+
 
 ## COSTS
 * The project is open source and the potential costs (such as evaluating StarDog (a propietry knowledge graph software) and eventual hosting on an AWS server) will be covered by the client. 

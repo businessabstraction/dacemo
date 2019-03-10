@@ -1,5 +1,7 @@
 # DaCeMo Visualisation - Landing Page
 
+> Data-Centric Modelling (DaCeMo) is an approach to modelling Enterprise as a set of OWL (Web Ontology Language) Ontologies. However, the consumers of the models are not expected to understand OWL Ontologies.
+
 ## CLIENT VISION
 Provide unifying, Data-Centric, Ontology-based integrated qualitative model of enterprise in a way that can be understood and navigated by untrained enterprise users. The model will contain.
 

@@ -18,7 +18,7 @@ Provide unifying, Data-Centric, Ontology-based integrated qualitative model of e
 Name | Role(s) 
 --- | ---
 Tommy Gatti - u6044453 | Project Manager, Backend development/Triples Engineer
-Min Liu - u6339307 | Backend development/Business Logic Programmer
+Min Liu - u6339307 | Supporting Project Manager, Backend development/Business Logic Programmer
 Lifu Zhao - u6534756 | Backend/Server Build Engineer
 Yu Yang - u6412985 | Frontend/Presentation Logic Programmer
 Wenrui Li - u6361099 | Frontend/D3.js Specialist

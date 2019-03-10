@@ -6,10 +6,9 @@
 Provide unifying, Data-Centric, Ontology-based integrated qualitative model of enterprise in a way that can be understood and navigated by untrained enterprise users. The model will contain.
 
 * Explicitly modelled
-  - Motivation
-  - Processes
-  - Data
-  - Capabilities
+  - Business Motivations
+  - Business Processes
+  - Business Capabilities
 * Imported IT data
 * Imported personnel data
 * Imported Requirements, User Stories (in Spreadsheets)
@@ -38,11 +37,11 @@ Management: [Asana](https://app.asana.com/0/inbox/1112380319431612?du=1112380319
 * We use Asana to manage our tasks
 
 ## DEVELOPING TOOLS
-* IntelliJ
-* Jena
-* Maven
-* D3
-* Tomcat
+* IntelliJ (IDE)
+* Jena (Open Source Semantic Web framework)
+* Maven (build management tool)
+* D3 (graph presentation software)
+* Tomcat (server)
 
 ## PROJECT ARTEFACTS
 * Meeting Notes (https://drive.google.com/drive/folders/1CZy8PBDgU-7ISNzo7xcCtCPqypjR839H)
@@ -53,20 +52,21 @@ Management: [Asana](https://app.asana.com/0/inbox/1112380319431612?du=1112380319
 ### Alex Jornalev (Business Abstraction)
 Alex is the principal consultant of Business Abstraction. He is a specialist in Semantic Data, 
 Knowledge and Semantic Data Engineering, combining solid academic background 
-with two decades in Enterprise IT.Highly experienced Architect and Visual Modelling mentor who trained dozens of respected Enterprise Architecture, Information Architecture and Application Architecture professionals
+with two decades in Enterprise IT.Highly experienced Architect and Visual Modelling mentor who trained dozens of respected Enterprise Architecture, Information Architecture and Application Architecture professionals.
 
 ## CLIENT EXPECTATIONS
-* Implement and build solution structure (Maven and/or something else runs and builds (deploys) software)
-* Landing page (no styles)
-* Open Graph View (handle D3.js)
-* Present Top Level Concepts (graph of approx 4 nodes and no edges)
-* Build graph from a Top Level Concept
+* To deliver at least Iteration Zero (MVP).
+* Honesty
+* Communication Transparency
+* Teamwork
 
 
 ## DELIVERING VALUE
 ### For Client
-* Research into different ontology and graph presentation formats.
+* Exploratory research into different ontology and graph presentation formats.
 * Develop user-friendly, presentable Data Centric Modelling graphs. 
+* A domain in which the information gathered by the modeller is traditionally explained to the end user in subsets (or not at all) is now clearly understandable to an untrained user. 
+* With graphs that integrate Business and Technical knowledge, the Business/IT misalignment in traditional enterprise is narrowed. 
 
 ## DECISION MAKING PROCESS
 Decision making log: (https://drive.google.com/drive/folders/1m4mbyVoh4ibqYACCxjURbvI8BEEMAGKK)
@@ -75,7 +75,8 @@ Decision making log: (https://drive.google.com/drive/folders/1m4mbyVoh4ibqYACCxj
 Feedback folder: (https://drive.google.com/drive/folders/1EVf0rtFta_mMU0YTYTKv01-1qXnByU2B)
 
 ## TEAM WORK
-The team members are divided into two subteams to work on frontend and backend. However, these subteams will communicate regularly. 
+The team members are divided into two subteams to work on frontend and backend. 
+However, these subteams will communicate regularly, as the format of data passed between these layers may change. 
 
 ## COMMUNICATION
 1. We use Slack for day-to-day communication of development and issues that may arise.
@@ -92,6 +93,8 @@ Week | Goal
 5 | Present top level concepts (Nodes only)
 6 | Build graphs of top level concepts (Nodes and Edges from Top Level Concepts)
 7 | Make graphs searchable and navigable 
+
+Milestones/Goals are subject to change. 
  
 ## CONSTRAINTS
 * Team members are inexperienced with Web application development process
@@ -99,14 +102,12 @@ Week | Goal
 
 ## RISKS
 * One of our team members is working remotely until 14th April. 
-* Mitigation strategies include clear meeting minutes and documentation, as well frequent (multiple times a week) virtual meetings.
+  * Mitigation strategies include clear meeting minutes and documentation, as well frequent (multiple times a week) virtual meetings.
 * Client is a consultant for multiple unrelated projects - time between communications can be longer than anticipated. 
-* Mitigation strategies are still being researched by the team.
+  * Mitigation strategies are still being researched by the team.
 * The demand is not clearly defined (Severity: 2).
 * The client's demand may change during development (Severity: 3).
-* The data is dirty (Severity: 2). 
-
-Over budget (Severity: 4). For example, some business software is expensive and there is no educational license. 
+* The data is dirty (Severity: 2).
 
 
 ## COSTS

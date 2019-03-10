@@ -32,12 +32,15 @@ Communication: [Slack](https://businessabstraction.slack.com/messages/CGMDE8ZCH/
 Documenting: [Google Drive](https://drive.google.com/drive/folders/1-1yj-3s_OkBXiONDrqy7tZXL7TlzEtuD)
 * We use Google Drive to host our documentation
 
+Management: [Asana](https://app.asana.com/0/inbox/1112380319431612?du=1112380319431612&invite=8a394c166f17d335c2ffbb8a719bc864)
+* We use Asana to manage our tasks
+
 ## DEVELOPING TOOLS
-* Intellij
+* IntelliJ
 * Jena
 * Maven
 * D3
-* TomCat
+* Tomcat
 
 ## PROJECT ARTEFACTS
 * Meeting Notes (https://drive.google.com/drive/folders/1CZy8PBDgU-7ISNzo7xcCtCPqypjR839H)
@@ -62,8 +65,6 @@ with two decades in Enterprise IT.Highly experienced Architect and Visual Modell
 ### For Client
 * Research into different ontology and graph presentation formats.
 * Develop user-friendly, presentable Data Centric Modelling graphs. 
-
-## DELIVERABLES
 
 ## DECISION MAKING PROCESS
 Decision making log: (https://drive.google.com/drive/folders/1m4mbyVoh4ibqYACCxjURbvI8BEEMAGKK)

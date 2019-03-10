@@ -101,13 +101,14 @@ Milestones/Goals are subject to change.
 * Some members are inexperienced with this domain.
 
 ## RISKS
-* One of our team members is working remotely until 14th April. 
+* One of our team members is working remotely until 14th April (Severity: 2). 
   * Mitigation strategies include clear meeting minutes and documentation, as well frequent (multiple times a week) virtual meetings.
-* Client is a consultant for multiple unrelated projects - time between communications can be longer than anticipated. 
+* Client is a consultant for multiple unrelated projects - time between communications can be longer than anticipated (Severity: 2). 
   * Mitigation strategies are still being researched by the team.
 * The demand is not clearly defined (Severity: 2).
+  * Mitigation strategies include keeping contact with the client.
 * The client's demand may change during development (Severity: 3).
-* The data is dirty (Severity: 2).
+  * Mitigation strategies could be to apply the agile development methods to reduce the influence of demand changes.
 
 
 ## COSTS

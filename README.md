@@ -29,15 +29,22 @@ Taizhou Wang - u6273306 | Frontend/JS build & lifecycle
 
 ## GENERAL TOOLS
 
-Communication: [Slack](https://businessabstraction.slack.com/messages/CGMDE8ZCH/)
-* We use Slack to communicate within the team
-* People outside our team including our stakeholder, shadows, and anyone who is interested in our project can also reach us easily.
+Communication: 
+* [Slack](https://businessabstraction.slack.com/messages/CGMDE8ZCH/)
+  * Day-to-day communication regarding development and issues that may arise.
+  * People outside our team including our stakeholder, shadows, and anyone who is interested in our project can also reach us easily.
+* Email
+  * Meeting invitations, and communications that are especially important.
+* Skype
+  * Members that cannot make it to our weekly meetings can appear digitially. 
+* Meetings
+  * Weekly meetings (Sundays) to communicate with our client and present deliverables and issues. 
 
 Documentation: [Google Drive](https://drive.google.com/drive/folders/1-1yj-3s_OkBXiONDrqy7tZXL7TlzEtuD)
 * We use Google Drive to host our documentation
 
 Management: [Asana](https://app.asana.com/0/inbox/1112380319431612?du=1112380319431612&invite=8a394c166f17d335c2ffbb8a719bc864)
-* We use Asana to manage our tasks
+* Assignment and management of tasks, deadlines, and task specification.
 
 ## DEVELOPING TOOLS
 * [IntelliJ](https://www.jetbrains.com/idea/) (IDE)
@@ -47,9 +54,9 @@ Management: [Asana](https://app.asana.com/0/inbox/1112380319431612?du=1112380319
 * [Tomcat](https://tomcat.apache.org) (server)
 
 ## PROJECT ARTEFACTS
-* Meeting Notes (https://drive.google.com/drive/folders/1CZy8PBDgU-7ISNzo7xcCtCPqypjR839H)
-* Tutorial Notes (https://drive.google.com/drive/folders/1EVf0rtFta_mMU0YTYTKv01-1qXnByU2B)
-* Client Notes (https://drive.google.com/drive/folders/1itF2R-CSuwl4ndsbM9IxND6fQgra1L-S)
+* Group Meeting Notes (https://drive.google.com/drive/folders/1_aV8nk1iTIEDQqXfpiLfJIt98wacqaNN)
+* Tutorial Meeting Notes (https://drive.google.com/drive/folders/1EVf0rtFta_mMU0YTYTKv01-1qXnByU2B)
+* Client Meeting Notes (https://drive.google.com/drive/folders/1itF2R-CSuwl4ndsbM9IxND6fQgra1L-S)
 
 ## KEY STAKEHOLDERS
 ### Alex Jornalev (Business Abstraction)
@@ -81,13 +88,6 @@ Feedback folder: (https://drive.google.com/drive/folders/1EVf0rtFta_mMU0YTYTKv01
 The team members are divided into two subteams to work on frontend and backend. 
 However, these subteams will communicate regularly, as the format of data passed between these layers may change. 
 
-## COMMUNICATION
-1. We use Slack for day-to-day communication of development and issues that may arise.
-2. We use email for meeting invitations, and communications that are especially important. 
-3. We use Asana for assignment of tasks, deadlines, and task specification.
-4. We use Skype/WeChat voice calls for members that cannot make it to our weekly meetings.
-5. Face-to-face weekly meetings (Sundays) to communicate with Clients and present deliverables and issues. 
-
 ## PROJECT SCHEDULE
 ### Iterations
 * Iteration Zero
@@ -114,7 +114,7 @@ Iterations/Timelines are subject to change.
 ## RISKS
 * One of our team members is working remotely until 14th April (Severity: 2). 
   * Mitigation strategies include clear meeting minutes and documentation, as well frequent (multiple times a week) virtual meetings.
-* Client is a consultant for multiple unrelated projects - time between communications can be longer than anticipated (Severity: 2). 
+* Client is a consultant for projects - time between communications can be longer than anticipated (Severity: 2). 
   * Mitigation strategies are still being researched by the team.
 * The demand is not clearly defined (Severity: 2).
   * Mitigation strategies include keeping contact with the client.

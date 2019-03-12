@@ -128,3 +128,4 @@ Iterations/Timelines are subject to change.
 ## COSTS
 * The project is open source and the potential costs (such as evaluating StarDog (a propietry knowledge graph software) and eventual hosting on an AWS server) will be covered by the client. 
 
+Signed:

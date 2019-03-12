@@ -101,8 +101,8 @@ Week | Goal
 --- | --- 
 3 | Finalize roles, Implement and build server structure  
 4 | Frontend must have the landing page, Open graph views
-5 | Present top level concepts graphically (Nodes only)
-6 | Build graphs of top level concepts (Nodes and Edges from Top Level Concepts)(Iteration Zero)
+5 | Present top level concepts graphically (Nodes only)(Iteration Zero)
+6 | Build graphs of top level concepts (Nodes and Edges from Top Level Concepts)
 7 | Make graphs searchable and navigable 
 
 Iterations/Timelines are subject to change. 

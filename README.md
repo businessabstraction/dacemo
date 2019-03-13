@@ -40,7 +40,7 @@ Communication:
 * Meetings
   * Weekly meetings (Sundays) to communicate with our client and present deliverables and issues. 
 
-Documentation: [Google Drive](https://drive.google.com/open?id=1-1yj-3s_OkBXiONDrqy7tZXL7TlzEtuD)
+Documentation: [Google Drive](https://drive.google.com/open?id=1WjYbFm8Bo-LiOVIUo5V1L1T3OA2NqrcU)
 * We use Google Drive to host our documentation
 
 Management: [Asana](https://app.asana.com/0/inbox/1112380319431612?du=1112380319431612&invite=8a394c166f17d335c2ffbb8a719bc864)

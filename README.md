@@ -82,7 +82,7 @@ with two decades in Enterprise IT. Highly experienced Architect and Visual Model
 Decision making log: (https://drive.google.com/drive/folders/1m4mbyVoh4ibqYACCxjURbvI8BEEMAGKK)
 
 ## FEEDBACK FROM CLIENT/TUTOR
-Feedback folder: (https://drive.google.com/drive/folders/1EVf0rtFta_mMU0YTYTKv01-1qXnByU2B)
+Feedback folder: (https://drive.google.com/drive/folders/18DwHCNWPbn7vS9Wgz2ojq_kGW4YRXe8o)
 
 ## TEAM WORK
 The team members are divided into two subteams to work on frontend and backend. 

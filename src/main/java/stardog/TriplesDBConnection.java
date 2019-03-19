@@ -1,6 +1,10 @@
 package stardog;
 
+import com.stardog.stark.IRI;
+
+import java.util.ArrayList;
+
 interface TriplesDBConnection {
     boolean canConnect();
-    void query(String query);
+    ArrayList<IRI> selectQuery(String query);
 }

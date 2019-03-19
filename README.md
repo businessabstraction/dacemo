@@ -1,3 +1,21 @@
+### Local Build Instructions
+Requires:
+* At least Maven 2
+* Tomcat 7
+
+First-time Instructions:
+* Once Tomcat is installed, add the following to `/$TOMCAT_INSTALL/conf/tomcat-users.xml` file, inside the `<tomcat-users>...</tomcat-users>` tag:
+```  
+<role rolename="manager-gui"/>
+<role rolename="manager-script"/>
+<role rolename="manager-status"/>
+<user username="admin" password="admin" roles="manager-gui,manager-script,manager-status" />
+``` 
+All other times:
+* Go to `/$TOMCAT_INSTALL/bin/` and execute `startup.bat` (Windows) or `startup.sh` (Mac, Linux).
+* Go to the base of the project `/path/to/dacemo/` and execute `mvn tomcat7:deploy` to build and deploy the webapp to `localhost:8080/dacemo/`.
+* Once finished, don't forget to execute `shutdown.bat`/`shutdown.sh` in `/$TOMCAT_INSTALL/bin/` to shut down the server. 
+
 # DaCeMo Visualisation - Landing Page
 A website that displays a navigable, query-able, and understandable graph representation of a Data-Centric Model (DaCeMo) of an Enterprise.
 

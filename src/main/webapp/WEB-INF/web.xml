@@ -11,4 +11,13 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+
+    <servlet>
+        <servlet-name>Servlet</servlet-name>
+        <servlet-class>Servlet.GraphServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Servlet</servlet-name>
+        <url-pattern>/getGraph</url-pattern>
+    </servlet-mapping>
 </web-app>

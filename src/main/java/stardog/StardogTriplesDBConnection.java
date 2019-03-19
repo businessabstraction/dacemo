@@ -28,7 +28,7 @@ public class StardogTriplesDBConnection implements TriplesDBConnection {
         SelectQuery selectQuery = connection.select(query);
 
         try (SelectQueryResult result = selectQuery.execute()) {
-            result.forEachRemaining(value -> queryResult.add(value.binding("?s").flatMap(Binding::iri).get()));
+            result.forEachRemaining(value -> queryResult.add(value.binding("s").flatMap(Binding::iri).get()));
         }
 
         return queryResult;

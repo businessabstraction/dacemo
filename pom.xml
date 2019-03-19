@@ -6,6 +6,8 @@
 
     <groupId>BusinessAbstraction</groupId>
     <artifactId>DaCeMo</artifactId>
+    <packaging>war</packaging>
+    <name>DaCeMo Visualisation</name>
     <version>1.0-SNAPSHOT</version>
 
     <build>
@@ -17,6 +19,28 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://localhost:8087/manager/text</url>
+                    <server>TomcatServer</server>
+                    <username>admin</username>
+                    <password>dev</password>
+                    <path>/dacemo</path>
+                    <update>true</update>
                 </configuration>
             </plugin>
         </plugins>
@@ -35,6 +59,29 @@
             <artifactId>client-http</artifactId>
             <version>5.0.1</version>
             <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>com.complexible.stardog</groupId>
+            <artifactId>stardog-api</artifactId>
+            <version>5.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.3</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

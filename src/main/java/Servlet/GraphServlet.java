@@ -20,5 +20,6 @@ public class GraphServlet extends HttpServlet {
         ServletOutputStream out = response.getOutputStream();
 
         out.print("Hello!");
+
     }
 }

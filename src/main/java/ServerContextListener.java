@@ -21,7 +21,7 @@ public class ServerContextListener implements ServletContextListener {
                     "    ?s rdfs:subClassOf <http://www.dacemo.org/dacemo/Person> " +
                     "}"
             );
-
+            // TODO: 21/03/2019 Convert 'result' to a suitable format (JSON) and send to frontend, rather than just printing it to console.
             System.out.println(result);
         }
     }

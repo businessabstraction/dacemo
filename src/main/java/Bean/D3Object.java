@@ -1,3 +1,5 @@
+package Bean;
+
 import java.util.ArrayList;
 
 public class D3Object {

@@ -1,3 +1,5 @@
+package Bean;
+
 public class Node {
     private String id;
     private int group;

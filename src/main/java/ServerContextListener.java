@@ -28,22 +28,6 @@ public class ServerContextListener implements ServletContextListener {
             );
             // TODO: 21/03/2019 Convert 'result' to a suitable format (JSON) and send to frontend, rather than just printing it to console.
             System.out.println(result);
-
-            ArrayList<Node> nodes = new ArrayList<>();
-            Gson json = new Gson();
-            for (IRI obj: result){
-                Node node = new Node(obj.localName(), 1);
-                nodes.add(node);
-            }
-            D3Object d3Object = new D3Object(nodes);    // Translate result into JSON format
-            String reponse = json.toJson(d3Object);
-
-            try (FileWriter writer = new FileWriter("D3.json")) {   // Save JSON file
-                writer.write(reponse);
-                writer.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
 
     }

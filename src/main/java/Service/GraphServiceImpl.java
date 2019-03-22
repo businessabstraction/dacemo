@@ -7,7 +7,7 @@ import DAO.GraphDAOImpl;
 import java.util.List;
 
 public class GraphServiceImpl implements GraphService{
-    GraphDAO graphDao;
+    private GraphDAO graphDao;
 
     public GraphServiceImpl (){
         graphDao = new GraphDAOImpl();

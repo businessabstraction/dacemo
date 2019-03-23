@@ -49,8 +49,9 @@ public class GraphServlet extends HttpServlet {
             D3Object d3Object = new D3Object(nodes);    // Translate result into JSON format
 
             String blah = json.toJson(d3Object);
-
-            response.getOutputStream().print(blah);
+            String stringFormat = d3Object.toString();
+            System.out.println(":::::::::::::::::::::"+d3Object.toString());
+            response.getOutputStream().print(stringFormat);
         }
     }
 }

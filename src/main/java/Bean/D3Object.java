@@ -22,6 +22,13 @@ public class D3Object {
 
     @Override
     public String toString() {
-        return super.toString();
+
+        String stream = "";
+        for(Node n : getNodes()){
+            stream +=n.toString();
+            stream +=",";
+        }
+
+        return stream;
     }
 }

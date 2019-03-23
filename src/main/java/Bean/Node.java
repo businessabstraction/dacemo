@@ -9,8 +9,9 @@ public class Node {
         this.group = group;
     }
 
+
     @Override
     public String toString() {
-        return "id: " + id + ", group: " + group;
+        return "" + id +","+group;
     }
 }

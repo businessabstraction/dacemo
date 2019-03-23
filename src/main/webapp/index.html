@@ -7,51 +7,6 @@
 <body class="homepage">
 
 
-<script>
-
-	var getString;
-	function callServer(methodType) {
-		var xmlResruest;
-
-		if(window.XMLHttpRequest){
-			xmlResruest = new XMLHttpRequest();
-		}else if(window.ActiveXObject){
-			xmlResruest = new ActiveXObject("MICROSOFT.XMLHTTP");
-		}
-
-		xmlResruest.onreadystatechange = function(){
-			if(xmlResruest.readyState ==4 && xmlResruest.status ==200){
-				document.getElementById("myDiv").innerHTML = "button down";
-				getString = xmlResruest.responseText;
-
-				//console.log(getString);
-
-				var obj = JSON.parse(getString);
-				//console.log(obj["nodes"]);
-
-				document.getElementById("myDiv").innerHTML = getString +"\n"+ obj.parseJSON();
-
-			}
-
-		}
-
-		params = "comment=" + document.getElementById("comment").value;
-		if(methodType =="GET"){
-			xmlResruest.open("GET","/DaCeMo_war_exploded/getGraph?"+params,true);
-			xmlResruest.send();
-
-		}else if(methodType =="POST"){
-			xmlResruest.open("POST","/DaCeMo_war_exploded/getGraph",true);
-			xmlResruest.setRequestHeader("req","req");
-			xmlResruest.send(params);
-
-		}
-
-	}
-
-
-</script>
-
 <div id="comment"><h2>conteny</h2></div>
 <button onclick="callServer('POST')">获取其他内容</button>
 
@@ -98,10 +53,16 @@
 	<svg width="1080" height="400"></svg>
 	<script src="https://d3js.org/d3.v4.min.js"></script>
 	<script>
-		callServer('POST');
+
+
+
+		var getString;
+		var nodeArray;
+		var D3node = new Object();
+
 
 		var baseNodes = [
-
+			D3node,
 			{ id: "mammal", group: 0, label: "Mammals", level: 1 },
 			{ id: "dog"   , group: 0, label: "Dogs"   , level: 2 },
 			{ id: "cat"   , group: 0, label: "Cats"   , level: 2 },
@@ -134,6 +95,52 @@
 
 		var nodes = [...baseNodes]
 		var links = [...baseLinks]
+
+
+		function updateNode() {
+			console.log(getString);
+			nodeArray = getString.split(',');
+			D3node.id = nodeArray[0];
+			D3node.group = 1;
+			D3node.label = "Muggles";
+			D3node.level = 1;
+		}
+
+
+		function callServer(methodType) {
+			var xmlResruest;
+
+			if(window.XMLHttpRequest){
+				xmlResruest = new XMLHttpRequest();
+			}else if(window.ActiveXObject){
+				xmlResruest = new ActiveXObject("MICROSOFT.XMLHTTP");
+			}
+
+			xmlResruest.onreadystatechange = function(){
+				if(xmlResruest.readyState ==4 && xmlResruest.status ==200){
+					document.getElementById("myDiv").innerHTML = "button down";
+					getString = xmlResruest.responseText;
+					document.getElementById("myDiv").innerHTML = getString;
+					updateNode();
+					updateSimulation();
+				}
+
+			}
+
+			params = "comment=" + document.getElementById("comment").value;
+			if(methodType =="GET"){
+				xmlResruest.open("GET","/DaCeMo_war_exploded/getGraph?"+params,true);
+				xmlResruest.send();
+
+			}else if(methodType =="POST"){
+				xmlResruest.open("POST","/DaCeMo_war_exploded/getGraph",true);
+				xmlResruest.setRequestHeader("req","req");
+				xmlResruest.send(params);
+
+			}
+
+		}
+
 
 		function getNeighbors(node) {
 			return baseLinks.reduce(function (neighbors, link) {
@@ -346,8 +353,6 @@
 
 		// last but not least, we call updateSimulation
 		// to trigger the initial render
-
-		updateSimulation();
 
 
 	</script>

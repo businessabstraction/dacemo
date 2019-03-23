@@ -20,9 +20,8 @@ public class GraphServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
-        String out = "id111,1,label111,1";
-
-        response.getOutputStream().print(out);
+        String testout = "id111,1,label111,1";
+        response.getOutputStream().print(testout);
 
     }
 
@@ -48,9 +47,8 @@ public class GraphServlet extends HttpServlet {
             }
             D3Object d3Object = new D3Object(nodes);    // Translate result into JSON format
 
-            String blah = json.toJson(d3Object);
+            //TODO currently I use the String to transfer the data to the frontend. More Json things need to be done.
             String stringFormat = d3Object.toString();
-            System.out.println(":::::::::::::::::::::"+d3Object.toString());
             response.getOutputStream().print(stringFormat);
         }
     }

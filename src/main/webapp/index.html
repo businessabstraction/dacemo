@@ -66,15 +66,15 @@
 			nodeArray = getString.split(',');
 
 			console.log(nodeArray);
-			baseNodes = new Array(parseInt(nodeArray.length/2));
+			baseNodes = new Array(parseInt(nodeArray.length/4));
 
-			for(i =0;i<parseInt(nodeArray.length/2);i++){
+			for(i =0;i<parseInt(nodeArray.length/4);i++){
 				console.log(nodeArray[0]);
 				baseNodes[i] = new Object();
-				baseNodes[i].id = nodeArray[2 *i];
-				baseNodes[i].group = parseInt(nodeArray[2 *i +1]);
-				baseNodes[i].label = "Muggles";
-				baseNodes[i].level = 1;
+				baseNodes[i].id = nodeArray[4 *i];
+				baseNodes[i].group = parseInt(nodeArray[4 *i +1]);
+				baseNodes[i].label = nodeArray[4 *i +2];
+				baseNodes[i].level = parseInt(nodeArray[4 *i +3]);
 
 			}
 

@@ -1,14 +1,8 @@
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.stardog.stark.IRI;
-import com.stardog.stark.query.BindingSet;
 import stardog.StardogTriplesDBConnection;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 import java.util.ArrayList;
 
 public class ServerContextListener implements ServletContextListener {
@@ -29,7 +23,6 @@ public class ServerContextListener implements ServletContextListener {
             // TODO: 21/03/2019 Convert 'result' to a suitable format (JSON) and send to frontend, rather than just printing it to console.
             System.out.println(result);
         }
-
     }
 
     /**

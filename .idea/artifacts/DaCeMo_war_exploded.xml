@@ -1,0 +1,155 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="DaCeMo:war exploded">
+    <output-path>$PROJECT_DIR$/target/DaCeMo-1.0-SNAPSHOT</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <exploded>true</exploded>
+        <module>DaCeMo</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="DaCeMo" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.google.guava:guava:26.0-jre" />
+          <element id="library" level="project" name="Maven: org.checkerframework:checker-qual:2.5.2" />
+          <element id="library" level="project" name="Maven: com.google.j2objc:j2objc-annotations:1.1" />
+          <element id="library" level="project" name="Maven: org.codehaus.mojo:animal-sniffer-annotations:1.14" />
+          <element id="library" level="project" name="Maven: com.google.errorprone:error_prone_annotations:2.2.0" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.12" />
+          <element id="library" level="project" name="Maven: com.opencsv:opencsv:4.0" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.6" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-text:1.1" />
+          <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.9.3" />
+          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
+          <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.2" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-iostreams:2.8.1" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.8.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.protocols.http:stardog-protocols-http-client:6.0.1" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5.2" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.4" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.9" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpmime:4.5.2" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.cluster.shared:stardog-pack-replication-shared:6.0.1" />
+          <element id="library" level="project" name="Maven: org.apache.zookeeper:zookeeper:3.4.9" />
+          <element id="library" level="project" name="Maven: io.netty:netty:3.10.5.Final" />
+          <element id="library" level="project" name="Maven: org.apache.curator:curator-framework:2.12.0" />
+          <element id="library" level="project" name="Maven: org.apache.curator:curator-client:2.12.0" />
+          <element id="library" level="project" name="Maven: org.apache.curator:curator-recipes:2.12.0" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-1.2-api:2.8.1" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-core:2.8.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.core:stardog:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.security:stardog-core-security:6.0.1" />
+          <element id="library" level="project" name="Maven: org.apache.shiro:shiro-core:1.2.3" />
+          <element id="library" level="project" name="Maven: org.mindrot:jbcrypt:0.3.1" />
+          <element id="library" level="project" name="Maven: com.github.ben-manes.caffeine:caffeine:2.6.2" />
+          <element id="library" level="project" name="Maven: com.complexible.common.protocols.api:stardog-protocols-api-server:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.license:license-core:3.0.7" />
+          <element id="library" level="project" name="Maven: de.schlichtherle.truelicense:truelicense-core:1.33" />
+          <element id="library" level="project" name="Maven: de.schlichtherle.truelicense:truelicense-xml:1.33" />
+          <element id="library" level="project" name="Maven: commons-math:commons-math:1.2" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-core:5.3.1" />
+          <element id="library" level="project" name="Maven: io.dropwizard.metrics:metrics-core:3.2.6" />
+          <element id="library" level="project" name="Maven: io.dropwizard.metrics:metrics-jvm:3.2.6" />
+          <element id="library" level="project" name="Maven: com.upplication:s3fs:2.2.1" />
+          <element id="library" level="project" name="Maven: org.ehcache:sizeof:0.3.0" />
+          <element id="library" level="project" name="Maven: com.google.inject.extensions:guice-assistedinject:4.0" />
+          <element id="library" level="project" name="Maven: com.google.inject.extensions:guice-throwingproviders:4.0" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.memory:stardog-memory:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.protocols.http:stardog-protocols-http-shared:6.0.1" />
+          <element id="library" level="project" name="Maven: org.json:json:20090211" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.icv.http:stardog-icv-protocols-http-client:6.0.1" />
+          <element id="library" level="project" name="Maven: javax.mail:mailapi:1.4.3" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.icv:stardog-icv-api:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.icv:stardog-icv-api_snarl:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.reasoning.http:stardog-reasoning-protocols-http-client:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.reasoning:stardog-reasoning-api:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.reasoning:stardog-reasoning-shared:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.search.http:stardog-search-protocols-http-client:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.search:stardog-search-api:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.bites.http:stardog-bites-protocols-http-client:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.bites:stardog-bites-shared:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.bites:stardog-bites-api:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.bites.http:stardog-bites-protocols-http-shared:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.versioning.http:stardog-versioning-protocols-http-client:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.versioning:stardog-versioning-api:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.versioning:stardog-versioning-shared:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.prov:stardog-prov:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.virtual.http:stardog-virtual-protocols-http-client:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.virtual:stardog-virtual-api:6.0.1" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-csv:1.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.virtual.http:stardog-virtual-protocols-http-shared:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.graphql.http:stardog-graphql-protocols-http-client:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.graphql.http:stardog-graphql-protocols-http-shared:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.graphql:stardog-graphql-api:6.0.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.graphql:stardog-graphql-shared:6.0.1" />
+          <element id="library" level="project" name="Maven: com.graphql-java:graphql-java:4.2" />
+          <element id="library" level="project" name="Maven: org.antlr:antlr4-runtime:4.5.1" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog:stardog-api:6.0.1" />
+          <element id="library" level="project" name="Maven: commons-pool:commons-pool:1.6" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.core:stardog-core-shared:6.0.1" />
+          <element id="library" level="project" name="Maven: org.quartz-scheduler:quartz:2.3.0" />
+          <element id="library" level="project" name="Maven: com.mchange:c3p0:0.9.5.2" />
+          <element id="library" level="project" name="Maven: com.mchange:mchange-commons-java:0.2.11" />
+          <element id="library" level="project" name="Maven: com.zaxxer:HikariCP-java6:2.3.13" />
+          <element id="library" level="project" name="Maven: com.amazonaws:aws-java-sdk-s3:1.11.442" />
+          <element id="library" level="project" name="Maven: com.amazonaws:aws-java-sdk-kms:1.11.442" />
+          <element id="library" level="project" name="Maven: com.amazonaws:aws-java-sdk-core:1.11.442" />
+          <element id="library" level="project" name="Maven: software.amazon.ion:ion-java:1.0.2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.6.7" />
+          <element id="library" level="project" name="Maven: joda-time:joda-time:2.8.1" />
+          <element id="library" level="project" name="Maven: com.amazonaws:jmespath-java:1.11.442" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.utils:stardog-utils-common:6.0.1" />
+          <element id="library" level="project" name="Maven: com.brsanthu:data-exporter:1.0.4" />
+          <element id="library" level="project" name="Maven: io.netty:netty-common:4.0.32.Final" />
+          <element id="library" level="project" name="Maven: com.carrotsearch:hppc:0.7.1" />
+          <element id="library" level="project" name="Maven: com.google.inject:guice:4.0" />
+          <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
+          <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
+          <element id="library" level="project" name="Maven: com.google.inject.extensions:guice-multibindings:4.0" />
+          <element id="library" level="project" name="Maven: com.google.code.findbugs:jsr305:3.0.2" />
+          <element id="library" level="project" name="Maven: com.complexible.stardog.utils:stardog-utils-rdf:6.0.1" />
+          <element id="library" level="project" name="Maven: com.stardog.stark:stardog-stark-model:6.0.1" />
+          <element id="library" level="project" name="Maven: com.stardog.stark.io:stardog-stark-io-binary:6.0.1" />
+          <element id="library" level="project" name="Maven: com.stardog.stark.io:stardog-stark-io-api:6.0.1" />
+          <element id="library" level="project" name="Maven: commons-io:commons-io:2.4" />
+          <element id="library" level="project" name="Maven: com.stardog.stark.io:stardog-stark-io-nquads:6.0.1" />
+          <element id="library" level="project" name="Maven: com.stardog.stark.io:stardog-stark-io-ntriples:6.0.1" />
+          <element id="library" level="project" name="Maven: com.stardog.stark.io:stardog-stark-io-rdfjson:6.0.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.8.2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.8.2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.8.2" />
+          <element id="library" level="project" name="Maven: com.stardog.stark.io:stardog-stark-io-rdfxml:6.0.1" />
+          <element id="library" level="project" name="Maven: com.stardog.stark.io:stardog-stark-io-turtle:6.0.1" />
+          <element id="library" level="project" name="Maven: com.stardog.stark.io:stardog-stark-io-trig:6.0.1" />
+          <element id="library" level="project" name="Maven: com.stardog.stark.io:stardog-stark-io-n3:6.0.1" />
+          <element id="library" level="project" name="Maven: com.stardog.stark.io:stardog-stark-io-jsonld:6.0.1" />
+          <element id="library" level="project" name="Maven: com.github.jsonld-java:jsonld-java:0.10.0" />
+          <element id="library" level="project" name="Maven: com.stardog.stark.query.io:stardog-stark-query-binary:6.0.1" />
+          <element id="library" level="project" name="Maven: com.stardog.stark.query.io:stardog-stark-query-io:6.0.1" />
+          <element id="library" level="project" name="Maven: com.stardog.stark.query:stardog-stark-query-api:6.0.1" />
+          <element id="library" level="project" name="Maven: com.stardog.stark.query.io:stardog-stark-query-json:6.0.1" />
+          <element id="library" level="project" name="Maven: com.stardog.stark.query.io:stardog-stark-query-xml:6.0.1" />
+          <element id="library" level="project" name="Maven: com.stardog.stark.query.io:stardog-stark-query-text:6.0.1" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient-cache:4.5.2" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient-osgi:4.5.2" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:fluent-hc:4.5.2" />
+          <element id="library" level="project" name="Maven: xerces:xercesImpl:2.11.0" />
+          <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.4.01" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-compress:1.18" />
+          <element id="library" level="project" name="Maven: javax.servlet:javax.servlet-api:4.0.0" />
+          <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.5" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/DaCeMo-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="DaCeMo/web/Web" />
+    </root>
+  </artifact>
+</component>

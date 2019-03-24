@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>DaCeMo Visualisation|D3 Graph</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<header id="fixed_header">
+    <div class="container">
+        <div id="branding">
+            <h1><span class="highlight">DaCeMo</span>  Visualisation</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">About Business Abstraction</a></li>
+                <li class="current"><a href="visualize.html">Visualisation</a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">News</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<br><br><br><br>
+
+<section id="main">
+    <div class="container">
+        <article>
+            <div id="pic">
+                <div>
+
+                    <div id="comment"></div>
+                    <button onclick="callServer('POST')">Query</button>
+
+                    <div id="myDiv"><h2>Display the Graph by Clicking the Query Button</h2></div>
+                    <p>The button currently sends nothing to backend, but it simulates one complete query process.</p>
+                    <div id ="d3 graph">
+                        <svg width="1080" height="400"></svg>
+                        <script src="https://d3js.org/d3.v4.min.js"></script>
+                        <script type="text/javascript" src="js/get_data.js"></script>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+
+<!--set the footer-->
+<footer>
+    <div class="social">
+        <div id="facebook">
+            <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId" width="450" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+
+        </div>
+        <div id="twitter">
+            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+    </div>
+
+    <div id="function">
+        <ul>
+            <li><a href="#">Resource</a></li>
+            <li><a href="#">Sitemap</a></li>
+            <li><a href="#">Feedback</a></li>
+            <li><a href="#">About Website</a></li>
+            <li><a href="#">Timeline</a></li>
+            <li><a href="#">Validation</a></li>
+        </ul>
+    </div>
+
+    <!--set description-->
+    <div id="info">
+        <p>The website is developed for the COMP3500/COMP8715 assignment &copy; TechLauncher</p>
+    </div>
+
+</footer>
+</body>
+</html>

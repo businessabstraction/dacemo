@@ -1,161 +1,107 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>DaCeMo Visualisation</title>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	</head>
-	<body class="homepage">
+<head>
 
-	<!-- Header https://templated.co/linear-->
-		<div id="header">
-			<div id="nav-wrapper"> 
-				<!-- Nav -->
-				<nav id="nav">
-					<ul>
-						<li class="active"><a href="index.html">Homepage</a></li>
-					</ul>
-				</nav>
-			</div>
-			<div class="container">
-				<!-- Logo -->
-				<div id="logo">
-					<h1><a href="#">DaCeMo Visualisation</a></h1>
-				</div>
-			</div>
+	<!--set website information-->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+	<title>DaCeMo Ontologies</title>
+	<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+<header id="fixed_header">
+	<div class="container">
+
+		<!--title-->
+		<div id="branding">
+			<h1><span class="highlight">DaCeMo</span>  Visualization</h1>
 		</div>
 
-	<!-- Featured -->
-		<div id="featured">
-			<div class="container">
-				<header>
-					<h2>Welcome to DaCeMo Visualisation</h2>
-				</header>
-				<p>
-					<img src="images/header.jpg" width="100" height="100" alt="Image of a graph."/>
-				</p>
-				<p>This is <strong>DaCeMo Visualisation</strong>,  A website that displays a navigable, query-able, and understandable graph representation of a Data-Centric Model (DaCeMo) of an Enterprise.
-					A complex domain made understandable to enterprise users from middle management, to IT, to CEOs, through varying layers of data abstraction.
-					DaCeMo is an approach to modelling Enterprise as a set of OWL (Web Ontology Language) Ontologies.</p>
-				<hr />
-			</div>
+		<!--navigation bar-->
+		<nav>
+			<ul>
+				<li class="current"><a href="index.html">Home</a></li>
+				<li><a href="#">About Business Abstraction</a></li>
+				<li><a href="visualize.html">Visualization</a></li>
+				<li><a href="#"></a></li>
+				<li><a href="#">Contact Us</a></li>
+				<li><a href="#">News</a></li>
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<!--set banner-->
+<section id="banner">
+	<div class="container">
+		<h1>DaCeMo Visualization</h1>
+		<h3>This is <strong>DaCeMo Visualization</strong>,  A website that displays a navigable, query-able, and understandable graph representation of a Data-Centric Model (DaCeMo) of an Enterprise.
+			A complex domain made understandable to enterprise users from middle management, to IT, to CEOs, through varying layers of data abstraction.
+			DaCeMo is an approach to modelling Enterprise as a set of OWL (Web Ontology Language) Ontologies.</h3>
+	</div>
+</section>
+
+<!--set newsletter-->
+<section id="newsletter">
+	<div class="container">
+		<h1>Subscribe to my newsletter</h1>
+		<form>
+			<input type="email" placeholder="Enter Email.."/>
+			<button type="submit" class="button_1">Register via email...</button>
+		</form>
+	</div>
+</section>
+
+<!--main content-->
+<br><br>
+<h1 align="center">A Demo For Visualisation of a Graph</h1><br><br>
+<hr class="breakline">
+
+
+<!--set the projects-->
+<section id="items">
+	<div class="container">
+		<div id="pic">
+		<img src="images/header.jpg" width="800" height="600" alt="Image of a graph."/>
 		</div>
-
-		<div id ="d3 graph">
-			<svg width="1080" height="400"></svg>
-
-			<script src="https://d3js.org/d3.v4.min.js"></script>
-			<script>
-
-				//define the structure of the node
-				// this variable can be replaced by the interface which
-				// process the server data
-				var nodes = [
-					{ id: "hp:dpmt:1", group: 0, label: "Ministry Of Magic", level: 1 },
-					{ id: "hp:empl:1"   , group: 1, label: "Lucius Malfoy"   , level: 2 },
-					{ id: "hp:empl:2"   , group: 1, label: "Albert Runcorn"   , level: 2 },
-					{ id: "hp:empl:3"   , group: 1, label: "Gethsemane Prickle"  , level: 2 },
-					{ id: "hp:evet:1"   , group: 2, label: "Explrod to Muggles", level: 3 },
-					{ id: "hp:mugl:1", group: 3, label: "Jacob Kowaiski", level: 4 }
-				];
-
-				//define the link between the node
-				var links = [
-					{ target: "hp:empl:1", source: "hp:dpmt:1" , strength: 0.1 },
-					{ target: "hp:empl:2", source: "hp:dpmt:1" , strength: 0.1 },
-					{ target: "hp:empl:3", source: "hp:dpmt:1" , strength: 0.1 },
-					{ target: "hp:evet:1", source: "hp:dpmt:1" , strength: 0.1 },
-					{ target: "hp:mugl:1", source: "hp:evet:1" , strength: 0.1 },
-					{ target: "hp:empl:1", source: "hp:evet:1" , strength: 0.1 },
-					{ target: "hp:empl:1", source: "hp:mugl:1" , strength: 0.1 }
-				];
-
-				function getNodeColor(node) {
-					if(node.level === 1) return 'red';
-					else if(node.level === 2) return 'purple';
-					else if(node.level === 3) return 'green';
-					else return 'gray'
-				}
+	</div>
+</section>
 
 
-				var width = 800;
-				var height = 600;
+<br><br><br><br><br><br>
 
 
-				var svg = d3.select('svg');
-				svg.attr('width', width).attr('height', height);
+<!--set the footer-->
+<footer>
+	<div class="social">
+		<div id="facebook">
+			<iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId" width="450" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
 
-				// simulation setup with all forces
-				var linkForce = d3
-						.forceLink()
-						.id(function (link) { return link.id })
-						.strength(function (link) { return link.strength });
-
-				var simulation = d3
-						.forceSimulation()
-						.force('link', linkForce)
-						.force('charge', d3.forceManyBody().strength(-120))
-						.force('center', d3.forceCenter(width / 2, height / 2));
-
-				var linkElements = svg.append("g")
-						.attr("class", "links")
-						.selectAll("line")
-						.data(links)
-						.enter().append("line")
-						.attr("stroke-width", 3)
-						.attr("stroke", "rgba(50, 50, 50, 0.2)");
-
-				var nodeElements = svg.append("g")
-						.attr("class", "nodes")
-						.selectAll("circle")
-						.data(nodes)
-						.enter().append("circle")
-						.attr("r", 10)
-						.attr("fill", getNodeColor);
-
-
-
-				var textElements = svg.append("g")
-						.attr("class", "texts")
-						.selectAll("text")
-						.data(nodes)
-						.enter().append("text")
-						.text(function (node) { return  node.label })
-						.attr("font-size", 20)
-						.attr("dx", 15)
-						.attr("dy", 4);
-
-
-
-				simulation.nodes(nodes).on('tick', () => {
-					nodeElements.attr('cx', function (node) { return node.x })
-							.attr('cy', function (node) { return node.y });
-					textElements.attr('x', function (node) { return node.x })
-							.attr('y', function (node) { return node.y });
-					linkElements.attr('x1', function (link) { return link.source.x })
-							.attr('y1', function (link) { return link.source.y })
-							.attr('x2', function (link) { return link.target.x })
-							.attr('y2', function (link) { return link.target.y })
-				});
-
-				simulation.force("link").links(links)
-
-			</script>
 		</div>
-
-
-	<!-- Footer -->
-		<div id="footer">
-			<div class="container">
-				<section>
-					<header>
-						<h2>Contacts</h2>
-						<span class="byline">61XXXXXXXX</span>
-					</header>
-				</section>
-			</div>
+		<div id="twitter">
+			<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 		</div>
+	</div>
 
+	<div id="function">
+		<ul>
+			<li><a href="resource.html">Resource</a></li>
+			<li><a href="sitemap.html">Sitemap</a></li>
+			<li><a href="feedback.html">Feedback</a></li>
+			<li><a href="aboutwebsite.html">AboutWebsite</a></li>
+			<li><a href="validation.html">Validation</a></li>
 
+		</ul>
+	</div>
 
-	</body>
+	<!--set description-->
+	<div id="info">
+		<p>The website is developed for the COMP3500/COMP8715 assignment &copy; TechLauncher</p>
+	</div>
+
+</footer>
+</body>
 </html>

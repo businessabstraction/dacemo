@@ -39,7 +39,7 @@
                     <server>TomcatServer</server>
                     <username>admin</username>
                     <password>admin</password>
-                    <path>/dacemo</path>
+                    <path>/DaCeMo_war_exploded</path>
                     <update>true</update>
                 </configuration>
             </plugin>

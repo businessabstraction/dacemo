@@ -2,6 +2,8 @@
 Requires:
 * At least Maven 2
 * Tomcat 7
+* D3 force
+* StarDog
 
 First-time Instructions:
 * Once Tomcat is installed, add the following to `/$TOMCAT_INSTALL/conf/tomcat-users.xml` file, inside the `<tomcat-users>...</tomcat-users>` tag:
@@ -11,10 +13,28 @@ First-time Instructions:
 <role rolename="manager-status"/>
 <user username="admin" password="admin" roles="manager-gui,manager-script,manager-status" />
 ``` 
-All other times:
+Tomcat:
 * Go to `/$TOMCAT_INSTALL/bin/` and execute `startup.bat` (Windows) or `startup.sh` (Mac, Linux).
 * Go to the base of the project `/path/to/dacemo/` and execute `mvn tomcat7:deploy` to build and deploy the webapp to `localhost:8080/dacemo/`.
 * Once finished, don't forget to execute `shutdown.bat`/`shutdown.sh` in `/$TOMCAT_INSTALL/bin/` to shut down the server. 
+
+D3 force:
+* The tool we use
+D3 force [https://github.com/d3/d3-force]
+
+* Installing
+
+If you use NPM, npm install d3-force. Otherwise, download the latest release. You can also load directly from d3js.org, either as a standalone library or as part of D3. AMD, CommonJS, and vanilla environments are supported. In vanilla, a d3_force global is exported.
+
+* Node structure
+id: the unique id of nodes
+group: the group of the nodes belongs to
+label: the text that shows on the graph
+level: the layer of the node belongs to
+
+e.g.
+{ id: "hp:dpmt:1", group: 0, label: "Ministry Of Magic", level: 1 },
+
 
 # DaCeMo Visualisation - Landing Page
 A website that displays a navigable, query-able, and understandable graph representation of a Data-Centric Model (DaCeMo) of an Enterprise.

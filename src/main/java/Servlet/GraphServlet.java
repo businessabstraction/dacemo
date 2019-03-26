@@ -30,12 +30,14 @@ public class GraphServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        StardogTriplesDBConnection connection = new StardogTriplesDBConnection("magic", "http://localhost:5820", "admin", "admin");
+        StardogTriplesDBConnection connection = new StardogTriplesDBConnection("iteration0", "http://localhost:5820", "admin", "admin");
         if (connection.canConnect()){
             ArrayList<IRI> result = connection.selectQuery(
                     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
+                    "PREFIX dcm: <http://www.dacemo.org/dacemo/>" +
+                    "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" +
                     "SELECT ?s WHERE {" +
-                    "    ?s rdfs:subClassOf <http://www.dacemo.org/dacemo/Person> " +
+                    "    ?s dcm:isTopConcept \"true\"^^xsd:boolean" +
                     "}"
             );
 

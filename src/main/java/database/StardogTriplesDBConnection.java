@@ -1,19 +1,13 @@
 package database;
 
 import com.complexible.stardog.api.*;
-import com.stardog.stark.IRI;
-import com.stardog.stark.Literal;
-import com.stardog.stark.Statement;
-import com.stardog.stark.Value;
+import com.stardog.stark.*;
 import com.stardog.stark.query.BindingSet;
 import com.stardog.stark.query.GraphQueryResult;
 import com.stardog.stark.query.SelectQueryResult;
 import database.format.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Class that allows access to the data within a StarDog database.
@@ -43,7 +37,7 @@ public class StardogTriplesDBConnection implements TriplesDBConnection {
     }
 
     /**
-     * Runs a basic SPARQL SELECT query over the given database
+     * Runs a basic SPARQL SELECT executeQuery over the given database
      * @param query the query to be executed
      * @return the results of the query as a table.
      */
@@ -51,30 +45,7 @@ public class StardogTriplesDBConnection implements TriplesDBConnection {
     public SPARQLResultTable selectQuery(String query) {
         SelectQuery selectQuery = connection.select(query);
 
-        try (SelectQueryResult selectQueryResult = selectQuery.execute()) {
-            List<String> variables = selectQueryResult.variables();
-            SPARQLResultTable table = new SPARQLResultTable(variables);
-
-            while (selectQueryResult.hasNext()){
-                List<GenericValue> record = new ArrayList<>();
-                BindingSet selectQueryResultRecord = selectQueryResult.next();
-
-                for (String variable : variables){
-                    Value stardogValue = selectQueryResultRecord.get(variable);
-                    GenericValue value;
-
-                    if (stardogValue instanceof Literal)  value = new GenericLiteral(stardogValue.toString());
-                    else if (stardogValue instanceof IRI) value = new GenericIRI(stardogValue.toString());
-                    else value = new GenericIRI(""); // TODO: 21/03/2019 Tommy: Is this equivalent to a BNN?
-
-                    record.add(value);
-                }
-
-                table.addRecord(record);
-            }
-
-            return table;
-        }
+        return executeQuery(selectQuery);
     }
 
     /**
@@ -105,5 +76,54 @@ public class StardogTriplesDBConnection implements TriplesDBConnection {
         }
 
         return statements;
+    }
+
+    /**
+     * Run a descriptive SPARQL query
+     * @param iri the iri to be described
+     * @return the nodes connected to that node.
+     */
+    public SPARQLResultTable describeQuery(GenericIRI iri){
+        SelectQuery selectQuery = connection.select(
+                "SELECT ?iri ?p ?o " +
+                   "WHERE { " +
+                   "    ?iri ?p ?o " +
+                   "}"
+        );
+        selectQuery.parameter("iri", Values.iri(iri.get()));
+
+        return executeQuery(selectQuery);
+    }
+
+    /**
+     * Run the specified query through StarDog.
+     * @param query the query to run.
+     * @return the result of the query as a SPARQLResultTable.
+     */
+    private SPARQLResultTable executeQuery(SelectQuery query){
+        try (SelectQueryResult selectQueryResult = query.execute()) {
+            List<String> variables = selectQueryResult.variables();
+            SPARQLResultTable table = new SPARQLResultTable(variables);
+
+            while (selectQueryResult.hasNext()) {
+                List<GenericValue> record = new ArrayList<>();
+                BindingSet selectQueryResultRecord = selectQueryResult.next();
+
+                for (String variable : variables) {
+                    Value stardogValue = selectQueryResultRecord.get(variable);
+                    GenericValue value;
+
+                    if (stardogValue instanceof Literal) value = new GenericLiteral(stardogValue.toString());
+                    else if (stardogValue instanceof IRI) value = new GenericIRI(stardogValue.toString());
+                    else value = new GenericIRI(""); // TODO: 21/03/2019 Tommy: Is this equivalent to a BNN?
+
+                    record.add(value);
+                }
+
+                table.addRecord(record);
+            }
+
+            return table;
+        }
     }
 }

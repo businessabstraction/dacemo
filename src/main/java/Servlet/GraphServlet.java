@@ -2,7 +2,9 @@ package Servlet;
 
 import Bean.D3Object;
 import Bean.Node;
+import com.github.jsonldjava.core.RDFDataset;
 import com.google.gson.Gson;
+import com.stardog.stark.IRI;
 import database.StardogTriplesDBConnection;
 import database.format.GenericValue;
 import database.format.SPARQLResultTable;

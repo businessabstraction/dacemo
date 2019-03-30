@@ -9,9 +9,11 @@ public class Node {
     public Node(String id, int group){
         this.id = id;
         this.group = group;
-        this.label = id.lastIndexOf("/") == -1 ?
-                id.substring(id.lastIndexOf("/") + 1) :
-                id; // TODO: 23/03/2019 Basic Labelling function, update.
+        int idx = id.lastIndexOf("/");
+//        this.label = id.lastIndexOf("/") == -1 ?
+//                id.substring(id.lastIndexOf("/") + 1) :
+//                id; // TODO: 23/03/2019 Basic Labelling function, update.
+        this.label = id.substring(idx+1);
     }
 
     public Node(String id, int group,String label,int level){

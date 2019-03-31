@@ -1,29 +1,4 @@
-### Local Build Instructions
-Requires:
-* At least Maven 2
-* Tomcat 7
-* StarDog 6.x.x
-
-First-time Instructions:
-* For installling Stardog (our triplestore/database), instruction are found [here](https://www.stardog.com/docs/#_quick_start_guide).
-* Once Stardog has been installed, we start the database server by going to `$STARDOG_INSTALL/bin/` and executing `stardog-admin server start` (Windows) / `./stardog-admin server start` (Mac/Linux). 
-* Since this is a first-time setup, we must add the databases we are working on, by executing `stardog-admin db create -n iteration0 $PROJECT_LOCATION/owl/iteration-0.ttl` (Windows) / `./stardog-admin db create -n iteration0 $PROJECT_LOCATION/owl/iteration-0.ttl` (Mac/Linux).
-* When finished, don't forget to execute `stardog-admin server stop`(Windows)/`./stardog-admin server stop`(Mac/Linux).
-
-* Once Tomcat is installed, add the following to `$TOMCAT_INSTALL/conf/tomcat-users.xml` file, inside the `<tomcat-users>...</tomcat-users>` tag:
-```  
-<role rolename="manager-script"/>
-<user username="admin" password="admin" roles="manager-script" />
-``` 
-
-Running it all other times:
-* In `$STARDOG_INSTALL/bin/` execute `stardog-admin server start`(Windows)/`./stardog-admin server start`(Mac/Linux).
-* In `$TOMCAT_INSTALL/bin/` execute `startup.bat`(Windows)/`./startup`(Mac/Linux).
-* In `$PROJECT_LOCATION` execute `mvn tomcat7:deploy`.
-* In a web browser, navigate to `http://localhost:8080/DaCeMo_war_exploded`. 
-* Once finished, don't forget to execute `shutdown.bat`/`./shutdown` in `$TOMCAT_INSTALL/bin/`, and `stardog-admin server stop`/`./stardog-admin server stop` in `$STARDOG_INSTALL/bin/` to close the server and triplestore server gracefully. 
-
-# DaCeMo Visualisation - Landing Page
+# DaCeMo Visualisation - Landing Page (Audit 2)
 A website that displays a navigable, query-able, and understandable graph representation of a Data-Centric Model (DaCeMo) of an Enterprise.
 
 A complex domain made understandable to enterprise users from middle management, to IT, to CEOs, through varying layers of data abstraction. 
@@ -55,7 +30,7 @@ Task ID	|Task Name|	Task Details|Owners|	Deadline
 13	|Responsive layout|	Update the webpage responsive when the size of window is changed	|Yu|	31/3
 
 ## QUANTITIVE PROGRESS
-The procject progress recorded in Asana
+The project progress recorded in Asana
 （https://github.com/businessabstraction/dacemo/blob/master/Screenshot/ASANA.jpg）
 
 
@@ -80,12 +55,12 @@ However, these subteams will communicate regularly, as the format of data passed
 ## TECHNICAL ARTIFACTS
 
 ### SOURCE CODE
-Frontend Code: (https://github.com/businessabstraction/dacemo/tree/master/src/main/java)
+Frontend Code: (https://github.com/businessabstraction/dacemo/tree/master/src/main/webapp)
 #### Sub-models are included:
  * css
  * js
  * html
-Backend Code: (https://github.com/businessabstraction/dacemo/tree/master/src/main/webapp)
+Backend Code: (https://github.com/businessabstraction/dacemo/tree/master/src/main/java)
 #### Sub-models are included:
  * Bean
  * DAO
@@ -102,7 +77,7 @@ The ScreenShot of the DaCeMo Visualisation Site
 <div align=center><img width = "400" height ="400"  src=https://github.com/businessabstraction/dacemo/blob/master/Screenshot/637981016.jpg/></div>
 
 ### TEST DATA
-The sample data for OWL (https://github.com/businessabstraction/dacemo/blob/master/owl/dacemo-core.owl)
+The sample data for OWL (https://github.com/businessabstraction/dacemo/blob/master/owl/iteration-0.ttl)
 
 
 ## PROJECT SCHEDULE

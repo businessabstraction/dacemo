@@ -6,11 +6,11 @@ A complex domain made understandable to enterprise users from middle management,
 DaCeMo is an approach to modelling Enterprise as a set of OWL (Web Ontology Language) Ontologies. 
 
 ## SIGNED ACCEPTANCE CRITERIA RECORD
-[DaCeMo Visualisation Delivery/Acceptance Plan] (https://docs.google.com/document/d/1SHdLQG55HGzwzkL80NOvoNet_rAlMJIhJWk7JNr0DqY/edit)
+[DaCeMo Visualisation Delivery/Acceptance Plan](https://docs.google.com/document/d/1SHdLQG55HGzwzkL80NOvoNet_rAlMJIhJWk7JNr0DqY/edit)
 
 ## 
-[DCM Visualision Requirements] (https://docs.google.com/spreadsheets/d/1ORTDyarfT0Tznf53bk4ienKKjSjThpoBEyUlCMrRNPA/edit#gid=0)
-This file contains all the requirements from the client and we marked the tasks we have done.
+[DCM Visualisation Requirements](https://docs.google.com/spreadsheets/d/1ORTDyarfT0Tznf53bk4ienKKjSjThpoBEyUlCMrRNPA/edit#gid=0)
+This file contains all the requirements from the client. We marked the tasks we have done.
 
 ## ROLE AND ACTIVITYIES 
 Task ID	|Task Name|	Task Details|Owners|	Deadline

@@ -30,6 +30,67 @@ A complex domain made understandable to enterprise users from middle management,
 
 DaCeMo is an approach to modelling Enterprise as a set of OWL (Web Ontology Language) Ontologies. 
 
+## SIGNED ACCEPTANCE CRITERIA RECORD
+[DaCeMo Visualisation Delivery/Acceptance Plan] (https://docs.google.com/document/d/1SHdLQG55HGzwzkL80NOvoNet_rAlMJIhJWk7JNr0DqY/edit)
+
+
+## ROLE AND ACTIVITYIES 
+
+
+## QUANTITIVE PROGRESS
+
+
+## DELIVERING VALUE
+### For Client
+* Exploratory research into different ontology and graph presentation formats.
+* Develop user-friendly, presentable Data Centric Modelling graphs. 
+* A domain in which the information gathered by the modeller is traditionally explained to the end user in subsets (or not at all) is now clearly understandable to an untrained user. 
+* With graphs that integrate Business and Technical knowledge, the Business/IT misalignment in traditional enterprise is narrowed. 
+
+
+## DECISION MAKING PROCESS
+Decision making log: (https://drive.google.com/drive/folders/1m4mbyVoh4ibqYACCxjURbvI8BEEMAGKK)
+
+## FEEDBACK FROM CLIENT/TUTOR
+Feedback folder: (https://drive.google.com/drive/folders/18DwHCNWPbn7vS9Wgz2ojq_kGW4YRXe8o)
+
+## TEAM WORK
+The team members are divided into two subteams to work on frontend and backend. 
+However, these subteams will communicate regularly, as the format of data passed between these layers may change. 
+
+## TECHNICAL ARTIFACTS
+
+### SOURCE CODE
+
+### PROTOTYPE
+
+ScreenShot
+[!image](https://github.com/businessabstraction/dacemo/blob/master/Screenshot/node.jpg)
+[!image](https://github.com/businessabstraction/dacemo/blob/master/Screenshot/website.jpg)
+
+### TEST DATA
+
+
+
+## PROJECT SCHEDULE
+### Iterations
+* Iteration Zero
+  * Build Tomcat server.
+  * Website contains landing page, graph view page, can present Top-Level Concepts graphically.
+* Iteration One
+  * Build graphs of Top-Level Concepts (Nodes and Edges from Top Level Concepts). 
+
+### Timeline
+Week | Goal
+--- | --- 
+3 | Finalize roles, Implement and build server structure  
+4 | Frontend must have the landing page, Open graph views
+5 | Present top level concepts graphically (Nodes only)(Iteration Zero)
+6 | Build graphs of top level concepts (Nodes and Edges from Top Level Concepts)
+7 | Make graphs searchable and navigable 
+
+Iterations/Timelines are subject to change. 
+
 ## CLIENT VISION
 Present Data-Centric, Ontology-based, integrated, qualitative models of enterprise in a way that can be understood and navigated by untrained enterprise users. The model will contain:
 
@@ -40,7 +101,6 @@ Present Data-Centric, Ontology-based, integrated, qualitative models of enterpri
 * Imported IT data
 * Imported personnel data
 * Imported Requirements, User Stories
-
 
 ## TEAM
 Name | Role(s) 
@@ -95,47 +155,6 @@ with two decades in Enterprise IT. Highly experienced Architect and Visual Model
 * Communication Transparency
 * Teamwork
 
-
-## DELIVERING VALUE
-### For Client
-* Exploratory research into different ontology and graph presentation formats.
-* Develop user-friendly, presentable Data Centric Modelling graphs. 
-* A domain in which the information gathered by the modeller is traditionally explained to the end user in subsets (or not at all) is now clearly understandable to an untrained user. 
-* With graphs that integrate Business and Technical knowledge, the Business/IT misalignment in traditional enterprise is narrowed.
-
-### VALUE DELIVERT SO FAR (31/3/2019)
-* A local server that can manage data.
-* A responsive websites that can show the query data from the stardog.
-
-## DECISION MAKING PROCESS
-Decision making log: (https://drive.google.com/drive/folders/1m4mbyVoh4ibqYACCxjURbvI8BEEMAGKK)
-
-## FEEDBACK FROM CLIENT/TUTOR
-Feedback folder: (https://drive.google.com/drive/folders/18DwHCNWPbn7vS9Wgz2ojq_kGW4YRXe8o)
-
-## TEAM WORK
-The team members are divided into two subteams to work on frontend and backend. 
-However, these subteams will communicate regularly, as the format of data passed between these layers may change. 
-
-## PROJECT SCHEDULE
-### Iterations
-* Iteration Zero
-  * Build Tomcat server.
-  * Website contains landing page, graph view page, can present Top-Level Concepts graphically.
-* Iteration One
-  * Build graphs of Top-Level Concepts (Nodes and Edges from Top Level Concepts). 
-
-### Timeline
-Week | Goal
---- | --- 
-3 | Finalize roles, Implement and build server structure  
-4 | Frontend must have the landing page, Open graph views
-5 | Present top level concepts graphically (Nodes only)(Iteration Zero)
-6 | Build graphs of top level concepts (Nodes and Edges from Top Level Concepts)
-7 | Make graphs searchable and navigable 
-
-Iterations/Timelines are subject to change. 
- 
 ## CONSTRAINTS
 * Team members are inexperienced with Web application development process
 * Some members are inexperienced with this domain.

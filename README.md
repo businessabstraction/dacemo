@@ -16,6 +16,9 @@ Present Data-Centric, Ontology-based, integrated, qualitative models of enterpri
 * Imported personnel data
 * Imported Requirements, User Stories
 
+## Landing page links:
+Audit 1: https://github.com/businessabstraction/dacemo/blob/master/audit1.md
+Audit 2: https://github.com/businessabstraction/dacemo/blob/master/audit2.md
 
 ## TEAM
 Name | Role(s) 
@@ -27,6 +30,4 @@ Yu Yang - u6412985 | Frontend/Presentation Logic Programmer
 Wenrui Li - u6361099 | Frontend/D3.js Specialist
 Taizhou Wang - u6273306 | Frontend/JS build & lifecycle
 
-##Landing page links:
-Audit 1:
-Audit 2:
+

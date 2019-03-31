@@ -47,6 +47,10 @@ DaCeMo is an approach to modelling Enterprise as a set of OWL (Web Ontology Lang
 * A domain in which the information gathered by the modeller is traditionally explained to the end user in subsets (or not at all) is now clearly understandable to an untrained user. 
 * With graphs that integrate Business and Technical knowledge, the Business/IT misalignment in traditional enterprise is narrowed. 
 
+### VALUE DELIVERT SO FAR (31/3/2019)
+* A local server that can manage data.
+* A responsive websites that can show the query data from the stardog.
+
 
 ## DECISION MAKING PROCESS
 Decision making log: (https://drive.google.com/drive/folders/1m4mbyVoh4ibqYACCxjURbvI8BEEMAGKK)

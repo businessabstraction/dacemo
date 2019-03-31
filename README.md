@@ -21,6 +21,8 @@ Audit 1: https://github.com/businessabstraction/dacemo/blob/master/audit1.md
 
 Audit 2: https://github.com/businessabstraction/dacemo/blob/master/audit2.md
 
+## Local Build Instructions
+Link: https://github.com/businessabstraction/dacemo/blob/master/LocalBuildInstructions.md
 ## TEAM
 Name | Role(s) 
 --- | ---

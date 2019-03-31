@@ -93,7 +93,7 @@ The ScreenShot of the DaCeMo Visualisation Site
 
 * The landing page of the DaCeMo Visualisation
 
-![image](https://github.com/businessabstraction/dacemo/blob/master/Screenshot/2045255427.jpg)
+<div align=center><img src="https://github.com/businessabstraction/dacemo/blob/master/Screenshot/2045255427.jpg"/></div>
 
 * The D3 graph demo  
 ![image](https://github.com/businessabstraction/dacemo/blob/master/Screenshot/637981016.jpg)

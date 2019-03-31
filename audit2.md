@@ -63,6 +63,14 @@ The procject progress recorded in Asana
 * A domain in which the information gathered by the modeller is traditionally explained to the end user in subsets (or not at all) is now clearly understandable to an untrained user. 
 * With graphs that integrate Business and Technical knowledge, the Business/IT misalignment in traditional enterprise is narrowed. 
 
+### DELIVERY VALUE for THE CHLIENT (31/3/2019)
+* A local server that can manage data.
+* The webpages are responsive that can match different screen size.
+* The webpage can send query to stardog.
+* The webpage can show the links between nodes.
+* Instruction for user menu.
+* Instruction for installation.
+* Instruction for a project deploy.
 
 ## DECISION MAKING PROCESS
 Decision making log: (https://drive.google.com/drive/folders/1m4mbyVoh4ibqYACCxjURbvI8BEEMAGKK)

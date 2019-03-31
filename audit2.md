@@ -35,9 +35,25 @@ DaCeMo is an approach to modelling Enterprise as a set of OWL (Web Ontology Lang
 
 
 ## ROLE AND ACTIVITYIES 
-
+Task ID	|Task Name|	Task Details|Owners|	Deadline
+---|---|---|---|---
+1	|Setup Server|	Setup the  server so that other can coding on it|	Lifi|	15/3
+2	|Display	|Display the Images on the website	|Yu|	16/3
+3	|Test D3.js|	draw some simple tables using d3.js	|Wenrui|	16/3
+4	|Personal development environment|	Make sure everyone setup the development enviroment.	|Tommy|	17/3
+5	|Config Service|	Config server and make connection with frontend	|Lifu|	21/3
+6	|Config Service|	Connects the frontend to the server via API	|Wenrui|	21/3
+7	|Draggable|	Make the table draggable	|Yu|	23/3
+8	|Joint adjustment|	Make sure the data stream of the backend and the frontend is valid	|Lifu, Wenrui|	24/3
+9	|Queries|	Write more advanced queries (reasoning)	|Tommy|	24/3
+10	|Data Format|	translate the data from queries to json file	|Min| 	28/3
+11	|Build multipage website|	split landing page into index and graph visualisation page	|Wenrui|	29/3
+12	|Refactor the structure of the frontend|	arrange the website resource into different folder, using css, js and images etc.	|Wenrui|29/3
+13	|Responsive layout|	Update the webpage responsive when the size of window is changed	|Yu|	31/3
 
 ## QUANTITIVE PROGRESS
+The procject progress recorded in Asana
+（https://github.com/businessabstraction/dacemo/blob/master/Screenshot/ASANA.jpg）
 
 
 ## DELIVERING VALUE
@@ -46,10 +62,6 @@ DaCeMo is an approach to modelling Enterprise as a set of OWL (Web Ontology Lang
 * Develop user-friendly, presentable Data Centric Modelling graphs. 
 * A domain in which the information gathered by the modeller is traditionally explained to the end user in subsets (or not at all) is now clearly understandable to an untrained user. 
 * With graphs that integrate Business and Technical knowledge, the Business/IT misalignment in traditional enterprise is narrowed. 
-
-### VALUE DELIVERT SO FAR (31/3/2019)
-* A local server that can manage data.
-* A responsive websites that can show the query data from the stardog.
 
 
 ## DECISION MAKING PROCESS
@@ -65,15 +77,29 @@ However, these subteams will communicate regularly, as the format of data passed
 ## TECHNICAL ARTIFACTS
 
 ### SOURCE CODE
-
+Frontend Code: (https://github.com/businessabstraction/dacemo/tree/master/src/main/java)
+ Sub-models are included:
+ * css
+ * js
+ * html
+Backend Code: (https://github.com/businessabstraction/dacemo/tree/master/src/main/webapp)
+ Sub-models are included:
+ * Bean
+ * DAO
+ * Servlet
+ * Stardog
 ### PROTOTYPE
+The ScreenShot of the DaCeMo Visualisation Site
 
-ScreenShot
-[!image](https://github.com/businessabstraction/dacemo/blob/master/Screenshot/node.jpg)
-[!image](https://github.com/businessabstraction/dacemo/blob/master/Screenshot/website.jpg)
+* The landing page of the DaCeMo Visualisation
+
+![image](https://github.com/businessabstraction/dacemo/blob/master/Screenshot/2045255427.jpg)
+
+* The D3 graph demo  
+![image](https://github.com/businessabstraction/dacemo/blob/master/Screenshot/637981016.jpg)
 
 ### TEST DATA
-
+The sample data for OWL (https://github.com/businessabstraction/dacemo/blob/master/owl/dacemo-core.owl)
 
 
 ## PROJECT SCHEDULE

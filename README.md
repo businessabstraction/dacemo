@@ -18,6 +18,7 @@ Present Data-Centric, Ontology-based, integrated, qualitative models of enterpri
 
 ## Landing page links:
 Audit 1: https://github.com/businessabstraction/dacemo/blob/master/audit1.md
+
 Audit 2: https://github.com/businessabstraction/dacemo/blob/master/audit2.md
 
 ## TEAM

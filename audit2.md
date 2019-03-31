@@ -78,12 +78,12 @@ However, these subteams will communicate regularly, as the format of data passed
 
 ### SOURCE CODE
 Frontend Code: (https://github.com/businessabstraction/dacemo/tree/master/src/main/java)
- Sub-models are included:
+#### Sub-models are included:
  * css
  * js
  * html
 Backend Code: (https://github.com/businessabstraction/dacemo/tree/master/src/main/webapp)
- Sub-models are included:
+#### Sub-models are included:
  * Bean
  * DAO
  * Servlet

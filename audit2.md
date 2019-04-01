@@ -9,28 +9,28 @@ DaCeMo is an approach to modelling Enterprise as a set of OWL (Web Ontology Lang
 [DaCeMo Visualisation Delivery/Acceptance Plan](https://docs.google.com/document/d/1SHdLQG55HGzwzkL80NOvoNet_rAlMJIhJWk7JNr0DqY/edit)
 
 ## 
-[DCM Visualisation Requirements](https://docs.google.com/spreadsheets/d/1ORTDyarfT0Tznf53bk4ienKKjSjThpoBEyUlCMrRNPA/edit#gid=0)
-This file contains all the requirements from the client. We marked the tasks we have done.
+[DaCeMo Visualisation Requirements](https://docs.google.com/spreadsheets/d/1ORTDyarfT0Tznf53bk4ienKKjSjThpoBEyUlCMrRNPA/edit#gid=0)
+This file contains all the requirements from the client, sorted We marked the tasks we have done.
 
 ## ROLE AND ACTIVITYIES 
 Task ID	|Task Name|	Task Details|Owners|	Deadline
 ---|---|---|---|---
-1	|Setup Server|	Setup the  server so that other can coding on it|	Lifi|	15/3
-2	|Display	|Display the Images on the website	|Yu|	16/3
-3	|Test D3.js|	draw some simple tables using d3.js	|Wenrui|	16/3
-4	|Personal development environment|	Make sure everyone setup the development enviroment.	|Tommy|	17/3
-5	|Config Service|	Config server and make connection with frontend	|Lifu|	21/3
-6	|Config Service|	Connects the frontend to the server via API	|Wenrui|	21/3
-7	|Draggable|	Make the table draggable	|Yu|	23/3
+1	|Setup Server|	Setup the Tomcat server so that other members can begin deploying code |	Lifi|	15/3
+2	|Display	|Display images on the website	|Yu|	16/3
+3	|Test D3.js|	draw some simple graphs using d3.js	|Wenrui|	16/3
+4	|Setup Dev Environment|	Make sure everyone has setup the development enviroment.	|Tommy|	17/3
+5	|Config Server|	Configure server to make connection with frontend	|Lifu|	21/3
+6	|Config Server|	Connects the frontend to the server via API	|Wenrui|	21/3
+7	|Draggable|	Make the graph draggable, responsive to user input	|Yu|	23/3
 8	|Joint adjustment|	Make sure the data stream of the backend and the frontend is valid	|Lifu, Wenrui|	24/3
-9	|Queries|	Write more advanced queries (reasoning)	|Tommy|	24/3
+9	|Queries|	Writing more advanced queries (Ex. Expand subnodes of a given node)	|Tommy|	24/3
 10	|Data Format|	translate the data from queries to json file	|Min| 	28/3
 11	|Build multipage website|	split landing page into index and graph visualisation page	|Wenrui|	29/3
 12	|Refactor the structure of the frontend|	arrange the website resource into different folder, using css, js and images etc.	|Wenrui|29/3
 13	|Responsive layout|	Update the webpage responsive when the size of window is changed	|Yu|	31/3
 
 ## QUANTITIVE PROGRESS
-The project progress recorded in Asana
+The project progress as recorded in Asana (image)
 （https://github.com/businessabstraction/dacemo/blob/master/Screenshot/ASANA.jpg）
 
 
@@ -53,23 +53,24 @@ The team members are divided into two subteams to work on frontend and backend.
 However, these subteams will communicate regularly, as the format of data passed between these layers may change. 
 
 ## TECHNICAL ARTIFACTS
-
 ### SOURCE CODE
 Frontend Code: (https://github.com/businessabstraction/dacemo/tree/master/src/main/webapp)
 #### Sub-models are included:
  * css
  * js
  * html
+
 Backend Code: (https://github.com/businessabstraction/dacemo/tree/master/src/main/java)
 #### Sub-models are included:
  * Bean
  * DAO
  * Servlet
  * Stardog
+ 
 ### PROTOTYPE
 The ScreenShot of the DaCeMo Visualisation Site
 
-* The landing page of the DaCeMo Visualisation
+* The landing page of DaCeMo Visualisation
 
 <div align=center><img src="https://github.com/businessabstraction/dacemo/blob/master/Screenshot/2045255427.jpg"/></div>
 
@@ -82,20 +83,30 @@ The sample data for OWL (https://github.com/businessabstraction/dacemo/blob/mast
 
 ## PROJECT SCHEDULE
 ### Iterations
-* Iteration Zero
-  * Build Tomcat server.
-  * Website contains landing page, graph view page, can present Top-Level Concepts graphically.
-* Iteration One
-  * Build graphs of Top-Level Concepts (Nodes and Edges from Top Level Concepts). 
+* Iteration 0 (Weeks 3, 4)
+  * Build Tomcat server, connect it to Stardog.
+  * Website contains landing page and graph view page.
+  * Can present Top-Level Concepts as Nodes, graphically.
+* Iteration 1 (Weeks 5, 6)
+  * Nodes can handle named relationship links.
+  * Nodes are clickable and will, depending on the click, expand the nodes children onto the graph, or create a new graph with just the selected node and it's children. 
+* Iteration 2 (Weeks 7, 8)
+  * Hovering over a Node will give it's description
+  * Exporting/Printing the graph (MVP ends here)
+  * Undo function that reverts a graph to it's previous state
+  * Various levels of data abstraction depending on the experience of the Enterprise User. 
+  * Graph structure can be driven by a paradigm (such as Use Case, Process model)
+  * Nodes can have images associated with them (through properties of the ontology)
 
 ### Timeline
-Week | Goal
+Week(s) | Goal
 --- | --- 
-3 | Finalize roles, Implement and build server structure  
-4 | Frontend must have the landing page, Open graph views
-5 | Present top level concepts graphically (Nodes only)(Iteration Zero)
-6 | Build graphs of top level concepts (Nodes and Edges from Top Level Concepts)
-7 | Make graphs searchable and navigable 
+3, 4 | Finalize roles, Iteration 0
+5, 6 | Iteration 1
+Bk1, Bk2 | Investigation into other open-source triplestores, semantic web frameworks, and Backlog tasks
+7, 8 | Iteration 2
+9 | Low-priority UI, Auxillary/Backlog tasks, Buffer Week
+10, 11, 12 | System Testing, QA, UAT of website
 
 Iterations/Timelines are subject to change. 
 
@@ -111,14 +122,14 @@ Present Data-Centric, Ontology-based, integrated, qualitative models of enterpri
 * Imported Requirements, User Stories
 
 ## TEAM
-Name | Role(s) 
---- | ---
-Tommy Gatti - u6044453 | Project Manager, Backend/Triples Engineer
-Min Liu - u6339307 | Supporting Project Manager, Backend/Business Logic Programmer
-Lifu Zhao - u6534756 | Backend/Server Build Engineer
-Yu Yang - u6412985 | Frontend/Presentation Logic Programmer
-Wenrui Li - u6361099 | Frontend/D3.js Specialist
-Taizhou Wang - u6273306 | Frontend/JS build & lifecycle
+Name | Role(s) | Backup Roles(s)
+--- | --- | --- |
+Tommy Gatti - u6044453 | Project Manager, Backend/Triples Engineer | Tester
+Min Liu - u6339307 | Supporting Project Manager, Backend/Business Logic Programmer | Tester, Frontend Developer
+Lifu Zhao - u6534756 | Backend/Server Build Engineer | Tester, Docker
+Yu Yang - u6412985 | Frontend/Presentation Logic Programmer | Backend Development
+Wenrui Li - u6361099 | Frontend/D3.js Specialist | Backend Developer
+Taizhou Wang - u6273306 | Frontend/JS build & lifecycle | Tester
 
 ## GENERAL TOOLS
 
@@ -156,32 +167,3 @@ Management: [Asana](https://app.asana.com/0/inbox/1112380319431612?du=1112380319
 Alex is the principal consultant of Business Abstraction. He is a specialist in Semantic Data, 
 Knowledge and Semantic Data Engineering, combining solid academic background 
 with two decades in Enterprise IT. Highly experienced Architect and Visual Modelling mentor who trained dozens of respected Enterprise Architecture, Information Architecture and Application Architecture professionals.
-
-## CLIENT EXPECTATIONS
-* To deliver at least Iteration Zero.
-* Honesty
-* Communication Transparency
-* Teamwork
-
-## CONSTRAINTS
-* Team members are inexperienced with Web application development process
-* Some members are inexperienced with this domain.
-
-## RISKS
-* One of our team members is working remotely until 14th April (Severity: 2). 
-  * Mitigation strategies include clear meeting minutes and documentation, as well frequent (multiple times a week) virtual meetings.
-* Client is a consultant for projects - time between communications can be longer than anticipated (Severity: 2). 
-  * Mitigation strategies are still being researched by the team.
-* The demand is not clearly defined (Severity: 2).
-  * Mitigation strategies include keeping contact with the client.
-* The client's demand may change during development (Severity: 3).
-  * Mitigation strategies could be to apply the agile development methods to reduce the influence of demand changes.
-
-## NONDISCLOSURE AGREEMENTS
-* The project is Open Source and is governed by AGPL3. 
-* An NDA is at this stage not nessecary.
-
-## COSTS
-* The project is open source and the potential costs (such as evaluating StarDog (a propietry knowledge graph software) and eventual hosting on an AWS server) will be covered by the client. 
-
-Signed:

@@ -45,6 +45,9 @@ The webpages are responsive now, which means it matches multi-platforms with dif
  #### Tommy Gatti (Triplestore Engineer)
 I have set up the triplestore server (Stardog) and can run predefined queries over a given ontology (such as getting all top-level concepts, and getting a nodes description). 
 
+ #### Wenrui Li (D3 and Frontend Developer)
+I have investigated the D3 force graph plugin, which is used to demostrate the ontology graph. I used javascript to implement a demo for presenting the data structure from the Stardog via Servlet. I also wrote code for processing the topological logic. I designed the style of webpage of the site by using CSS and HTML. which includes an index and a visuualisation page.
+
 ## DECISION MAKING PROCESS
 Decision making log: (https://drive.google.com/drive/folders/1m4mbyVoh4ibqYACCxjURbvI8BEEMAGKK)
 

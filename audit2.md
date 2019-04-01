@@ -33,9 +33,7 @@ The project progress as recorded in Asana ![image](https://github.com/businessab
 
 ## DELIVERING VALUE - INDIVIDUAL PROGRESS
 #### Min Liu (Business Logic Programmer)
-I have built a Node class and D3Object class for constructing the format of the JSON file we need for the frontend. Then with these classes, I am able to create nodes and d3objects based
- on the information from dataset. The JSON file requires id, group, label and level of the entity, therefore I add this variables to Node class. When the data is translated into JSON 
- format, I send it to server, frontend can easily retrieve and resolve it into a frontend usable format.
+I have built a Node class and D3Object class for constructing the format of the JSON file we need for the frontend. Then with these classes, I am able to create nodes and d3objects based on the information from dataset. When the data is translated into JSON format, I send it to server so that frontend can easily retrieve and resolve it into a frontend usable format.
  #### Lifu Zhao (Backend Programmer)
  I have created a data object classes and servlet classes for handle the requets form the frontend. Those classes mainly deal with the basic requesting data transfering between backend and frontend. The servlet can get the requets and translate to SPARQL language, which will also communicate with the database. The connection between frontend and backend have been finished at this stage. I also fixed server configuration for application deployment.
  

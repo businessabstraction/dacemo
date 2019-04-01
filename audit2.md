@@ -30,8 +30,7 @@ Task ID	|Task Name|	Task Details|Owners|	Deadline
 13	|Responsive layout|	Update the webpage responsive when the size of window is changed	|Yu|	31/3
 
 ## QUANTITIVE PROGRESS
-The project progress as recorded in Asana (image)
-（https://github.com/businessabstraction/dacemo/blob/master/Screenshot/ASANA.jpg）
+The project progress as recorded in Asana ![image](https://github.com/businessabstraction/dacemo/blob/master/Screenshot/ASANA.jpg)
 
 
 ## DELIVERING VALUE

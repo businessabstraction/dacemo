@@ -46,6 +46,9 @@ I have set up the triplestore server (Stardog) and can run predefined queries ov
  #### Wenrui Li (D3 and Frontend Developer)
 I have investigated the D3 force graph plugin, which is used to demostrate the ontology graph. I used javascript to implement a demo for presenting the data structure from the Stardog via Servlet. I also wrote code for processing the topological logic. I designed the style of webpage of the site by using CSS and HTML. which includes an index and a visuualisation page.
 
+### Taizhou Wang(Test engineer) 
+So far, as for the frontend, I have processed test of the website’s functions. Such as the responsive design, movement of the picture through the mouse and the pressure test. As for the backend, I have tested the translate function of the servlet and the data transferring between frontend and backend.
+
 ## DECISION MAKING PROCESS
 Decision making log: (https://drive.google.com/drive/folders/1m4mbyVoh4ibqYACCxjURbvI8BEEMAGKK)
 

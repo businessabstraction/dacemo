@@ -32,7 +32,11 @@ Task ID	|Task Name|	Task Details|Owners|	Deadline
 ## QUANTITIVE PROGRESS
 The project progress as recorded in Asana ![image](https://github.com/businessabstraction/dacemo/blob/master/Screenshot/ASANA.jpg)
 
-
+## INDIVIDUAL PROGRESS
+#### Min Liu (Business Logic Programmer)
+I have built a Node class and D3Object class for constructing the format of the JSON file we need for the frontend. Then with these classes, I am able to create nodes and d3objects based
+ on the informations from dataset. The JSON file requires id, group, label and level of the entity, therefore I add this variables to Node class. When the data is translated into JSON 
+ format, I send it to server, frontend can easily retrieve and resolve it into a frontend usable format.
 ## DELIVERING VALUE
 ### For Client
 * Exploratory research into different ontology and graph presentation formats.

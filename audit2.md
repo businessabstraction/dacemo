@@ -15,7 +15,7 @@ This file contains all the requirements from the client, sorted We marked the ta
 ## ROLE AND ACTIVITYIES 
 Task ID	|Task Name|	Task Details|Owners|	Deadline
 ---|---|---|---|---
-1	|Setup Server|	Setup the Tomcat server so that other members can begin deploying code |	Lifi|	15/3
+1	|Setup Server|	Setup the Tomcat server so that other members can begin deploying code |	LifU|	15/3
 2	|Display	|Display images on the website	|Yu|	16/3
 3	|Test D3.js|	draw some simple graphs using d3.js	|Wenrui|	16/3
 4	|Setup Dev Environment|	Make sure everyone has setup the development enviroment.	|Tommy|	17/3
@@ -37,6 +37,9 @@ The project progress as recorded in Asana ![image](https://github.com/businessab
 I have built a Node class and D3Object class for constructing the format of the JSON file we need for the frontend. Then with these classes, I am able to create nodes and d3objects based
  on the informations from dataset. The JSON file requires id, group, label and level of the entity, therefore I add this variables to Node class. When the data is translated into JSON 
  format, I send it to server, frontend can easily retrieve and resolve it into a frontend usable format.
+ #### Lifu Zhao (Backend Programmer)
+ I have created a data object classes and servlet classes for handle the requets form the frontend. Those classes mainly deal with the basic requesting data transfering between backend and frontend. The servlet can get the requets and translate to SPARQL language, which will also communicate with the database. The connection between frontend and backend have been finished at this stage. I also fixed server configuration for application deployment.
+
 ## DELIVERING VALUE
 ### For Client
 * Exploratory research into different ontology and graph presentation formats.

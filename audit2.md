@@ -39,6 +39,9 @@ I have built a Node class and D3Object class for constructing the format of the 
  format, I send it to server, frontend can easily retrieve and resolve it into a frontend usable format.
  #### Lifu Zhao (Backend Programmer)
  I have created a data object classes and servlet classes for handle the requets form the frontend. Those classes mainly deal with the basic requesting data transfering between backend and frontend. The servlet can get the requets and translate to SPARQL language, which will also communicate with the database. The connection between frontend and backend have been finished at this stage. I also fixed server configuration for application deployment.
+ 
+ ### Yu Yang (Frontend Programmer)
+The webpages are responsive now, which means it matches multi-platforms with different window sizes. In addition, the draggable plugin has been completed which can be added to the project when the images are ready. The progress is following the time schedule now.
 
 ## DELIVERING VALUE
 ### For Client

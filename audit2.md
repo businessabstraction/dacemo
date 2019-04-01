@@ -5,12 +5,11 @@ A complex domain made understandable to enterprise users from middle management,
 
 DaCeMo is an approach to modelling Enterprise as a set of OWL (Web Ontology Language) Ontologies. 
 
-## SIGNED ACCEPTANCE CRITERIA RECORD
+## DOCUMENTATION
 [DaCeMo Visualisation Delivery/Acceptance Plan](https://docs.google.com/document/d/1SHdLQG55HGzwzkL80NOvoNet_rAlMJIhJWk7JNr0DqY/edit)
 
-## 
 [DaCeMo Visualisation Requirements](https://docs.google.com/spreadsheets/d/1ORTDyarfT0Tznf53bk4ienKKjSjThpoBEyUlCMrRNPA/edit#gid=0)
-This file contains all the requirements from the client, sorted We marked the tasks we have done.
+This file contains all the requirements from the client for this semester. We marked the tasks we have done. Further explanation of tasks is found in the delivery/acceptance plan. 
 
 ## ROLE AND ACTIVITYIES 
 Task ID	|Task Name|	Task Details|Owners|	Deadline
@@ -32,24 +31,19 @@ Task ID	|Task Name|	Task Details|Owners|	Deadline
 ## QUANTITIVE PROGRESS
 The project progress as recorded in Asana ![image](https://github.com/businessabstraction/dacemo/blob/master/Screenshot/ASANA.jpg)
 
-## INDIVIDUAL PROGRESS
+## DELIVERING VALUE - INDIVIDUAL PROGRESS
 #### Min Liu (Business Logic Programmer)
 I have built a Node class and D3Object class for constructing the format of the JSON file we need for the frontend. Then with these classes, I am able to create nodes and d3objects based
- on the informations from dataset. The JSON file requires id, group, label and level of the entity, therefore I add this variables to Node class. When the data is translated into JSON 
+ on the information from dataset. The JSON file requires id, group, label and level of the entity, therefore I add this variables to Node class. When the data is translated into JSON 
  format, I send it to server, frontend can easily retrieve and resolve it into a frontend usable format.
  #### Lifu Zhao (Backend Programmer)
  I have created a data object classes and servlet classes for handle the requets form the frontend. Those classes mainly deal with the basic requesting data transfering between backend and frontend. The servlet can get the requets and translate to SPARQL language, which will also communicate with the database. The connection between frontend and backend have been finished at this stage. I also fixed server configuration for application deployment.
  
- ### Yu Yang (Frontend Programmer)
+ #### Yu Yang (Frontend Programmer)
 The webpages are responsive now, which means it matches multi-platforms with different window sizes. In addition, the draggable plugin has been completed which can be added to the project when the images are ready. The progress is following the time schedule now.
 
-## DELIVERING VALUE
-### For Client
-* Exploratory research into different ontology and graph presentation formats.
-* Develop user-friendly, presentable Data Centric Modelling graphs. 
-* A domain in which the information gathered by the modeller is traditionally explained to the end user in subsets (or not at all) is now clearly understandable to an untrained user. 
-* With graphs that integrate Business and Technical knowledge, the Business/IT misalignment in traditional enterprise is narrowed. 
-
+ #### Tommy Gatti (Triplestore Engineer)
+I have set up the triplestore server (Stardog) and can run predefined queries over a given ontology (such as getting all top-level concepts, and getting a nodes description). 
 
 ## DECISION MAKING PROCESS
 Decision making log: (https://drive.google.com/drive/folders/1m4mbyVoh4ibqYACCxjURbvI8BEEMAGKK)
@@ -119,17 +113,6 @@ Bk1, Bk2 | Investigation into other open-source triplestores, semantic web frame
 
 Iterations/Timelines are subject to change. 
 
-## CLIENT VISION
-Present Data-Centric, Ontology-based, integrated, qualitative models of enterprise in a way that can be understood and navigated by untrained enterprise users. The model will contain:
-
-* Explicitly modelled
-  - Business Motivations
-  - Business Processes
-  - Business Capabilities
-* Imported IT data
-* Imported personnel data
-* Imported Requirements, User Stories
-
 ## TEAM
 Name | Role(s) | Backup Roles(s)
 --- | --- | --- |
@@ -140,39 +123,10 @@ Yu Yang - u6412985 | Frontend/Presentation Logic Programmer | Backend Developmen
 Wenrui Li - u6361099 | Frontend/D3.js Specialist | Backend Developer
 Taizhou Wang - u6273306 | Frontend/JS build & lifecycle | Tester
 
-## GENERAL TOOLS
-
-Communication: 
-* [Slack](https://businessabstraction.slack.com/messages/CGMDE8ZCH/)
-  * Day-to-day communication regarding development and issues that may arise.
-  * People outside our team including our stakeholder, shadows, and anyone who is interested in our project can also reach us easily.
-* Email
-  * Meeting invitations, and communications that are especially important.
-* Skype
-  * Members that cannot make it to our weekly meetings can appear digitially. 
-* Meetings
-  * Weekly meetings (Sundays) to communicate with our client and present deliverables and issues. 
-
 Documentation: [Google Drive](https://drive.google.com/open?id=1WjYbFm8Bo-LiOVIUo5V1L1T3OA2NqrcU)
 * We use Google Drive to host our documentation
 
-Management: [Asana](https://app.asana.com/0/inbox/1112380319431612?du=1112380319431612&invite=8a394c166f17d335c2ffbb8a719bc864)
-* Assignment and management of tasks, deadlines, and task specification.
-
-## DEVELOPING TOOLS
-* [IntelliJ](https://www.jetbrains.com/idea/) (IDE)
-* [Jena](https://jena.apache.org/index.html) (Open Source Semantic Web framework)
-* [Maven](https://maven.apache.org) (build management tool)
-* [D3](https://d3js.org) (graph presentation software)
-* [Tomcat](https://tomcat.apache.org) (server)
-
-## PROJECT ARTEFACTS
+## OTHER PROJECT ARTEFACTS
 * Group Meeting Notes (https://drive.google.com/drive/folders/1_aV8nk1iTIEDQqXfpiLfJIt98wacqaNN)
 * Tutorial Meeting Notes (https://drive.google.com/drive/folders/1EVf0rtFta_mMU0YTYTKv01-1qXnByU2B)
 * Client Meeting Notes (https://drive.google.com/drive/folders/1itF2R-CSuwl4ndsbM9IxND6fQgra1L-S)
-
-## KEY STAKEHOLDERS
-### Alex Jornalev (Business Abstraction)
-Alex is the principal consultant of Business Abstraction. He is a specialist in Semantic Data, 
-Knowledge and Semantic Data Engineering, combining solid academic background 
-with two decades in Enterprise IT. Highly experienced Architect and Visual Modelling mentor who trained dozens of respected Enterprise Architecture, Information Architecture and Application Architecture professionals.

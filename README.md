@@ -24,13 +24,13 @@ Audit 2: https://github.com/businessabstraction/dacemo/blob/master/audit2.md
 ## Local Build Instructions
 Link: https://github.com/businessabstraction/dacemo/blob/master/LocalBuildInstructions.md
 ## TEAM
-Name | Role(s) 
---- | ---
-Tommy Gatti - u6044453 | Project Manager, Backend/Triples Engineer
-Min Liu - u6339307 | Supporting Project Manager, Backend/Business Logic Programmer
-Lifu Zhao - u6534756 | Backend/Server Build Engineer
-Yu Yang - u6412985 | Frontend/Presentation Logic Programmer
-Wenrui Li - u6361099 | Frontend/D3.js Specialist
-Taizhou Wang - u6273306 | Frontend/JS build & lifecycle
+Name | Role(s) | Backup Roles(s)
+--- | --- | --- |
+Tommy Gatti - u6044453 | Project Manager, Backend/Triples Engineer | Tester
+Min Liu - u6339307 | Supporting Project Manager, Backend/Business Logic Programmer | Tester, Frontend Developer
+Lifu Zhao - u6534756 | Backend/Server Build Engineer | Tester, Docker
+Yu Yang - u6412985 | Frontend/Presentation Logic Programmer | Backend Development
+Wenrui Li - u6361099 | Frontend/D3.js Specialist | Backend Developer
+Taizhou Wang - u6273306 | Frontend/JS build & lifecycle | Tester
 
 

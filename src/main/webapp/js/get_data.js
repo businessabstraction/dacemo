@@ -1,4 +1,4 @@
-let getString;
+let getJson;
 let nodeArray;
 let baseNodes;
 let baseLinks;
@@ -7,8 +7,8 @@ let links;
 
 
 function updateNode() {
-    console.log(getString);
-    nodeArray = getString.split(',');
+    console.log(getJson);
+    nodeArray = getJson;
 
     console.log(nodeArray);
     baseNodes = new Array(parseInt(nodeArray.length/4));

@@ -57,7 +57,7 @@ public class GraphServlet extends HttpServlet {
             ArrayList<JSONObject> jsonObjects = new ArrayList<>();
             for (Node node : d3Object.getNodes()) {
                 try {
-                    obj.put("level", node.getLabel());
+                    obj.put("level", node.getLevel());
                     obj.put("label", node.getLabel());
                     obj.put("group", node.getGroup());
                     obj.put("id", node.getId());
@@ -71,7 +71,7 @@ public class GraphServlet extends HttpServlet {
             System.out.println("JSON: "+jsonObjects);
             //TODO currently I use the String to transfer the data to the frontend. More Json things need to be done.
             String stringFormat = d3Object.toString();
-            response.getOutputStream().print(stringFormat);
+            response.getOutputStream().print(jsonObjects.toString());
         }
     }
 }

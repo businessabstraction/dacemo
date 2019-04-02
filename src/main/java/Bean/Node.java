@@ -23,6 +23,19 @@ public class Node {
         this.level = level;
     }
 
+    public String getId(){
+        return id;
+    }
+    public String getLabel(){
+        return label;
+    }
+    public int getGroup() {
+        return group;
+    }
+    public int getLevel() {
+        return level;
+    }
+
     @Override
     public String toString() {
         return "" + id +","+group +","+label +","+level;

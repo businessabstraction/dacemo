@@ -33,9 +33,7 @@ The project progress as recorded in Asana ![image](https://github.com/businessab
 
 ## DELIVERING VALUE - INDIVIDUAL PROGRESS
 #### Min Liu (Business Logic Programmer)
-I have built a Node class and D3Object class for constructing the format of the JSON file we need for the frontend. Then with these classes, I am able to create nodes and d3objects based
- on the information from dataset. The JSON file requires id, group, label and level of the entity, therefore I add this variables to Node class. When the data is translated into JSON 
- format, I send it to server, frontend can easily retrieve and resolve it into a frontend usable format.
+I have built a Node class and D3Object class for constructing the format of the JSON file we need for the frontend. Then with these classes, I am able to create nodes and d3objects based on the information from dataset. When the data is translated into JSON format, I send it to server so that frontend can easily retrieve and resolve it into a frontend usable format.
  #### Lifu Zhao (Backend Programmer)
  I have created a data object classes and servlet classes for handle the requets form the frontend. Those classes mainly deal with the basic requesting data transfering between backend and frontend. The servlet can get the requets and translate to SPARQL language, which will also communicate with the database. The connection between frontend and backend have been finished at this stage. I also fixed server configuration for application deployment.
  
@@ -47,6 +45,9 @@ I have set up the triplestore server (Stardog) and can run predefined queries ov
 
  #### Wenrui Li (D3 and Frontend Developer)
 I have investigated the D3 force graph plugin, which is used to demostrate the ontology graph. I used javascript to implement a demo for presenting the data structure from the Stardog via Servlet. I also wrote code for processing the topological logic. I designed the style of webpage of the site by using CSS and HTML. which includes an index and a visuualisation page.
+
+#### Taizhou Wang(Test engineer) 
+So far, as for the frontend, I have processed test of the website’s functions. Such as the responsive design, movement of the picture through the mouse and the pressure test. As for the backend, I have tested the translate function of the servlet and the data transferring between frontend and backend.
 
 ## DECISION MAKING PROCESS
 Decision making log: (https://drive.google.com/drive/folders/1m4mbyVoh4ibqYACCxjURbvI8BEEMAGKK)

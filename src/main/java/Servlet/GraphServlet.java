@@ -43,6 +43,9 @@ public class GraphServlet extends HttpServlet {
                     "}"
             );
 
+            /**
+             * Creatd the node arraylist and created the node object based on the SPARQL reqults
+             */
             ArrayList<Node> nodes = new ArrayList<>();
             for (GenericValue value : result.getValuesOfAttribute("s")){
                 Node node = new Node(value.get(), 1);

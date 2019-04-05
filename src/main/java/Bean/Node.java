@@ -38,6 +38,19 @@ public class Node {
         this.level = level;
     }
 
+    public String getId(){
+        return id;
+    }
+    public String getLabel(){
+        return label;
+    }
+    public int getGroup() {
+        return group;
+    }
+    public int getLevel() {
+        return level;
+    }
+
     @Override
     /**
      * The toString function to convert node information to string type

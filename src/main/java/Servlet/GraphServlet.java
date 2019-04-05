@@ -44,7 +44,6 @@ public class GraphServlet extends HttpServlet {
             );
 
             ArrayList<Node> nodes = new ArrayList<>();
-            Gson json = new Gson();
             for (GenericValue value : result.getValuesOfAttribute("s")){
                 Node node = new Node(value.get(), 1);
                 nodes.add(node);

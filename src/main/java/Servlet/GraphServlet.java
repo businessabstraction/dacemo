@@ -3,7 +3,6 @@ package Servlet;
 import Bean.D3Object;
 import Bean.Node;
 import com.github.jsonldjava.core.RDFDataset;
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.stardog.stark.IRI;
 import database.StardogTriplesDBConnection;
@@ -53,24 +52,22 @@ public class GraphServlet extends HttpServlet {
                 nodes.add(node);
             }
             D3Object d3Object = new D3Object(nodes);    // Translate result into JSON format
-            JSONObject obj = new JSONObject();
+
             ArrayList<JSONObject> jsonObjects = new ArrayList<>();
             for (Node node : d3Object.getNodes()) {
                 try {
+                    JSONObject obj = new JSONObject();
                     obj.put("level", node.getLevel());
                     obj.put("label", node.getLabel());
                     obj.put("group", node.getGroup());
                     obj.put("id", node.getId());
                     jsonObjects.add(obj);
-
                 } catch (JSONException e) {
                     System.out.println("Fail to convert to JSON");
                 }
 
             }
-            System.out.println("JSON: "+jsonObjects);
             //TODO currently I use the String to transfer the data to the frontend. More Json things need to be done.
-            String stringFormat = d3Object.toString();
             response.getOutputStream().print(jsonObjects.toString());
         }
     }

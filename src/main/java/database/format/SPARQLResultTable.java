@@ -1,6 +1,7 @@
 package database.format;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -11,10 +12,14 @@ public class SPARQLResultTable {
     private List<List<GenericValue>> table;
 
     /**
-     * Constructor for a SPARQLResultTable
+     * Constructors for a SPARQLResultTable
      * @param variables the list of variables used in the SPARQL query. For example: SELECT ?s WHERE {?s ?p ?o} has a
      *                  single variable, s.
      */
+    public SPARQLResultTable(String... variables){
+        this.variables = Arrays.asList(variables);
+        this.table = new ArrayList<>();
+    }
     public SPARQLResultTable(List<String> variables){
         this.variables = variables;
         this.table = new ArrayList<>();
@@ -27,6 +32,13 @@ public class SPARQLResultTable {
     public void addRecord(List<GenericValue> record){
         table.add(record);
     }
+
+    /**
+     * Adds the rows to the SPARQL Results Table
+     * @param records the records to be added.
+     */
+    @SafeVarargs
+    public final void addRecords(List<GenericValue>... records){ table.addAll(Arrays.asList(records)); }
 
     /**
      * @return the list of variables that was added during construction of the Table.

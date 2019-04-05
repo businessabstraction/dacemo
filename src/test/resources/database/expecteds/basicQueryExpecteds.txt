@@ -1,0 +1,6 @@
+https://www.test.org/dacemo/
+http://something.org/Person
+http://something.org/Book
+http://books.org/properties/Metro2033
+http://something.org/reads
+http://something.org/Event

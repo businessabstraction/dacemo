@@ -8,6 +8,9 @@ import java.util.List;
 public class GraphDAOImpl implements GraphDAO {
 
     @Override
+    /**
+     * The DAO creation function to build the graph
+     */
     public List<Graph> findAll() {
         List<Graph> graphs = new ArrayList<>();
         graphs.add(new Graph("A",1));

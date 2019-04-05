@@ -17,6 +17,19 @@ body{
   width: 80%;
   margin: auto;
   overflow: hidden;
+  font-size: 40px;
+}
+
+
+.svg-container{
+  width: 80%;
+  heigh: 80%;
+}
+
+.svg{
+  width:100%;
+  height:100%;
+
 }
 
 ul{
@@ -133,9 +146,10 @@ footer li{
 
 
 footer #function{
-  padding-top:20px;
-  width: 50%;
-  float: left;
+    padding-top: 3%;
+    width: 100%;
+    height: 80%;
+    float: left;
 }
 
 footer #function a{
@@ -146,18 +160,22 @@ footer #function a{
 
 /***********************social button***************************/
 footer .social{
-  width: 50%;
-  height: 50px;
-  float: right;
+    padding-top: 1%;
+    width: 100%;
+    height: 5%;
+    float: right;
+    bottom: 10%;
 }
 footer .social #facebook {
-  float: right;
-  padding: 20px;
+    width: 10%;
+    height: 1%;
+    float: right;
+    padding: 1%;
 }
 
 footer .social #twitter {
   float: right;
-  padding: 20px;
+  padding: 1%;
 }
 
 footer #info{
@@ -324,13 +342,13 @@ div.gallery img {
 
 
 #pic{
-  padding-top: 10px;
-  text-align: center;
+    text-align: center;
 }
 
 #pic img{
-  border: 50px solid  #001f3f;
-
+    width: 80%;
+    height: 80%;
+    border: solid  #001f3f;
 }
 
 #album{
@@ -366,6 +384,27 @@ div.video {
 /*Rss feed*/
 #feed a{
   text-decoration: none;
+
+}
+
+
+#d3-container{
+    width: 80%;
+    height: 80%;
+
+    border: solid  #001f3f;
+
+}
+
+#d3-container svg{
+    height: 100%;
+    width: 100%;
+
+}
+
+#svg{
+    height: 100%;
+    width: 100%;
 
 }
 

@@ -60,7 +60,7 @@ function callServer(methodType) {
 
     };
 
-    let params = "comment=" + "value";
+    //let params = "comment=" + "value";
     if(methodType === "GET"){
         xmlResruest.open("GET","/DaCeMo_war_exploded/getGraph?"+params,true);
         xmlResruest.send();
@@ -68,7 +68,7 @@ function callServer(methodType) {
     }else if(methodType === "POST"){
         xmlResruest.open("POST","/DaCeMo_war_exploded/getGraph",true);
         xmlResruest.setRequestHeader("req","req");
-        xmlResruest.send(params);
+        xmlResruest.send();
 
     }
 
@@ -110,11 +110,20 @@ function getTextColor(node, neighbors) {
     return Array.isArray(neighbors) && neighbors.indexOf(node.id) > -1 ? 'green' : 'black'
 }
 
-const width = window.innerWidth;
-const height = window.innerHeight;
 
-const svg = d3.select('svg');
-svg.attr('width', width).attr('height', height);
+console.log("currant")
+
+
+var svg = d3.select('div#d3c')
+    .append('svg')
+    .attr("preserveAspectRatio", "xMidYMid meet")
+    .attr("viewBox", "0 0 400 400")
+
+height = document.getElementById("d3c").offsetWidth
+width = document.getElementById("d3c").offsetWidth
+
+console.log(width)
+console.log(height)
 
 let linkElements,
     nodeElements,
@@ -247,7 +256,7 @@ function updateGraph() {
     const nodeEnter = nodeElements
         .enter()
         .append('circle')
-        .attr('r', 10)
+        .attr('r', 10*height/630)
         .attr('fill', function (node) {
             return node.level === 1 ? 'red' : 'gray'
         })
@@ -270,7 +279,7 @@ function updateGraph() {
         .text(function (node) {
             return node.label
         })
-        .attr('font-size', 15)
+        .attr('font-size', (15*height)/630)
         .attr('dx', 15)
         .attr('dy', 4);
 

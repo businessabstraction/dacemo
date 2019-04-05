@@ -9,11 +9,20 @@
     </welcome-file-list>
 
     <servlet>
-        <servlet-name>Servlet</servlet-name>
+        <servlet-name>GraphServlet</servlet-name>
         <servlet-class>Servlet.GraphServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Servlet</servlet-name>
-        <url-pattern>/getGraph</url-pattern>
+        <servlet-name>GraphServlet</servlet-name>
+        <url-pattern>/Servlet/GraphServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>NodeExpandServlet</servlet-name>
+        <servlet-class>Servlet.NodeExpandServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NodeExpandServlet</servlet-name>
+        <url-pattern>/Servlet/NodeExpandServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>

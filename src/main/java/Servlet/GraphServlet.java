@@ -1,10 +1,8 @@
 package Servlet;
 
 import Bean.D3Object;
+import Bean.Link;
 import Bean.Node;
-import com.github.jsonldjava.core.RDFDataset;
-import com.google.gson.JsonObject;
-import com.stardog.stark.IRI;
 import database.StardogTriplesDBConnection;
 import database.format.GenericValue;
 import database.format.SPARQLResultTable;
@@ -16,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 
 @WebServlet(name = "GraphServlet",urlPatterns = "/Servlet/GraphServlet")
@@ -46,30 +43,85 @@ public class GraphServlet extends HttpServlet {
                     "}"
             );
 
-            /**
-             * Creatd the node arraylist and created the node object based on the SPARQL reqults
-             */
-            ArrayList<Node> nodes = new ArrayList<>();
-            for (GenericValue value : result.getValuesOfAttribute("s")){
-                Node node = new Node(value.get(), 1);
-                nodes.add(node);
-            }
-            D3Object d3Object = new D3Object(nodes);    // Translate result into JSON format
+            String clickedNode = "https:/www./docemo.org/owl/examples/iteration-0/Muggle";
+            SPARQLResultTable description = connection.describeQuery(clickedNode);
 
-            ArrayList<JSONObject> jsonObjects = new ArrayList<>();
-            for (Node node : d3Object.getNodes()) {
+//            System.out.println(description.getValuesOfAttribute("subject"));
+
+
+
+
+            /**
+             * Created the node arraylist and created the node object based on the SPARQL reqults
+             */
+            ArrayList<Node> objectNodes = new ArrayList<>();
+            ArrayList<Link> predicates = new ArrayList<>();
+            /*
+            * Get subject node
+            * */
+            GenericValue subject = description.getValuesOfAttribute("subject").get(0);
+            Node subjectNode = new Node(subject.get(), 1);
+            /*
+            * Get predicates
+            * */
+            for (GenericValue value : description.getValuesOfAttribute("predicate")){
+                Link link = new Link(value.get(), 1);
+                predicates.add(link);
+            }
+            /*
+             * Get object nodes
+             * */
+
+            for (GenericValue value : description.getValuesOfAttribute("object")){
+                Node node = new Node(value.get(), 1);
+                objectNodes.add(node);
+            }
+
+
+            ArrayList<ArrayList<JSONObject>> jsonObjects = new ArrayList<>();   // A list that contains three lists: subject, predicates, objects
+            ArrayList<JSONObject> objList = new ArrayList<>();
+            ArrayList<JSONObject> predList = new ArrayList<>();
+            ArrayList<JSONObject> subjList = new ArrayList<>();
+
+            for (Node node : objectNodes) {
                 try {
                     JSONObject obj = new JSONObject();
                     obj.put("level", node.getLevel());
                     obj.put("label", node.getLabel());
                     obj.put("group", node.getGroup());
                     obj.put("id", node.getId());
-                    jsonObjects.add(obj);
+                    objList.add(obj);
+                } catch (JSONException e) {
+                    System.out.println("Fail to convert to JSON");
+                }
+            }
+            for (Link link : predicates) {
+                try {
+                    JSONObject obj = new JSONObject();
+                    obj.put("level", link.getLevel());
+                    obj.put("label", link.getLabel());
+                    obj.put("group", link.getGroup());
+                    obj.put("id", link.getId());
+                    predList.add(obj);
                 } catch (JSONException e) {
                     System.out.println("Fail to convert to JSON");
                 }
 
             }
+            try {
+                JSONObject obj = new JSONObject();
+                obj.put("level", subjectNode.getLevel());
+                obj.put("label", subjectNode.getLabel());
+                obj.put("group", subjectNode.getGroup());
+                obj.put("id", subjectNode.getId());
+                subjList.add(obj);
+            } catch (JSONException e) {
+                System.out.println("Fail to convert to JSON");
+            }
+            jsonObjects.add(subjList);
+            jsonObjects.add(predList);
+            jsonObjects.add(objList);
+
             //TODO currently I use the String to transfer the data to the frontend. More Json things need to be done.
             response.getOutputStream().print(jsonObjects.toString());
         }

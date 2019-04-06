@@ -21,7 +21,8 @@ public class Node {
 //        this.label = id.lastIndexOf("/") == -1 ?
 //                id.substring(id.lastIndexOf("/") + 1) :
 //                id; // TODO: 23/03/2019 Basic Labelling function, update.
-        this.label = id.substring(idx+1);
+//        this.label = id.substring(idx+1);
+        this.label = id.matches("\".*\".*") ? id : id.substring(idx + 1);
     }
 
     /**

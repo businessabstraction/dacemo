@@ -25,7 +25,7 @@ public class StardogTriplesDBConnectionTest {
     public static void setUp(){
         connection = new StardogTriplesDBConnection("test", "http://localhost:5820", "admin", "admin");
 
-        StardogTriplesDBAdminConnection admin =
+        database.StardogTriplesDBAdminConnection admin =
                 new StardogTriplesDBAdminConnection("http://localhost:5820", "admin", "admin");
 
         if (!admin.existsDB("test")){

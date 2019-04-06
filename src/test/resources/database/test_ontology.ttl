@@ -1,0 +1,31 @@
+@prefix : <http://something.org/> .
+@prefix book: <http://books.org/properties/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <https://www.testing.org/> .
+
+<https://www.test.org/dacemo/> rdf:type owl:Ontology ;
+  owl:versionIRI <https://www.testing.org/> ;
+  owl:imports book: .
+
+:Person rdf:type owl:Class ;
+  rdfs:subClassOf :Thing ;
+  rdfs:label "Person" .
+
+:Book rdf:type owl:Class ;
+  rdfs:subClassOf :Thing .
+
+book:Metro2033 rdf:type :Book ;
+  book:entitled "Metro 2033" ;
+  book:writtenBy "Dmitry Glukhovsky" ;
+  book:created "2005-10-01"^^xsd:date .
+
+:reads rdf:type owl:ObjectProperty ;
+  rdfs:subClassOf :Event ;
+  rdfs:domain :Person ;
+  rdfs:range :Book .
+
+:Event rdf:type owl:Class .

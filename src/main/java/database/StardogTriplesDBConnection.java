@@ -1,13 +1,19 @@
 package database;
 
-import com.complexible.stardog.api.*;
+import com.complexible.stardog.api.Connection;
+import com.complexible.stardog.api.ConnectionConfiguration;
+import com.complexible.stardog.api.GraphQuery;
+import com.complexible.stardog.api.SelectQuery;
 import com.stardog.stark.*;
 import com.stardog.stark.query.BindingSet;
 import com.stardog.stark.query.GraphQueryResult;
 import com.stardog.stark.query.SelectQueryResult;
 import database.format.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Class that allows access to the data within a StarDog database.
@@ -53,7 +59,6 @@ public class StardogTriplesDBConnection implements TriplesDBConnection {
      * @param iris the Arraylist of IRIs that will be expanded.
      * @return the Set of statements that describe each iri.
      */
-    @Override
     public Set<GenericStatement> describeQuery(List<GenericIRI> iris){
         Set<Statement> stardogStatements = new HashSet<>();
         Set<GenericStatement> statements = new HashSet<>();
@@ -79,18 +84,30 @@ public class StardogTriplesDBConnection implements TriplesDBConnection {
     }
 
     /**
-     * Run a descriptive SPARQL query
-     * @param iri the iri to be described
-     * @return the nodes connected to that node.
+     * Executes a SPARQL query that describes a given IRI
+     * @param iri the IRI to be described.
+     * @return the result table that corresponds to finding all outgoing properties of the given node.
+     * Ex. :Programmer a owl:Class ;
+     *         rdfs:subclassOf :Person ;
+     *         rdfs:label "Programmer" .
+     *    will be converted to the equivalent SPARQLResultTable (prefixes not expanded):
+     *    ------------------------------------------------
+     *    | subject     | predicate       | object       |
+     *    |----------------------------------------------|
+     *    | :Programmer | rdfs:type       | owl:Class    |
+     *    | :Programmer | rdfs:subclassOf | :Person      |
+     *    | :Programmer | rdfs:label      | "Programmer" |
+     *    ------------------------------------------------
      */
-    public SPARQLResultTable describeQuery(GenericIRI iri){
+    @Override
+    public SPARQLResultTable describeQuery(String iri){
         SelectQuery selectQuery = connection.select(
-                "SELECT ?iri ?p ?o " +
+                "SELECT ?subject ?predicate ?object " +
                    "WHERE { " +
-                   "    ?iri ?p ?o " +
+                   "    ?subject ?predicate ?object " +
                    "}"
         );
-        selectQuery.parameter("iri", Values.iri(iri.get()));
+        selectQuery.parameter("subject", Values.iri(iri));
 
         return executeQuery(selectQuery);
     }

@@ -8,9 +8,10 @@ public class GenericLiteral extends GenericValue {
     private String literal;
 
     public GenericLiteral(String literal){
-        this.literal = literal;
-    }
+        boolean isImplicitString = literal.matches("\".*\"");
 
+        this.literal = isImplicitString ? literal + "^^<http://www.w3.org/2001/XMLSchema#string>" : literal;
+    }
 
     @Override
     public String get() {
@@ -19,6 +20,6 @@ public class GenericLiteral extends GenericValue {
 
     @Override
     public String toString() {
-        return "\"" + literal + "\"";
+        return literal;
     }
 }

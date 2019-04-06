@@ -1,49 +1,34 @@
 let getJson;
-let nodeArray;
-let baseNodes;
-let baseLinks;
-//let nodes;
-//let links;
-
 var linkss;
 
+
 /*=========================parse node===========================*/
+//get the node from json file
 function updateNode() {
 
-
-
-
-
-    //console.log("I'm in updateNode()!!!")
-    //console.log("getstring: "+getJson);
     var jsonObjects = JSON.parse(getJson);
-    //console.log(jsonObjects);   // please check the console and you will get an idea about the JSON format
-    baseNodes = new Array(jsonObjects.length);
     console.log(jsonObjects[0][0].label)
-
     linkss = new Array(jsonObjects[1].length);
 
+    //parse the json to array
     for(var i =0; i<jsonObjects[1].length;i++){
 
         linkss[i] = new Object();
-
-
         linkss[i].target = jsonObjects[0][0].label;
         linkss[i].targerid = jsonObjects[0][0].id;
-        linkss[i].source = jsonObjects[1][i].label;
-        linkss[i].sourceid = jsonObjects[1][i].id;
-        linkss[i].rela = jsonObjects[2][i].label;
-        linkss[i].relaid = jsonObjects[2][i].id;
+        linkss[i].source = jsonObjects[2][i].label;
+        linkss[i].sourceid = jsonObjects[2][i].id;
+        linkss[i].rela = jsonObjects[1][i].label;
+        linkss[i].relaid = jsonObjects[1][i].id;
         linkss[i].type = "resolved";
 
     }
-
-    console.log(linkss.length)
 
 }
 
 
 /*=========================calling server=============================*/
+
 function callServer(methodType) {
     let xmlResruest;
 
@@ -55,13 +40,8 @@ function callServer(methodType) {
 
     xmlResruest.onreadystatechange = function(){
         if(xmlResruest.readyState === 4 && xmlResruest.status === 200){
-            document.getElementById("myDiv").innerHTML = "button down";
             getJson = xmlResruest.responseText;
-            document.getElementById("myDiv").innerHTML = getJson;
-            console.log("I'm before updateNode()!")
             updateNode();
-            console.log("I'm after updateNode()!")
-            //updateSimulation();
             buildGraph('d3c','#d3c',linkss);
         }
 
@@ -81,6 +61,19 @@ function callServer(methodType) {
 
 }
 
+/*============================receive and request=====================================*/
+//update every time when have a request
+function updateGraph() {
+    //todo: this function is for diving, adding the node
+}
+
+
+//send the request to the server
+function sendRequenst(node) {
+    console.log(node.name);
+    //todo: to transfer the node id to the server and return a json format
+    return
+}
 
 
 /*============================fake data=================================*/
@@ -114,18 +107,15 @@ var extralinks = [
 ]
 
 
-
-/*===========================parameters for currant node displaying===============================*/
+/*===========================parameters for currant node displaying==============================*/
 //store the links
 var links = [];
 //store the nodes
 var nodes = {};
 
 
-
-
-
 /*====================================drawing graph========================================*/
+//parse the node and link into node and links
 function processLink(linkss) {
 
     for (var i = 0; i < linkss.length; i++) {
@@ -143,18 +133,6 @@ function processLink(linkss) {
 }
 
 
-//update every time when have a request
-function updateGraph() {
-    //todo: this function is for diving, adding the node
-}
-
-
-//send the request to the server
-function sendRequenst(node) {
-    console.log(node.name);
-    //todo: to transfer the node id to the server and return a json format
-    return
-}
 
 
 //build the graph, draw the existed request nodes from server
@@ -170,14 +148,14 @@ function buildGraph(graphics,graphicsid,linkss)
     var isMouseDown=false, oldScale = 1;
     var viewBox_x = 0, viewBox_y = 0;
 
-    var force = d3.layout.force()//layout 将json格式转化为力学图可用的格式
+    var force = d3.layout.force()
         .nodes(d3.values(nodes))//set array of nodes
-        .links(links)//设定连线数组
-        .size([width, height])//作用域的大小
-        .linkDistance(120)//连接线长度
-        .charge(-1500)//顶点的电荷数。该参数决定是排斥还是吸引，数值越小越互相排斥
-        .on("tick", tick)//指时间间隔，隔一段时间刷新一次画面
-        .start();//开始转换
+        .links(links)
+        .size([width, height])
+        .linkDistance(180)
+        .charge(-1500)
+        .on("tick", tick)
+        .start();
 
 
     var drag = force.drag()
@@ -228,25 +206,24 @@ function buildGraph(graphics,graphicsid,linkss)
     });
 
 
-    //箭头
     var marker=
         svg.append("marker")
         //.attr("id", function(d) { return d; })
             .attr("id", "resolved")
-            //.attr("markerUnits","strokeWidth")//设置为strokeWidth箭头会随着线的粗细发生变化
+            //.attr("markerUnits","strokeWidth")
             .attr("markerUnits","userSpaceOnUse")
-            .attr("viewBox", "0 -5 10 10")//坐标系的区域
-            .attr("refX",38)//箭头坐标
+            .attr("viewBox", "0 -5 10 10")
+            .attr("refX",38)
             .attr("refY", -1)
-            .attr("markerWidth", 10)//标识的大小
+            .attr("markerWidth", 10)
             .attr("markerHeight", 10)
-            .attr("orient", "auto")//绘制方向，可设定为：auto（自动确认方向）和 角度值
-            .attr("stroke-width",2)//箭头宽度
+            .attr("orient", "auto")
+            .attr("stroke-width",2)
             .append("path")
-            .attr("d", "M0,-5L10,0L0,5")//箭头的路径
-            .attr('fill','#aaa');//箭头颜色
+            .attr("d", "M0,-5L10,0L0,5")
+            .attr('fill','#aaa');
 
-    //设置连接线
+    //set link
     var edges_line = svg.selectAll(".edgepath")
         .data(force.links())
         .enter()
@@ -259,8 +236,8 @@ function buildGraph(graphics,graphicsid,linkss)
             return "#BBB";
         })
         .style("pointer-events", "none")
-        .style("stroke-width",0.5)//线条粗细
-        .attr("marker-end", "url(#resolved)" );//根据箭头标记的id号标记箭头
+        .style("stroke-width",0.5)//storke of lines
+        .attr("marker-end", "url(#resolved)" );//arrow
 
     var edges_text = svg.append("g").selectAll(".edgelabel")
         .data(force.links())
@@ -276,15 +253,15 @@ function buildGraph(graphics,graphicsid,linkss)
             //'fill':'#aaa'
         });
 
-    //设置线条上的文字
+    //set text on link
     edges_text.append('textPath')
         .attr('xlink:href',function(d,i) {return '#edgepath'+i})
         .style("pointer-events", "none")
         .text(function(d){return d.rela;});
 
-    //圆圈
+    //draw node
     var circle = svg.append("g").selectAll("circle")
-        .data(force.nodes())//表示使用force.nodes数据
+        .data(force.nodes())
         .enter().append("circle")
         .style("fill",function(node){
             return "#68BDF6";
@@ -292,15 +269,14 @@ function buildGraph(graphics,graphicsid,linkss)
         .style('stroke',function(node){
             return "#68AEDD";
         })
-        .attr("r", 20)//设置圆圈半径
+        .attr("r", 20)
         .on("click",function(node){
-            //单击时让连接线加粗
 
             sendRequenst(node);
             edges_line.style("stroke-width",function(line){
 
                 console.log("click it");
-
+                //todo leave this part waiting for tranfering avaliable
 
                 if(line.source.name==node.name || line.target.name==node.name){
                     return 4;
@@ -312,7 +288,6 @@ function buildGraph(graphics,graphicsid,linkss)
         })
         .call(force.drag);//
 
-    //圆圈的提示文字
     circle.append("svg:title")
         .text(function(node) {
             return
@@ -320,24 +295,23 @@ function buildGraph(graphics,graphicsid,linkss)
 
     var text = svg.append("g").selectAll("text")
         .data(force.nodes())
-        //返回缺失元素的占位对象（placeholder），指向绑定的数据中比选定元素集多出的一部分元素。
         .enter()
         .append("text")
         .attr("dy", ".35em")
-        .attr("text-anchor", "middle")//在圆圈中加上数据
+        .attr("text-anchor", "middle")
         .style('fill',function(node){
-            return "#FFFFFF";
+            return "#000";
         }).attr('x',function(d){
             // console.log(d.name+"---"+ d.name.length);
             var re_en = /[a-zA-Z]+/g;
-            //如果是全英文，不换行
+            //if english
             if(d.name.match(re_en)){
                 d3.select(this).append('tspan')
                     .attr('x',0)
                     .attr('y',2)
                     .text(function(){return d.name;});
             }
-            //如果小于四个字符，不换行
+            //less than 4
             else if(d.name.length<=4){
                 d3.select(this).append('tspan')
                     .attr('x',0)
@@ -360,8 +334,8 @@ function buildGraph(graphics,graphicsid,linkss)
 
 
     function tick() {
-        circle.attr("transform", transform1);//圆圈
-        text.attr("transform", transform2);//顶点文字
+        circle.attr("transform", transform1);
+        text.attr("transform", transform2);
         edges_line.attr('d', function(d) {
             var path='M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y;
             return path;
@@ -380,10 +354,6 @@ function buildGraph(graphics,graphicsid,linkss)
     }
 
 
-
-
-
-    //设置连接线的坐标,使用椭圆弧路径段双向编码
     function linkArc(d) {
         return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y
     }
@@ -395,7 +365,7 @@ function buildGraph(graphics,graphicsid,linkss)
         d3.event.sourceEvent.stopPropagation();
         d3.select(this).classed("fixed", d.fixed = true);
     }
-    //设置圆圈和文字的坐标
+
     function transform1(d) {
         return "translate(" + d.x + "," + d.y + ")";
     }
@@ -403,6 +373,5 @@ function buildGraph(graphics,graphicsid,linkss)
         return "translate(" + (d.x) + "," + d.y + ")";
     }
 }
-
 
 /*==================================execute the whole script=======================================*/

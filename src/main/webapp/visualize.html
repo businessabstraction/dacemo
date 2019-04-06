@@ -32,11 +32,12 @@
 
 <section id="main">
     <div class="container">
-        <button onclick="callServer('POST')">Query</button>
+        <button onclick="callServer('POST')">Start Query</button>
+        <button onclick="redo()">Redo</button>
+        <button onclick="undo()">Undo</button>
+        <button onclick="printGraph()">Print</button>
 
-
-        <div id="myDiv"><h2>Display the Graph by Clicking the Query Button</h2></div>
-        <p>The button currently sends nothing to backend, but it simulates one complete query process.</p>
+        <div id="myDiv"><p>Display the Graph by Clicking the Query Button</p></div>
 
         <div id="d3-container">
             <div id="d3c"></div>

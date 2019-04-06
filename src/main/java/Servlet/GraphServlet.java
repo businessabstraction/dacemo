@@ -43,16 +43,17 @@ public class GraphServlet extends HttpServlet {
                     "}"
             );
 
+            /**
+             * Just assume that a node is clicked and this is the data of this node
+             */
             String clickedNode = "https:/www./docemo.org/owl/examples/iteration-0/Muggle";
             SPARQLResultTable description = connection.describeQuery(clickedNode);
-
-//            System.out.println(description.getValuesOfAttribute("subject"));
 
 
 
 
             /**
-             * Created the node arraylist and created the node object based on the SPARQL reqults
+             * Created the node arraylist and predicate arralist for storing the data based on the SPARQL reqults
              */
             ArrayList<Node> objectNodes = new ArrayList<>();
             ArrayList<Link> predicates = new ArrayList<>();
@@ -83,6 +84,9 @@ public class GraphServlet extends HttpServlet {
             ArrayList<JSONObject> predList = new ArrayList<>();
             ArrayList<JSONObject> subjList = new ArrayList<>();
 
+            /**
+             * Add id, group, label and level information of each object node to the JsonObject
+             */
             for (Node node : objectNodes) {
                 try {
                     JSONObject obj = new JSONObject();
@@ -95,6 +99,9 @@ public class GraphServlet extends HttpServlet {
                     System.out.println("Fail to convert to JSON");
                 }
             }
+            /**
+             * Add id, group, label and level information of each predicate link to the JsonObject
+             */
             for (Link link : predicates) {
                 try {
                     JSONObject obj = new JSONObject();
@@ -108,6 +115,9 @@ public class GraphServlet extends HttpServlet {
                 }
 
             }
+            /**
+             * Add id, group, label and level information the subject node to the JsonObject
+             */
             try {
                 JSONObject obj = new JSONObject();
                 obj.put("level", subjectNode.getLevel());
@@ -118,11 +128,17 @@ public class GraphServlet extends HttpServlet {
             } catch (JSONException e) {
                 System.out.println("Fail to convert to JSON");
             }
+            /**
+             *  add subject, predicates and objects to the list of Json object
+             */
             jsonObjects.add(subjList);
             jsonObjects.add(predList);
             jsonObjects.add(objList);
 
             //TODO currently I use the String to transfer the data to the frontend. More Json things need to be done.
+            /**
+             * send the list of three lists of Json objects to server
+             */
             response.getOutputStream().print(jsonObjects.toString());
         }
     }

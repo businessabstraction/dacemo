@@ -159,6 +159,7 @@ function buildGraph(graphics,graphicsid,linkss)
     var curPos_x, curPos_y, mousePos_x, mousePos_y;
     var isMouseDown=false, oldScale = 1;
     var viewBox_x = 0, viewBox_y = 0;
+
     var force = d3.layout.force()//layout 将json格式转化为力学图可用的格式
         .nodes(d3.values(nodes))//set array of nodes
         .links(links)//设定连线数组
@@ -174,12 +175,18 @@ function buildGraph(graphics,graphicsid,linkss)
         .on("dragend",dragend);
 
 
+    var rect = document.getElementById("d3-container").getBoundingClientRect()
+
+    console.log(rect.width)
+    console.log(rect.height)
+    console.log(this.width)
+    console.log(this.height)
    //define the
     var svg = d3.select(graphicsid)
         .append('svg')
         .attr("preserveAspectRatio", "xMidYMid meet")
-        .attr("viewBox", "0 0 1500 1500")
-
+        //.attr("viewBox",rect.x + " " +rect.x +" "+ rect.width +" "+ 500)
+        .attr("viewBox","130 -250 600 600")
 
     svg.on("mousedown", function () {
         if (d3.event.defaultPrevented) {
@@ -206,10 +213,9 @@ function buildGraph(graphics,graphicsid,linkss)
         if (isMouseDown) {
             viewBox_x = viewBox_x - d3.mouse(this)[0] + mousePos_x;
             viewBox_y = viewBox_y - d3.mouse(this)[1] + mousePos_y;
-            svg.attr("viewBox", viewBox_x + " " + viewBox_y + " " + width / oldScale + " " + height / oldScale);
+            //svg.attr("viewBox", viewBox_x + " " + viewBox_y + " " + width / oldScale + " " + height / oldScale);
         }
     });
-
 
 
     //箭头
@@ -276,7 +282,7 @@ function buildGraph(graphics,graphicsid,linkss)
         .style('stroke',function(node){
             return "#68AEDD";
         })
-        .attr("r", 25)//设置圆圈半径
+        .attr("r", 20)//设置圆圈半径
         .on("click",function(node){
             //单击时让连接线加粗
 
@@ -362,6 +368,10 @@ function buildGraph(graphics,graphicsid,linkss)
             }
         });
     }
+
+
+
+
 
     //设置连接线的坐标,使用椭圆弧路径段双向编码
     function linkArc(d) {

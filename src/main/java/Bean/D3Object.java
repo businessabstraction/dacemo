@@ -7,10 +7,15 @@ import java.util.ArrayList;
  * It have bean used for create the data object for data transfer to the front end
  */
 public class D3Object {
-    private ArrayList<Node> nodes;
+    private Node subject;
+    private ArrayList<Link> predicates;
+    private ArrayList<Node> objects;
+
     // the constructor of d3 data object
-    public D3Object(ArrayList<Node> nodes){
-        this.nodes = nodes;
+    public D3Object(Node subject, ArrayList<Link> predicates, ArrayList<Node> objects){
+        this.subject = subject;
+        this.predicates = predicates;
+        this.objects = objects;
     }
 
     public D3Object(){
@@ -18,32 +23,50 @@ public class D3Object {
     }
 
     /**
-     * The get function for the data object to get all nodes of the graph
-     * @return it will return a ArrayList which contains all nodes
+     * The get function for the data object to get all subject of the graph
+     * @return it will return a ArrayList which contains all subject
      */
-    public ArrayList<Node> getNodes() {
-        return nodes;
+    public Node getSubject() {
+        return subject;
     }
-
+    public ArrayList<Link> getPredicates() {
+        return predicates;
+    }
+    public ArrayList<Node> getObjects() {
+        return objects;
+    }
     /**
-     * The set function for the data object to add nodes for current graph
+     * The set function for the data object to add subject for current graph
      * @param node The node object will add to the node list which contains all
-     *             nodes of the graph
+     *             subject of the graph
      */
-    public void setNodes(Node node){
-        nodes.add(node);
+    public void setSubject(Node node){
+        subject = node;
+    }
+    public void setPredicates(Link link){
+        predicates.add(link);
+    }
+    public void setObjects(Node nodes){
+        objects.add(nodes);
     }
 
     @Override
     /**
-     * The toString function is to convert all nodes information to the string format
+     * The toString function is to convert all subject information to the string format
      */
     public String toString() {
 
         StringBuilder stream = new StringBuilder();
-        for(Node n : getNodes()){
+        stream.append(getSubject());
+        stream.append(", ");
+
+        for(Link l : getPredicates()){
+            stream.append(l.toString());
+            stream.append(", ");
+        }
+        for(Node n : getObjects()){
             stream.append(n.toString());
-            stream.append(",");
+            stream.append(", ");
         }
 
         return stream.toString();

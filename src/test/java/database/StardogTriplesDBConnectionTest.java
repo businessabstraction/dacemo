@@ -5,6 +5,7 @@ import database.format.GenericLiteral;
 import database.format.SPARQLResultTable;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.testng.annotations.ITestAnnotation;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,7 +19,7 @@ public class StardogTriplesDBConnectionTest {
     public static void setUp(){
         connection = new StardogTriplesDBConnection("test", "http://localhost:5820", "admin", "admin");
 
-        StardogTriplesDBAdminConnection admin =
+        database.StardogTriplesDBAdminConnection admin =
                 new StardogTriplesDBAdminConnection("http://localhost:5820", "admin", "admin");
 
         if (!admin.existsDB("test")){
@@ -27,7 +28,8 @@ public class StardogTriplesDBConnectionTest {
     }
 
     // TODO: 6/04/2019 Refactor to use test resources
-    @Test public void basicQueryTest(){
+    @Test
+    public void basicQueryTest(){
         SPARQLResultTable expected = new SPARQLResultTable("s");
         expected.addRecords(
                 Collections.singletonList(new GenericIRI("https://www.test.org/dacemo/")),
@@ -73,6 +75,7 @@ public class StardogTriplesDBConnectionTest {
         );
 
         SPARQLResultTable actual = connection.describeQuery("http://something.org/reads");
+        System.out.println(actual.toString());
 
         assertEquals(expected.toTestableString(), actual.toTestableString());
     }

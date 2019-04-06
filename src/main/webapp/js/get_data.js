@@ -10,7 +10,7 @@ function updateNode() {
     console.log("I'm in updateNode()!!!")
     console.log("getstring: "+getJson);
     var jsonObjects = JSON.parse(getJson);
-    console.log(jsonObjects);
+    console.log(jsonObjects);   // please check the console and you will get an idea about the JSON format
     baseNodes = new Array(jsonObjects.length);
     for (var i = 0; i < jsonObjects.length; i++){
         console.log(jsonObjects[i]);

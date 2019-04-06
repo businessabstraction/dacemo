@@ -17,7 +17,7 @@ public class Link {
         this.id = id;
         this.group = group;
         int idx = id.lastIndexOf("/");
-        this.label = id.substring(idx+1);
+        this.label = id.matches("\".*\".*") ? id : id.substring(idx + 1);
     }
 
     /**

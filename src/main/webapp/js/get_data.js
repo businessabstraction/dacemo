@@ -6,7 +6,13 @@ let nodes;
 let links;
 
 
+
+/*
+  ==========================update node info==========================
+*/
+
 function updateNode() {
+
     console.log("I'm in updateNode()!!!")
     console.log("getstring: "+getJson);
     var jsonObjects = JSON.parse(getJson);
@@ -21,6 +27,7 @@ function updateNode() {
         baseNodes[i].level = jsonObjects[i].level;
     }
 
+
     baseLinks = new Array(baseNodes.length/2);
 
     for(let i =0;i< baseLinks.length;i++){
@@ -31,13 +38,14 @@ function updateNode() {
         baseLinks[i] = link;
     }
 
-
-
     nodes = [...baseNodes];
     links = [...baseLinks]
 }
 
 
+/*
+=================================call server===================================
+*/
 function callServer(methodType) {
     let xmlResruest;
 
@@ -57,24 +65,23 @@ function callServer(methodType) {
             console.log("I'm after updateNode()!")
             updateSimulation();
         }
-
     };
 
     //let params = "comment=" + "value";
     if(methodType === "GET"){
         xmlResruest.open("GET","/DaCeMo_war_exploded/Servlet/GraphServlet?"+params,true);
         xmlResruest.send();
-
     }else if(methodType === "POST"){
         xmlResruest.open("POST","/DaCeMo_war_exploded/Servlet/GraphServlet",true);
         xmlResruest.setRequestHeader("req","req");
         xmlResruest.send();
-
     }
-
 }
 
 
+/*
+===================process node info====================
+*/
 function getNeighbors(node) {
     return baseLinks.reduce(function (neighbors, link) {
             if (link.target.id === node.id) {
@@ -87,6 +94,7 @@ function getNeighbors(node) {
         [node.id]
     )
 }
+
 
 function isNeighborLink(node, link) {
     return link.target.id === node.id || link.source.id === node.id
@@ -151,7 +159,7 @@ const linkForce = d3
 const simulation = d3
     .forceSimulation()
     .force('link', linkForce)
-    .force('charge', d3.forceManyBody().strength(-120))
+    .force('charge', d3.forceManyBody().strength(-100))
     .force('center', d3.forceCenter(width / 2, height / 2));
 
 const dragDrop = d3.drag().on('start', function (node) {
@@ -257,7 +265,7 @@ function updateGraph() {
     const nodeEnter = nodeElements
         .enter()
         .append('circle')
-        .attr('r', 10*height/630)
+        .attr('r', 10*height/500)
         .attr('fill', function (node) {
             return node.level === 1 ? 'red' : 'gray'
         })
@@ -280,7 +288,7 @@ function updateGraph() {
         .text(function (node) {
             return node.label
         })
-        .attr('font-size', (15*height)/630)
+        .attr('font-size', (15*height)/500)
         .attr('dx', 15)
         .attr('dy', 4);
 

@@ -209,6 +209,7 @@ function resetData() {
     links = baseLinks
 }
 
+
 // diffing and mutating the data
 function updateData(selectedNode) {
     const neighbors = getNeighbors(selectedNode);

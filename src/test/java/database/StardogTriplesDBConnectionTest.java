@@ -2,18 +2,25 @@ package database;
 
 import database.format.GenericIRI;
 import database.format.GenericLiteral;
+import database.format.GenericValue;
 import database.format.SPARQLResultTable;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
 public class StardogTriplesDBConnectionTest {
     private static StardogTriplesDBConnection connection;
 
+    /**
+     * Creates the required connections to the database and adds the test database if it does not exist.
+     */
     @BeforeClass
     public static void setUp(){
         connection = new StardogTriplesDBConnection("test", "http://localhost:5820", "admin", "admin");
@@ -26,17 +33,12 @@ public class StardogTriplesDBConnectionTest {
         }
     }
 
-    // TODO: 6/04/2019 Refactor to use test resources
+    /**
+     * Tests for basic SPARQL queries.
+     */
     @Test public void basicQueryTest(){
         SPARQLResultTable expected = new SPARQLResultTable("s");
-        expected.addRecords(
-                Collections.singletonList(new GenericIRI("https://www.test.org/dacemo/")),
-                Collections.singletonList(new GenericIRI("http://something.org/Person")),
-                Collections.singletonList(new GenericIRI("http://something.org/Book")),
-                Collections.singletonList(new GenericIRI("http://books.org/properties/Metro2033")),
-                Collections.singletonList(new GenericIRI("http://something.org/reads")),
-                Collections.singletonList(new GenericIRI("http://something.org/Event"))
-        );
+        getRecordsFromFile("basicQueryExpecteds.txt").forEach(expected::addRecord);
 
         SPARQLResultTable actual = connection.selectQuery(
                 "SELECT DISTINCT ?s WHERE { " +
@@ -47,58 +49,57 @@ public class StardogTriplesDBConnectionTest {
         assertEquals(expected.toTestableString(), actual.toTestableString());
     }
 
+    /**
+     * Tests for basic descriptive queries.
+     */
     @Test public void basicDescriptionTest(){
-        SPARQLResultTable expected = new SPARQLResultTable("subject", "predicate", "object");
-        expected.addRecords(
-                Arrays.asList(
-                        new GenericIRI("http://something.org/reads"),
-                        new GenericIRI("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
-                        new GenericIRI("http://www.w3.org/2002/07/owl#ObjectProperty")
-                ),
-                Arrays.asList(
-                        new GenericIRI("http://something.org/reads"),
-                        new GenericIRI("http://www.w3.org/2000/01/rdf-schema#subClassOf"),
-                        new GenericIRI("http://something.org/Event")
-                ),
-                Arrays.asList(
-                        new GenericIRI("http://something.org/reads"),
-                        new GenericIRI("http://www.w3.org/2000/01/rdf-schema#domain"),
-                        new GenericIRI("http://something.org/Person")
-                ),
-                Arrays.asList(
-                        new GenericIRI("http://something.org/reads"),
-                        new GenericIRI("http://www.w3.org/2000/01/rdf-schema#range"),
-                        new GenericIRI("http://something.org/Book")
-                )
-        );
-
         SPARQLResultTable actual = connection.describeQuery("http://something.org/reads");
+        SPARQLResultTable expected = new SPARQLResultTable("subject", "predicate", "object");
+        getRecordsFromFile("basicDescriptionExpecteds.txt").forEach(expected::addRecord);
 
         assertEquals(expected.toTestableString(), actual.toTestableString());
     }
 
+    /**
+     * Tests for descriptive queries that contain literals.
+     */
     @Test public void literalDescriptionTest(){
-        SPARQLResultTable expected = new SPARQLResultTable("subject", "predicate", "object");
-        expected.addRecords(
-            Arrays.asList(
-                    new GenericIRI("http://something.org/Person"),
-                    new GenericIRI("http://www.w3.org/1999/02/22-rdf-syntax-ns#type"),
-                    new GenericIRI("http://www.w3.org/2002/07/owl#Class")
-            ),
-            Arrays.asList(
-                    new GenericIRI("http://something.org/Person"),
-                    new GenericIRI("http://www.w3.org/2000/01/rdf-schema#subClassOf"),
-                    new GenericIRI("http://something.org/Thing")
-            ),
-            Arrays.asList(
-                    new GenericIRI("http://something.org/Person"),
-                    new GenericIRI("http://www.w3.org/2000/01/rdf-schema#label"),
-                    new GenericLiteral("\"Person\"")
-            )
-        );
-
         SPARQLResultTable actual = connection.describeQuery("http://something.org/Person");
+        SPARQLResultTable expected = new SPARQLResultTable("subject", "predicate", "object");
+        getRecordsFromFile("literalDescriptionExpecteds.txt").forEach(expected::addRecord);
 
         assertEquals(expected.toTestableString(), actual.toTestableString());
+    }
+
+    /**
+     * Helper method for loading the expected results of a SPARQL query.
+     * @param fileName the fileName to load from.
+     * @return a matrix of GenericValues, similar to a SPARQLResultsTable
+     */
+    private List<List<GenericValue>> getRecordsFromFile(String fileName){
+        ArrayList<List<GenericValue>> records = new ArrayList<>();
+
+        try(BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/database/expecteds/" + fileName))) {
+            String line;
+
+            while ((line = reader.readLine()) != null){
+                String[] fields = line.split("\\|\\|");
+                ArrayList<GenericValue> record = new ArrayList<>();
+
+                for (String field : fields){
+                    GenericValue genericValue = field.matches("https?://.*") ?
+                            new GenericIRI(field) :
+                            new GenericLiteral(field);
+
+                    record.add(genericValue);
+                }
+
+                records.add(record);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return records;
     }
 }

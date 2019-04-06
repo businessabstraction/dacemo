@@ -17,6 +17,13 @@ public class StardogTriplesDBConnectionTest {
     @BeforeClass
     public static void setUp(){
         connection = new StardogTriplesDBConnection("test", "http://localhost:5820", "admin", "admin");
+
+        StardogTriplesDBAdminConnection admin =
+                new StardogTriplesDBAdminConnection("http://localhost:5820", "admin", "admin");
+
+        if (!admin.existsDB("test")){
+            admin.createDB("test", "src/test/resources/database/test_ontology.ttl");
+        }
     }
 
     // TODO: 6/04/2019 Refactor to use test resources

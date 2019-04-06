@@ -18,10 +18,7 @@ public class Node {
         this.id = id;
         this.group = group;
         int idx = id.lastIndexOf("/");
-//        this.label = id.lastIndexOf("/") == -1 ?
-//                id.substring(id.lastIndexOf("/") + 1) :
-//                id; // TODO: 23/03/2019 Basic Labelling function, update.
-        this.label = id.substring(idx+1);
+        this.label = id.matches("\".*\".*") ? id : id.substring(idx + 1);
     }
 
     /**
@@ -31,22 +28,39 @@ public class Node {
      * @param label The label of the node, which is display the name information about node
      * @param level The level which the node should belongs to
      */
-    public Node(String id, int group,String label,int level){
+    public Node(String id, int group, String label, int level){
         this.id = id;
         this.group = group;
         this.label = label;
         this.level = level;
     }
 
+    /**
+     * Get the id of the node
+     * @return The unique id of node
+     */
     public String getId(){
         return id;
     }
+
+    /**
+     * Get the label of the node
+     * @return The unique label of node
+     */
     public String getLabel(){
         return label;
     }
+    /**
+     * Get the group of the node
+     * @return The unique group of node
+     */
     public int getGroup() {
         return group;
     }
+    /**
+     * Get the level of the node
+     * @return The unique level of node
+     */
     public int getLevel() {
         return level;
     }

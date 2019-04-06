@@ -62,11 +62,11 @@ function callServer(methodType) {
 
     //let params = "comment=" + "value";
     if(methodType === "GET"){
-        xmlResruest.open("GET","/DaCeMo_war_exploded/getGraph?"+params,true);
+        xmlResruest.open("GET","/DaCeMo_war_exploded/Servlet/GraphServlet?"+params,true);
         xmlResruest.send();
 
     }else if(methodType === "POST"){
-        xmlResruest.open("POST","/DaCeMo_war_exploded/getGraph",true);
+        xmlResruest.open("POST","/DaCeMo_war_exploded/Servlet/GraphServlet",true);
         xmlResruest.setRequestHeader("req","req");
         xmlResruest.send();
 

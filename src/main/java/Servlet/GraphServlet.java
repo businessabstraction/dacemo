@@ -19,7 +19,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-@WebServlet(name = "Servlet",urlPatterns = "Graph")
+@WebServlet(name = "GraphServlet",urlPatterns = "/Servlet/GraphServlet")
 public class GraphServlet extends HttpServlet {
 
     @Override

@@ -5,33 +5,41 @@ let baseLinks;
 //let nodes;
 //let links;
 
+var linkss;
 
 /*=========================parse node===========================*/
 function updateNode() {
-    console.log("getstring: "+getJson);
+
+
+
+
+
+    //console.log("I'm in updateNode()!!!")
+    //console.log("getstring: "+getJson);
     var jsonObjects = JSON.parse(getJson);
-    console.log(jsonObjects);   // please check the console and you will get an idea about the JSON format
+    //console.log(jsonObjects);   // please check the console and you will get an idea about the JSON format
     baseNodes = new Array(jsonObjects.length);
-    for (var i = 0; i < jsonObjects.length; i++){
-        console.log(jsonObjects[i]);
-        baseNodes[i] = {};
-        baseNodes[i].id = jsonObjects[i].id;
-        baseNodes[i].group = jsonObjects[i].group;
-        baseNodes[i].label = jsonObjects[i].label;
-        baseNodes[i].level = jsonObjects[i].level;
+    console.log(jsonObjects[0][0].label)
+
+    linkss = new Array(jsonObjects[1].length);
+
+    for(var i =0; i<jsonObjects[1].length;i++){
+
+        linkss[i] = new Object();
+
+
+        linkss[i].target = jsonObjects[0][0].label;
+        linkss[i].targerid = jsonObjects[0][0].id;
+        linkss[i].source = jsonObjects[1][i].label;
+        linkss[i].sourceid = jsonObjects[1][i].id;
+        linkss[i].rela = jsonObjects[2][i].label;
+        linkss[i].relaid = jsonObjects[2][i].id;
+        linkss[i].type = "resolved";
+
     }
 
-    //baseLinks = new Array(baseNodes.length/2);
+    console.log(linkss.length)
 
-    // for(let i =0;i< baseLinks.length;i++){
-    //     const link = {};
-    //     link.target = baseNodes[i].id;
-    //     link.source = baseNodes[i+1].id;
-    //     link.strength = 0.1;
-    //     baseLinks[i] = link;
-    // }
-    //nodes = [...baseNodes];
-    //links = [...baseLinks]
 }
 
 
@@ -54,6 +62,7 @@ function callServer(methodType) {
             updateNode();
             console.log("I'm after updateNode()!")
             //updateSimulation();
+            buildGraph('d3c','#d3c',linkss);
         }
 
     };
@@ -78,7 +87,7 @@ function callServer(methodType) {
 /*
 *  just for testing
 * */
-var linkss = [
+var linksss = [
     { target: "mammal", source: "dog" , strength: 0.7, rela:"xxx" ,type: "resolved"},
     { target: "mammal", source: "cat" , strength: 0.7, rela:"xxx" ,type: "resolved"},
     { target: "mammal", source: "fox" , strength: 0.7, rela:"xxx" ,type: "resolved"},
@@ -94,6 +103,7 @@ var linkss = [
     { target: "fox"   , source: "ant" , strength: 0.1, rela:"xxx" ,type: "resolved"},
     { target: "pike"  , source: "cat" , strength: 0.1, rela:"xxx" ,type: "resolved"}
 ]
+
 
 var extralinks = [
     { target: "mammal", source: "dog" , strength: 0.7, rela:"xxx" ,type: "resolved"},
@@ -396,4 +406,3 @@ function buildGraph(graphics,graphicsid,linkss)
 
 
 /*==================================execute the whole script=======================================*/
-buildGraph('d3c','#d3c',linkss);

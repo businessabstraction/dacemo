@@ -1,4 +1,4 @@
-let getString;
+let getJson;
 let nodeArray;
 let baseNodes;
 let baseLinks;
@@ -7,27 +7,23 @@ let links;
 
 
 function updateNode() {
-    console.log(getString);
-    nodeArray = getString.split(',');
-
-    console.log(nodeArray);
-    baseNodes = new Array(parseInt(nodeArray.length/4));
-
-    for(let i =0; i<parseInt(nodeArray.length/4);i++){
-        console.log(nodeArray[0]);
+    console.log("I'm in updateNode()!!!")
+    console.log("getstring: "+getJson);
+    var jsonObjects = JSON.parse(getJson);
+    console.log(jsonObjects);
+    baseNodes = new Array(jsonObjects.length);
+    for (var i = 0; i < jsonObjects.length; i++){
+        console.log(jsonObjects[i]);
         baseNodes[i] = {};
-        baseNodes[i].id = nodeArray[4 *i];
-        baseNodes[i].group = parseInt(nodeArray[4 *i +1]);
-        baseNodes[i].label = nodeArray[4 *i +2];
-        baseNodes[i].level = parseInt(nodeArray[4 *i +3]);
-
+        baseNodes[i].id = jsonObjects[i].id;
+        baseNodes[i].group = jsonObjects[i].group;
+        baseNodes[i].label = jsonObjects[i].label;
+        baseNodes[i].level = jsonObjects[i].level;
     }
 
+    baseLinks = new Array(baseNodes.length/2);
 
-
-    baseLinks = new Array(parseInt(baseNodes.length/2));
-
-    for(let i =0;i<baseLinks.length;i++){
+    for(let i =0;i< baseLinks.length;i++){
         const link = {};
         link.target = baseNodes[i].id;
         link.source = baseNodes[i+1].id;
@@ -54,9 +50,11 @@ function callServer(methodType) {
     xmlResruest.onreadystatechange = function(){
         if(xmlResruest.readyState === 4 && xmlResruest.status === 200){
             document.getElementById("myDiv").innerHTML = "button down";
-            getString = xmlResruest.responseText;
-            document.getElementById("myDiv").innerHTML = getString;
+            getJson = xmlResruest.responseText;
+            document.getElementById("myDiv").innerHTML = getJson;
+            console.log("I'm before updateNode()!")
             updateNode();
+            console.log("I'm after updateNode()!")
             updateSimulation();
         }
 
@@ -64,11 +62,11 @@ function callServer(methodType) {
 
     //let params = "comment=" + "value";
     if(methodType === "GET"){
-        xmlResruest.open("GET","/DaCeMo_war_exploded/getGraph?"+params,true);
+        xmlResruest.open("GET","/DaCeMo_war_exploded/Servlet/GraphServlet?"+params,true);
         xmlResruest.send();
 
     }else if(methodType === "POST"){
-        xmlResruest.open("POST","/DaCeMo_war_exploded/getGraph",true);
+        xmlResruest.open("POST","/DaCeMo_war_exploded/Servlet/GraphServlet",true);
         xmlResruest.setRequestHeader("req","req");
         xmlResruest.send();
 

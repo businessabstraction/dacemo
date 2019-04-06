@@ -1,12 +1,6 @@
 package database;
 
-import database.format.GenericIRI;
-import database.format.GenericStatement;
-import database.format.GenericValue;
 import database.format.SPARQLResultTable;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * A common interface for all backend triplestores and databases.
@@ -20,14 +14,25 @@ interface TriplesDBConnection {
     /**
      * Runs the given SPARQL query
      * @param query the query as defined by the SPARQL Syntax
-     * @return the matrix of query results.
+     * @return the SPARQLResultTable of query results.
      */
     SPARQLResultTable selectQuery(String query);
 
     /**
-     * Describes the list of GenericIRIs (aka, returns all the properties of the given IRI.
-     * @param iris the array of IRIs that will be described.
-     * @return the statements that describe each iri.
+     * Executes a SPARQL query that describes a given IRI
+     * @param iri the IRI to be described.
+     * @return the result table that corresponds to finding all outgoing properties of the given node.
+     * Ex. :Programmer a owl:Class ;
+     *         rdfs:subclassOf :Person ;
+     *         rdfs:label "Programmer" .
+     *    will be converted to the equivalent SPARQLResultTable (prefixes not expanded):
+     *    ------------------------------------------------
+     *    | sub         | pred            | obj          |
+     *    |----------------------------------------------|
+     *    | :Programmer | rdfs:type       | owl:Class    |
+     *    | :Programmer | rdfs:subclassOf | :Person      |
+     *    | :Programmer | rdfs:label      | "Programmer" |
+     *    ------------------------------------------------
      */
-    Set<GenericStatement> describeQuery(List<GenericIRI> iris);
+    SPARQLResultTable describeQuery(String iri);
 }

@@ -1,5 +1,8 @@
 package Bean;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * The node entity class
  */
@@ -18,7 +21,19 @@ public class Node {
         this.id = id;
         this.group = group;
         int idx = id.lastIndexOf("/");
-        this.label = id.matches("\".*\".*") ? id : id.substring(idx + 1);
+        if (id.matches("\".*\".*")){
+            Pattern p = Pattern.compile("\"(.*?)\"");
+            Matcher m = p.matcher(id);
+            while (m.find()){
+                this.label = m.group(1);
+            }
+            int idx1 = id.indexOf("<");
+            int idx2 = id.indexOf(">");
+            id = id.substring(idx1+1, idx2);
+            this.id = id;
+        } else {
+            this.label = id.substring(idx + 1);
+        }
     }
 
     /**

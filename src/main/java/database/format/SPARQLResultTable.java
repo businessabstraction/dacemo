@@ -72,6 +72,15 @@ public class SPARQLResultTable {
         return attributes;
     }
 
+    public String toTestableString(){
+        StringBuilder result = new StringBuilder("<" + variables.toString() + ">\n");
+        for (List<GenericValue> record : table){
+            result.append(record.toString()).append("\n");
+        }
+
+        return result.toString();
+    }
+
     /**
      * @return the String representation of the table.
      */

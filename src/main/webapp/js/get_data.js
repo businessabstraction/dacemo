@@ -2,18 +2,12 @@ let getJson;
 let nodeArray;
 let baseNodes;
 let baseLinks;
-let nodes;
-let links;
+//let nodes;
+//let links;
 
 
-
-/*
-  ==========================update node info==========================
-*/
-
+/*=========================parse node===========================*/
 function updateNode() {
-
-    console.log("I'm in updateNode()!!!")
     console.log("getstring: "+getJson);
     var jsonObjects = JSON.parse(getJson);
     console.log(jsonObjects);   // please check the console and you will get an idea about the JSON format
@@ -27,25 +21,21 @@ function updateNode() {
         baseNodes[i].level = jsonObjects[i].level;
     }
 
+    //baseLinks = new Array(baseNodes.length/2);
 
-    baseLinks = new Array(baseNodes.length/2);
-
-    for(let i =0;i< baseLinks.length;i++){
-        const link = {};
-        link.target = baseNodes[i].id;
-        link.source = baseNodes[i+1].id;
-        link.strength = 0.1;
-        baseLinks[i] = link;
-    }
-
-    nodes = [...baseNodes];
-    links = [...baseLinks]
+    // for(let i =0;i< baseLinks.length;i++){
+    //     const link = {};
+    //     link.target = baseNodes[i].id;
+    //     link.source = baseNodes[i+1].id;
+    //     link.strength = 0.1;
+    //     baseLinks[i] = link;
+    // }
+    //nodes = [...baseNodes];
+    //links = [...baseLinks]
 }
 
 
-/*
-=================================call server===================================
-*/
+/*=========================calling server=============================*/
 function callServer(methodType) {
     let xmlResruest;
 
@@ -63,258 +53,337 @@ function callServer(methodType) {
             console.log("I'm before updateNode()!")
             updateNode();
             console.log("I'm after updateNode()!")
-            updateSimulation();
+            //updateSimulation();
         }
+
     };
 
     //let params = "comment=" + "value";
     if(methodType === "GET"){
         xmlResruest.open("GET","/DaCeMo_war_exploded/Servlet/GraphServlet?"+params,true);
         xmlResruest.send();
+
     }else if(methodType === "POST"){
         xmlResruest.open("POST","/DaCeMo_war_exploded/Servlet/GraphServlet",true);
         xmlResruest.setRequestHeader("req","req");
         xmlResruest.send();
+
     }
+
 }
 
 
+
+/*============================fake data=================================*/
 /*
-===================process node info====================
-*/
-function getNeighbors(node) {
-    return baseLinks.reduce(function (neighbors, link) {
-            if (link.target.id === node.id) {
-                neighbors.push(link.source.id)
-            } else if (link.source.id === node.id) {
-                neighbors.push(link.target.id)
-            }
-            return neighbors
-        },
-        [node.id]
-    )
-}
+*  just for testing
+* */
+var linkss = [
+    { target: "mammal", source: "dog" , strength: 0.7, rela:"xxx" ,type: "resolved"},
+    { target: "mammal", source: "cat" , strength: 0.7, rela:"xxx" ,type: "resolved"},
+    { target: "mammal", source: "fox" , strength: 0.7, rela:"xxx" ,type: "resolved"},
+    { target: "mammal", source: "elk" , strength: 0.7, rela:"xxx" ,type: "resolved"},
+    { target: "insect", source: "ant" , strength: 0.7, rela:"xxx" ,type: "resolved"},
+    { target: "insect", source: "bee" , strength: 0.7, rela:"xxx" ,type: "resolved"},
+    { target: "fish"  , source: "carp", strength: 0.7, rela:"xxx" ,type: "resolved"},
+    { target: "fish"  , source: "pike", strength: 0.7, rela:"xxx" ,type: "resolved"},
+    { target: "cat"   , source: "elk" , strength: 0.1, rela:"xxx" ,type: "resolved"},
+    { target: "carp"  , source: "ant" , strength: 0.1, rela:"xxx" ,type: "resolved"},
+    { target: "elk"   , source: "bee" , strength: 0.1, rela:"xxx" ,type: "resolved"},
+    { target: "dog"   , source: "cat" , strength: 0.1, rela:"xxx" ,type: "resolved"},
+    { target: "fox"   , source: "ant" , strength: 0.1, rela:"xxx" ,type: "resolved"},
+    { target: "pike"  , source: "cat" , strength: 0.1, rela:"xxx" ,type: "resolved"}
+]
+
+var extralinks = [
+    { target: "mammal", source: "dog" , strength: 0.7, rela:"xxx" ,type: "resolved"},
+    { target: "mammal", source: "cat" , strength: 0.7, rela:"xxx" ,type: "resolved"},
+    { target: "mammal", source: "fox" , strength: 0.7, rela:"xxx" ,type: "resolved"},
+    { target: "mammal", source: "elk" , strength: 0.7, rela:"xxx" ,type: "resolved"}
+
+]
 
 
-function isNeighborLink(node, link) {
-    return link.target.id === node.id || link.source.id === node.id
-}
+
+/*===========================parameters for currant node displaying===============================*/
+//store the links
+var links = [];
+//store the nodes
+var nodes = {};
 
 
-function getNodeColor(node, neighbors) {
-    if (Array.isArray(neighbors) && neighbors.indexOf(node.id) > -1) {
-        return node.level === 1 ? 'blue' : 'green'
+
+
+
+/*====================================drawing graph========================================*/
+function processLink(linkss) {
+
+    for (var i = 0; i < linkss.length; i++) {
+        links[i] = {
+            source: linkss[i].source,
+            target: linkss[i].target,
+            rela:linkss[i].rela
+        };
     }
-
-    return node.level === 1 ? 'red' : 'gray'
+    nodes = {};
+    links.forEach(function(link) {
+        link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+        link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+    });
 }
 
 
-function getLinkColor(node, link) {
-    return isNeighborLink(node, link) ? 'green' : '#E5E5E5'
-}
-
-function getTextColor(node, neighbors) {
-    return Array.isArray(neighbors) && neighbors.indexOf(node.id) > -1 ? 'green' : 'black'
+//update every time when have a request
+function updateGraph() {
+    //todo: this function is for diving, adding the node
 }
 
 
-console.log("currant")
+//send the request to the server
+function sendRequenst(node) {
+    console.log(node.name);
+    //todo: to transfer the node id to the server and return a json format
+    return
+}
 
 
-var svg = d3.select('div#d3c')
-    .append('svg')
-    .attr("preserveAspectRatio", "xMidYMid meet")
-    .attr("viewBox", "0 0 400 400")
+//build the graph, draw the existed request nodes from server
+function buildGraph(graphics,graphicsid,linkss)
+{
 
-height = document.getElementById("d3c").offsetWidth
-width = document.getElementById("d3c").offsetWidth
+    processLink(linkss);
 
-console.log(width)
-console.log(height)
+    var div = document.getElementById(graphics);
+    var height = div.clientHeight;
+    var width = div.clientWidth;
+    var curPos_x, curPos_y, mousePos_x, mousePos_y;
+    var isMouseDown=false, oldScale = 1;
+    var viewBox_x = 0, viewBox_y = 0;
+    var force = d3.layout.force()//layout 将json格式转化为力学图可用的格式
+        .nodes(d3.values(nodes))//set array of nodes
+        .links(links)//设定连线数组
+        .size([width, height])//作用域的大小
+        .linkDistance(120)//连接线长度
+        .charge(-1500)//顶点的电荷数。该参数决定是排斥还是吸引，数值越小越互相排斥
+        .on("tick", tick)//指时间间隔，隔一段时间刷新一次画面
+        .start();//开始转换
 
-let linkElements,
-    nodeElements,
-    textElements;
 
-// we use svg groups to logically group the elements together
-const linkGroup = svg.append('g').attr('class', 'links');
-const nodeGroup = svg.append('g').attr('class', 'nodes');
-const textGroup = svg.append('g').attr('class', 'texts');
+    var drag = force.drag()
+        .on("dragstart", dragstart)
+        .on("dragend",dragend);
 
-// we use this reference to select/deselect
-// after clicking the same element twice
-let selectedId;
 
-// simulation setup with all forces
-const linkForce = d3
-    .forceLink()
-    .id(function (link) {
-        return link.id
-    })
-    .strength(function (link) {
-        return link.strength
+   //define the
+    var svg = d3.select(graphicsid)
+        .append('svg')
+        .attr("preserveAspectRatio", "xMidYMid meet")
+        .attr("viewBox", "0 0 1500 1500")
+
+
+    svg.on("mousedown", function () {
+        if (d3.event.defaultPrevented) {
+            return;
+        }
+        isMouseDown = true;
+        mousePos_x = d3.mouse(this)[0];
+        mousePos_y = d3.mouse(this)[1];
     });
 
-const simulation = d3
-    .forceSimulation()
-    .force('link', linkForce)
-    .force('charge', d3.forceManyBody().strength(-100))
-    .force('center', d3.forceCenter(width / 2, height / 2));
-
-const dragDrop = d3.drag().on('start', function (node) {
-    node.fx = node.x;
-    node.fy = node.y
-}).on('drag', function (node) {
-    simulation.alphaTarget(0.7).restart();
-    node.fx = d3.event.x;
-    node.fy = d3.event.y
-}).on('end', function (node) {
-    if (!d3.event.active) {
-        simulation.alphaTarget(0)
-    }
-    node.fx = null;
-    node.fy = null
-});
-
-// select node is called on every click
-// we either update the data according to the selection
-// or reset the data if the same node is clicked twice
-function selectNode(selectedNode) {
-    if (selectedId === selectedNode.id) {
-        selectedId = undefined;
-        resetData();
-        updateSimulation()
-    } else {
-        selectedId = selectedNode.id;
-        updateData(selectedNode);
-        updateSimulation()
-    }
-
-    const neighbors = getNeighbors(selectedNode);
-
-    // we modify the styles to highlight selected nodes
-    nodeElements.attr('fill', function (node) { return getNodeColor(node, neighbors) });
-    textElements.attr('fill', function (node) { return getTextColor(node, neighbors) });
-    linkElements.attr('stroke', function (link) { return getLinkColor(selectedNode, link) })
-}
-
-// this helper simple adds all nodes and links
-// that are missing, to recreate the initial state
-function resetData() {
-    const nodeIds = nodes.map(function (node) {
-        return node.id
+    svg.on("mouseup", function () {
+        if (d3.event.defaultPrevented) {
+            return;
+        }
+        isMouseDown = false;
     });
 
-    baseNodes.forEach(function (node) {
-        if (nodeIds.indexOf(node.id) === -1) {
-            nodes.push(node)
+    svg.on("mousemove", function () {
+        if (d3.event.defaultPrevented) {
+            return;
+        }
+        curPos_x = d3.mouse(this)[0];
+        curPos_y = d3.mouse(this)[1];
+        if (isMouseDown) {
+            viewBox_x = viewBox_x - d3.mouse(this)[0] + mousePos_x;
+            viewBox_y = viewBox_y - d3.mouse(this)[1] + mousePos_y;
+            svg.attr("viewBox", viewBox_x + " " + viewBox_y + " " + width / oldScale + " " + height / oldScale);
         }
     });
 
-    links = baseLinks
-}
 
 
-// diffing and mutating the data
-function updateData(selectedNode) {
-    const neighbors = getNeighbors(selectedNode);
-    const newNodes = baseNodes.filter(function (node) {
-        return neighbors.indexOf(node.id) > -1 || node.level === 1
-    });
+    //箭头
+    var marker=
+        svg.append("marker")
+        //.attr("id", function(d) { return d; })
+            .attr("id", "resolved")
+            //.attr("markerUnits","strokeWidth")//设置为strokeWidth箭头会随着线的粗细发生变化
+            .attr("markerUnits","userSpaceOnUse")
+            .attr("viewBox", "0 -5 10 10")//坐标系的区域
+            .attr("refX",38)//箭头坐标
+            .attr("refY", -1)
+            .attr("markerWidth", 10)//标识的大小
+            .attr("markerHeight", 10)
+            .attr("orient", "auto")//绘制方向，可设定为：auto（自动确认方向）和 角度值
+            .attr("stroke-width",2)//箭头宽度
+            .append("path")
+            .attr("d", "M0,-5L10,0L0,5")//箭头的路径
+            .attr('fill','#aaa');//箭头颜色
 
-    const diff = {
-        removed: nodes.filter(function (node) {
-            return newNodes.indexOf(node) === -1
-        }),
-        added: newNodes.filter(function (node) {
-            return nodes.indexOf(node) === -1
+    //设置连接线
+    var edges_line = svg.selectAll(".edgepath")
+        .data(force.links())
+        .enter()
+        .append("path")
+        .attr({
+            'd': function(d) {return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y},
+            'class':'edgepath',
+            'id':function(d,i) {return 'edgepath'+i;}})
+        .style("stroke",function(d){
+            return "#BBB";
         })
-    };
+        .style("pointer-events", "none")
+        .style("stroke-width",0.5)//线条粗细
+        .attr("marker-end", "url(#resolved)" );//根据箭头标记的id号标记箭头
 
-    diff.removed.forEach(function (node) { nodes.splice(nodes.indexOf(node), 1) });
-    diff.added.forEach(function (node) { nodes.push(node) });
-
-    links = baseLinks.filter(function (link) {
-        return link.target.id === selectedNode.id || link.source.id === selectedNode.id
-    })
-}
-
-function updateGraph() {
-    // links
-    linkElements = linkGroup.selectAll('line')
-        .data(links, function (link) {
-            return link.target.id + link.source.id
+    var edges_text = svg.append("g").selectAll(".edgelabel")
+        .data(force.links())
+        .enter()
+        .append("text")
+        .style("pointer-events", "none")
+        //.attr("class","linetext")
+        .attr({  'class':'edgelabel',
+            'id':function(d,i){return 'edgepath'+i;},
+            'dx':80,
+            'dy':0
+            //'font-size':10,
+            //'fill':'#aaa'
         });
 
-    linkElements.exit().remove();
+    //设置线条上的文字
+    edges_text.append('textPath')
+        .attr('xlink:href',function(d,i) {return '#edgepath'+i})
+        .style("pointer-events", "none")
+        .text(function(d){return d.rela;});
 
-    const linkEnter = linkElements
-        .enter().append('line')
-        .attr('stroke-width', 1)
-        .attr('stroke', 'rgba(50, 50, 50, 0.2)');
-
-    linkElements = linkEnter.merge(linkElements);
-
-    // nodes
-    nodeElements = nodeGroup.selectAll('circle')
-        .data(nodes, function (node) { return node.id });
-
-    nodeElements.exit().remove();
-
-    const nodeEnter = nodeElements
-        .enter()
-        .append('circle')
-        .attr('r', 10*height/500)
-        .attr('fill', function (node) {
-            return node.level === 1 ? 'red' : 'gray'
+    //圆圈
+    var circle = svg.append("g").selectAll("circle")
+        .data(force.nodes())//表示使用force.nodes数据
+        .enter().append("circle")
+        .style("fill",function(node){
+            return "#68BDF6";
         })
-        .call(dragDrop)
-        // we link the selectNode method here
-        // to update the graph on every click
-        .on('click', selectNode);
-
-    nodeElements = nodeEnter.merge(nodeElements);
-
-    // texts
-    textElements = textGroup.selectAll('text')
-        .data(nodes, function (node) { return node.id });
-
-    textElements.exit().remove();
-
-    const textEnter = textElements
-        .enter()
-        .append('text')
-        .text(function (node) {
-            return node.label
+        .style('stroke',function(node){
+            return "#68AEDD";
         })
-        .attr('font-size', (15*height)/500)
-        .attr('dx', 15)
-        .attr('dy', 4);
+        .attr("r", 25)//设置圆圈半径
+        .on("click",function(node){
+            //单击时让连接线加粗
 
-    textElements = textEnter.merge(textElements)
+            sendRequenst(node);
+            edges_line.style("stroke-width",function(line){
+
+                console.log("click it");
+
+
+                if(line.source.name==node.name || line.target.name==node.name){
+                    return 4;
+                }else{
+                    return 0.5;
+                }
+            });
+            //d3.select(this).style('stroke-width',2);
+        })
+        .call(force.drag);//
+
+    //圆圈的提示文字
+    circle.append("svg:title")
+        .text(function(node) {
+            return
+        });
+
+    var text = svg.append("g").selectAll("text")
+        .data(force.nodes())
+        //返回缺失元素的占位对象（placeholder），指向绑定的数据中比选定元素集多出的一部分元素。
+        .enter()
+        .append("text")
+        .attr("dy", ".35em")
+        .attr("text-anchor", "middle")//在圆圈中加上数据
+        .style('fill',function(node){
+            return "#FFFFFF";
+        }).attr('x',function(d){
+            // console.log(d.name+"---"+ d.name.length);
+            var re_en = /[a-zA-Z]+/g;
+            //如果是全英文，不换行
+            if(d.name.match(re_en)){
+                d3.select(this).append('tspan')
+                    .attr('x',0)
+                    .attr('y',2)
+                    .text(function(){return d.name;});
+            }
+            //如果小于四个字符，不换行
+            else if(d.name.length<=4){
+                d3.select(this).append('tspan')
+                    .attr('x',0)
+                    .attr('y',2)
+                    .text(function(){return d.name;});
+            }else{
+                var top=d.name.substring(0,4);
+                var bot=d.name.substring(4,d.name.length);
+                d3.select(this).text(function(){return '';});
+                d3.select(this).append('tspan')
+                    .attr('x',0)
+                    .attr('y',-7)
+                    .text(function(){return top;});
+                d3.select(this).append('tspan')
+                    .attr('x',0)
+                    .attr('y',10)
+                    .text(function(){return bot;});
+            }
+        });
+
+
+    function tick() {
+        circle.attr("transform", transform1);//圆圈
+        text.attr("transform", transform2);//顶点文字
+        edges_line.attr('d', function(d) {
+            var path='M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y;
+            return path;
+        });
+        edges_text.attr('transform',function(d,i){
+            if (d.target.x<d.source.x){
+                bbox = this.getBBox();
+                rx = bbox.x+bbox.width/2;
+                ry = bbox.y+bbox.height/2;
+                return 'rotate(180 '+rx+' '+ry+')';
+            }
+            else {
+                return 'rotate(0)';
+            }
+        });
+    }
+
+    //设置连接线的坐标,使用椭圆弧路径段双向编码
+    function linkArc(d) {
+        return 'M '+d.source.x+' '+d.source.y+' L '+ d.target.x +' '+d.target.y
+    }
+    function dragstart(d) {
+        d3.event.sourceEvent.stopPropagation();
+        d3.select(this).classed("fixed", d.fixed = true);
+    }
+    function dragend(d) {
+        d3.event.sourceEvent.stopPropagation();
+        d3.select(this).classed("fixed", d.fixed = true);
+    }
+    //设置圆圈和文字的坐标
+    function transform1(d) {
+        return "translate(" + d.x + "," + d.y + ")";
+    }
+    function transform2(d) {
+        return "translate(" + (d.x) + "," + d.y + ")";
+    }
 }
 
-function updateSimulation() {
-    updateGraph();
 
-    simulation.nodes(nodes).on('tick', () => {
-        nodeElements
-        .attr('cx', function (node) { return node.x })
-            .attr('cy', function (node) { return node.y });
-        textElements
-        .attr('x', function (node) { return node.x })
-            .attr('y', function (node) { return node.y });
-        linkElements
-        .attr('x1', function (link) { return link.source.x })
-            .attr('y1', function (link) { return link.source.y })
-            .attr('x2', function (link) { return link.target.x })
-            .attr('y2', function (link) { return link.target.y })
-    });
-
-    simulation.force('link').links(links);
-    simulation.alphaTarget(0.7).restart()
-}
-
-// last but not least, we call updateSimulation
-// to trigger the initial render
+/*==================================execute the whole script=======================================*/
+buildGraph('d3c','#d3c',linkss);

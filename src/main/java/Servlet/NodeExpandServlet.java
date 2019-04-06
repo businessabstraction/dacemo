@@ -29,11 +29,11 @@ public class NodeExpandServlet extends HttpServlet {
                 Node node = new Node(value.get(), 1);
                 nodes.add(node);
             }
-            D3Object d3Object = new D3Object(nodes);    // Translate result into JSON format
+            //D3Object d3Object = new D3Object(nodes);    // Translate result into JSON format
 
             //TODO currently I use the String to transfer the data to the frontend. More Json things need to be done.
-            String stringFormat = d3Object.toString();
-            response.getOutputStream().print(stringFormat);
+            //String stringFormat = d3Object.toString();
+            //response.getOutputStream().print(stringFormat);
         }
     }
 

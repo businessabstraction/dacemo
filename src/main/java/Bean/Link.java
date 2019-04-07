@@ -4,20 +4,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * The node entity class
+ * The link entity class
  */
-public class Node {
+public class Link {
     private String id;
     private int group;
     private String label;
     private int level = 0;
 
     /**
-     * The constructor of node object, only set the unique id and group
-     * @param id the unique id about the node
-     * @param group the group about node should belongs to
+     * The constructor of link object, only set the unique id and group
+     * @param id the unique id about the link
+     * @param group the group about link should belongs to
      */
-    public Node(String id, int group){
+    public Link(String id, int group){
         this.id = id;
         this.group = group;
         int idx = id.lastIndexOf("/");
@@ -37,44 +37,42 @@ public class Node {
     }
 
     /**
-     * The overwrite node constructor which required more information about nodes
-     * @param id The unique id of node
-     * @param group The group which the node should belongs to
-     * @param label The label of the node, which is display the name information about node
-     * @param level The level which the node should belongs to
+     * The overwrite node constructor which required more information about links
+     * @param id The unique id of link
+     * @param group The group which the link should belongs to
+     * @param label The label of the link, which is display the name information about node
+     * @param level The level which the link should belongs to
      */
-    public Node(String id, int group, String label, int level){
+    public Link(String id, int group,String label,int level){
         this.id = id;
         this.group = group;
         this.label = label;
         this.level = level;
     }
-
     /**
-     * Get the id of the node
-     * @return The unique id of node
+     * Get the id of the link
+     * @return The unique id of link
      */
     public String getId(){
         return id;
     }
-
     /**
-     * Get the label of the node
-     * @return The unique label of node
+     * Get the label of the link
+     * @return The unique label of link
      */
     public String getLabel(){
         return label;
     }
     /**
-     * Get the group of the node
-     * @return The unique group of node
+     * Get the group of the link
+     * @return The unique group of link
      */
     public int getGroup() {
         return group;
     }
     /**
-     * Get the level of the node
-     * @return The unique level of node
+     * Get the level of the link
+     * @return The unique level of link
      */
     public int getLevel() {
         return level;
@@ -82,9 +80,9 @@ public class Node {
 
     @Override
     /**
-     * The toString function to convert node information to string type
+     * The toString function to convert link information to string type
      */
     public String toString() {
-        return "" + id +","+group +","+label +","+level;
+        return "" + id +", "+group +", "+label +", "+level;
     }
 }

@@ -27,8 +27,8 @@ D3 force [https://github.com/d3/d3-force]
 If you use NPM, npm install d3-force. Otherwise, download the latest release. You can also load directly from d3js.org, either as a standalone library or as part of D3. AMD, CommonJS, and vanilla environments are supported. In vanilla, a d3_force global is exported.
 
 * Node structure
-id: the unique id of nodes
-group: the group of the nodes belongs to
+id: the unique id of subject
+group: the group of the subject belongs to
 label: the text that shows on the graph
 level: the layer of the node belongs to
 

@@ -10,7 +10,7 @@ function updateNode() {
     console.log("I'm in updateNode()!!!")
     console.log("getstring: "+getJson);
     var jsonObjects = JSON.parse(getJson);
-    console.log(jsonObjects.index0.predicate.label);
+    console.log(jsonObjects.index0.s.label);
 
     baseNodes = new Array(jsonObjects.length);
     for (var i = 0; i < jsonObjects.length; i++){

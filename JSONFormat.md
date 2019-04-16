@@ -67,3 +67,33 @@ var jsonObject = JSON.parse(getJson);
 var label = jsonObject.index0.subject.label
 ``` 
 `getJson` is the JSON object which stored in server.
+
+### Top Level Concept JSON Format Structure
+``` 
+{
+   “index0”: {
+         “s”: {
+            “id”: ..,
+            “group”: ..,
+            “label”: ..,
+            “level”: ..
+            }
+    },
+    “index1”: {
+         “s”: {
+            “id”: ..,
+            “group”: ..,
+            “label”: ..,
+            “level”: ..
+            }
+    },
+...
+}
+``` 
+### Using Top Level Concept JSON in JavaScript
+To retrieve the label of the first node:
+``` 
+var jsonObject = JSON.parse(getJson);
+var label = jsonObject.index0.s.label
+``` 
+`getJson` is the JSON object which stored in server.

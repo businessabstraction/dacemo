@@ -47,17 +47,19 @@ public class GraphServlet extends HttpServlet {
             );
 
             /**
-             * Currently we don't have the sendQuery function for node clicking, thus we just use a fake node click info for testing
+             * Graph initialization
              */
             String clickedNode = "https:/www./docemo.org/owl/examples/iteration-0/Muggle";
             SPARQLResultTable description = connection.describeQuery(clickedNode);
-            Data2Json data2Json = new Data2Json(description);
+            Data2Json data2Json = new Data2Json(result);
+            JSONObject jsonObject = new JSONObject();
             try {
-                JSONObject jsonObject = data2Json.getJsonData();
-                response.getOutputStream().print(jsonObject.toString());
+                jsonObject = data2Json.initializeGraph();
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            response.getOutputStream().print(jsonObject.toString());
 
         }
     }

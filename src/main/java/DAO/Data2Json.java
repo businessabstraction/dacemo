@@ -47,12 +47,19 @@ public class Data2Json {
     }
 
     /**
-     * Initializing the graph, haven't been implemented yet.
+     * Initializing the graph. Detailed description is in JSONFormat.md
      * @return JSON Object of the top level concept node.
      */
-    public JSONObject initializeGraph() {
+    public JSONObject initializeGraph() throws JSONException {
 
+        JSONObject jsonObject = new JSONObject();
+        for (int i = 0; i < 4; i++) {
+            Node node = new Node(description.getValuesOfAttribute("s").get(i).get(), 1);
+            LinkedHashMap m = new LinkedHashMap();
+            m.put("s", node.getMap());
+            jsonObject.put("index"+String.valueOf(i), m);
+        }
 
-        return null;
+        return jsonObject;
     }
 }

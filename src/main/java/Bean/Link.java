@@ -3,14 +3,16 @@ package Bean;
 import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 /**
- * The Link entity class
+ * The link entity class
  */
 public class Link {
     private String id;
     private int group;
     private String label;
     private int level = 0;
+
     /**
      * The constructor of link object, only set the unique id and group
      * @param id the unique id about the link

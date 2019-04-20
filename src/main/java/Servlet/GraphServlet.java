@@ -1,12 +1,7 @@
 package Servlet;
 
-import Bean.D3Object;
-import Bean.Node;
 import DAO.Data2Json;
-import com.github.jsonldjava.core.RDFDataset;
-import com.stardog.stark.IRI;
 import database.StardogTriplesDBConnection;
-import database.format.GenericValue;
 import database.format.SPARQLResultTable;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,8 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 
 @WebServlet(name = "GraphServlet",urlPatterns = "/Servlet/GraphServlet")
 public class GraphServlet extends HttpServlet {

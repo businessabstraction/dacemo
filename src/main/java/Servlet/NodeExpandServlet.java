@@ -1,21 +1,16 @@
 package Servlet;
 
-import Bean.D3Object;
-import Bean.Node;
 import DAO.Data2Json;
 import database.StardogTriplesDBConnection;
-import database.format.GenericValue;
 import database.format.SPARQLResultTable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 @WebServlet(name = "NodeExpandServlet",urlPatterns = "/Servlet/NodeExpandServlet")
 public class NodeExpandServlet extends HttpServlet {
@@ -23,8 +18,6 @@ public class NodeExpandServlet extends HttpServlet {
 
 
         String nodename = request.getParameter("nodename");
-        System.out.println(nodename);
-        //String nodename = "https:/www./docemo.org/owl/examples/iteration-0/Exposure";
 
         StardogTriplesDBConnection connection = new StardogTriplesDBConnection("iteration0", "http://localhost:5820", "admin", "admin");
         if (connection.canConnect()){

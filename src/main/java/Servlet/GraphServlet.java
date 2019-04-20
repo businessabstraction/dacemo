@@ -39,11 +39,9 @@ public class GraphServlet extends HttpServlet {
                     "}"
             );
 
-            /**
+            /*
              * Graph initialization
              */
-            String clickedNode = "https:/www./docemo.org/owl/examples/iteration-0/Muggle";
-            SPARQLResultTable description = connection.describeQuery(clickedNode);
             Data2Json data2Json = new Data2Json(result);
             JSONObject jsonObject = new JSONObject();
             try {

@@ -2,8 +2,8 @@ package Servlet;
 
 import Bean.D3Object;
 import Bean.Node;
+import DAO.Data2Json;
 import com.github.jsonldjava.core.RDFDataset;
-import com.google.gson.JsonObject;
 import com.stardog.stark.IRI;
 import database.StardogTriplesDBConnection;
 import database.format.GenericValue;
@@ -47,31 +47,19 @@ public class GraphServlet extends HttpServlet {
             );
 
             /**
-             * Creatd the node arraylist and created the node object based on the SPARQL reqults
+             * Graph initialization
              */
-            ArrayList<Node> nodes = new ArrayList<>();
-            for (GenericValue value : result.getValuesOfAttribute("s")){
-                Node node = new Node(value.get(), 1);
-                nodes.add(node);
+            String clickedNode = "https:/www./docemo.org/owl/examples/iteration-0/Muggle";
+            SPARQLResultTable description = connection.describeQuery(clickedNode);
+            Data2Json data2Json = new Data2Json(result);
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject = data2Json.initializeGraph();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            D3Object d3Object = new D3Object(nodes);    // Translate result into JSON format
+            response.getOutputStream().print(jsonObject.toString());
 
-            ArrayList<JSONObject> jsonObjects = new ArrayList<>();
-            for (Node node : d3Object.getNodes()) {
-                try {
-                    JSONObject obj = new JSONObject();
-                    obj.put("level", node.getLevel());
-                    obj.put("label", node.getLabel());
-                    obj.put("group", node.getGroup());
-                    obj.put("id", node.getId());
-                    jsonObjects.add(obj);
-                } catch (JSONException e) {
-                    System.out.println("Fail to convert to JSON");
-                }
-
-            }
-            //TODO currently I use the String to transfer the data to the frontend. More Json things need to be done.
-            response.getOutputStream().print(jsonObjects.toString());
         }
     }
 }

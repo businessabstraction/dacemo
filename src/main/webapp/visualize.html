@@ -32,32 +32,23 @@
 
 <section id="main">
     <div class="container">
-        <article>
+        <button onclick="callServer('POST')">Start Query</button>
+        <button onclick="redo()">Redo</button>
+        <button onclick="undo()">Undo</button>
+        <button onclick="printGraph()">Print</button>
 
-            <button onclick="callServer('POST')">Query</button>
+        <div id="myDiv"><p>Display the Graph by Clicking the Query Button</p></div>
 
-            <div id="myDiv"><h2>Display the Graph by Clicking the Query Button</h2></div>
-            <p>The button currently sends nothing to backend, but it simulates one complete query process.</p>
+        <div id="d3-container">
             <div id="d3c"></div>
-            <script src="https://d3js.org/d3.v4.min.js"></script>
+            <script src="https://d3js.org/d3.v3.min.js"></script>
             <script type="text/javascript" src="js/get_data.js"></script>
-
-
-        </article>
+        </div>
     </div>
 </section>
 
 <!--set the footer-->
 <footer>
-    <div class="social">
-        <div id="facebook">
-            <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId" width="450" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
-
-        </div>
-        <div id="twitter">
-            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-        </div>
-    </div>
 
     <div id="function">
         <ul>
@@ -68,6 +59,16 @@
             <li><a href="#">Timeline</a></li>
             <li><a href="#">Validation</a></li>
         </ul>
+    </div>
+
+    <div class="social">
+        <div id="facebook">
+            <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&width=450&layout=standard&action=like&size=small&show_faces=true&share=true&height=80&appId" width="450" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+
+        </div>
+        <div id="twitter">
+            <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
     </div>
 
     <!--set description-->

@@ -2,18 +2,20 @@ package database;
 
 import com.complexible.stardog.api.Connection;
 import com.complexible.stardog.api.ConnectionConfiguration;
-import com.complexible.stardog.api.GraphQuery;
 import com.complexible.stardog.api.SelectQuery;
-import com.stardog.stark.*;
+import com.stardog.stark.IRI;
+import com.stardog.stark.Literal;
+import com.stardog.stark.Value;
+import com.stardog.stark.Values;
 import com.stardog.stark.query.BindingSet;
-import com.stardog.stark.query.GraphQueryResult;
 import com.stardog.stark.query.SelectQueryResult;
-import database.format.*;
+import database.format.GenericIRI;
+import database.format.GenericLiteral;
+import database.format.GenericValue;
+import database.format.SPARQLResultTable;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Class that allows access to the data within a StarDog database.
@@ -55,35 +57,6 @@ public class StardogTriplesDBConnection implements TriplesDBConnection {
     }
 
     /**
-     * Runs a basic SPARQL DESCRIBE query over each iri.
-     * @param iris the Arraylist of IRIs that will be expanded.
-     * @return the Set of statements that describe each iri.
-     */
-    public Set<GenericStatement> describeQuery(List<GenericIRI> iris){
-        Set<Statement> stardogStatements = new HashSet<>();
-        Set<GenericStatement> statements = new HashSet<>();
-
-        for (GenericIRI iri : iris){
-            GraphQuery query = connection.graph("DESCRIBE " + iri.toString());
-            GraphQueryResult result = query.execute();
-            stardogStatements.addAll(result.toGraph());
-        }
-
-        for (Statement stardogStatement : stardogStatements){
-            GenericIRI subject = new GenericIRI(stardogStatement.subject().toString());
-            GenericIRI predicate = new GenericIRI(stardogStatement.predicate().toString());
-            String objectString = stardogStatement.object().toString();
-            GenericValue object = objectString.matches("https?:.*") ?
-                    new GenericIRI(objectString) :
-                    new GenericLiteral(objectString);
-
-            statements.add(new GenericStatement(subject, predicate, object));
-        }
-
-        return statements;
-    }
-
-    /**
      * Executes a SPARQL query that describes a given IRI
      * @param iri the IRI to be described.
      * @return the result table that corresponds to finding all outgoing properties of the given node.
@@ -110,6 +83,26 @@ public class StardogTriplesDBConnection implements TriplesDBConnection {
         selectQuery.parameter("subject", Values.iri(iri));
 
         return executeQuery(selectQuery);
+    }
+
+    /**
+     * Executes a SPARQL query that gives the rdfs:describe of a given iri.
+     * @param iri the iri to be described.
+     * @return the description as a String.
+     */
+    @Override
+    public String nodeDescribeQuery(String iri) {
+        SelectQuery selectQuery = connection.select("" +
+                "SELECT ?description" +
+                "WHERE {" +
+                "    ?subject rdfs:description ?description" +
+                "}"
+        );
+        selectQuery.parameter("subject", Values.iri(iri));
+
+        SPARQLResultTable table = executeQuery(selectQuery);
+
+        return table.getValuesOfAttribute("description").get(0).get();
     }
 
     /**

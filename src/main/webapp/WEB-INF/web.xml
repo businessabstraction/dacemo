@@ -16,6 +16,7 @@
         <servlet-name>GraphServlet</servlet-name>
         <url-pattern>/Servlet/GraphServlet</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>NodeExpandServlet</servlet-name>
         <servlet-class>Servlet.NodeExpandServlet</servlet-class>
@@ -23,6 +24,15 @@
     <servlet-mapping>
         <servlet-name>NodeExpandServlet</servlet-name>
         <url-pattern>/Servlet/NodeExpandServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NodeDiveServlet</servlet-name>
+        <servlet-class>Servlet.NodeDiveServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NodeDiveServlet</servlet-name>
+        <url-pattern>/Servlet/NodeDiveServlet</url-pattern>
     </servlet-mapping>
 
 </web-app>

@@ -207,9 +207,6 @@ function sendRequenst(node) {
     xmlResruest.setRequestHeader("req","req");
     xmlResruest.send(null);
 
-
-
-
     return node.id;
 }
 
@@ -578,21 +575,112 @@ d3.contextMenu = function (menu, openCallback) {
     };
 };
 
+
+function diveInNode(node){
+    sendDive(node);
+}
+
+function sendDive(node) {
+    console.log(node.name);
+    //todo: to transfer the node id to the server and return a json format
+
+    const param = "nodename=https:/www./docemo.org/owl/examples/iteration-0/" + node.name;
+
+    let xmlResruest;
+
+    if(window.XMLHttpRequest){
+        xmlResruest = new XMLHttpRequest();
+    }else if(window.ActiveXObject){
+        xmlResruest = new ActiveXObject("MICROSOFT.XMLHTTP");
+    }
+
+    xmlResruest.onreadystatechange = function(){
+        if(xmlResruest.readyState === 4 && xmlResruest.status === 200){
+            getJson = xmlResruest.responseText;
+
+            console.log(getJson);
+            d3.selectAll("svg").remove();
+            buildGraph('d3c','#d3c',addDiveNode());
+        }
+
+    };
+
+    //xmlResruest.open("POST","/DaCeMo_war_exploded/Servlet/NodeExpandServlet?"+param,true);
+    xmlResruest.open("POST","/DaCeMo_war_exploded/Servlet/NodeExpandServlet?"+param,true);
+    xmlResruest.setRequestHeader("req","req");
+    xmlResruest.send(null);
+
+    return node.id;
+}
+
+function addDiveNode(){
+
+    console.log("addDiveNode");
+    console.log(linkss);
+
+
+    const indexchar = "index";
+
+    //parse the json to array
+    const linkadded = new Array(JSONLength(jsonObjects));
+
+
+    //parse the json to array
+    const object = "object";
+    const predicate = "predicate";
+    const subject = "subject";
+
+
+
+    for(let i = 0; i<JSONLength(jsonObjects); i++) {
+
+        const name = indexchar + i;
+        console.log(name);
+
+        linkadded[i] = {};
+        console.log(jsonObjects[name][object].label);
+
+        linkadded[i].target = jsonObjects[name][object].label;
+        linkadded[i].targerid = jsonObjects[name][object].id;
+        linkadded[i].source = jsonObjects[name][subject].label;
+        linkadded[i].sourceid = jsonObjects[name][subject].id;
+
+        linkadded[i].rela = jsonObjects[name][predicate].label;
+        linkadded[i].relaid = jsonObjects[name][predicate].id;
+        linkadded[i].type = "resolved";
+
+        console.log(linkadded[i]);
+    }
+    return linkadded;
+}
+
+
 // Define the Menu
 var menu = [
     {
-        title: 'Item #1',
+        title: 'Dive in',
         action: function(d, i) {
             console.log('Item #1 clicked!');
             console.log('The data for this circle is: ' + d);
+            diveInNode(d);
         },
         disabled: false // optional, defaults to false
     },
     {
-        title: 'Item #2',
+        title: 'Add',
         action: function(d, i) {
             console.log('You have clicked the second item!');
             console.log('The data for this circle is: ' + d);
+
+        }
+    },
+    {
+        title: 'Delete',
+        action: function(d, i) {
+            console.log('You have clicked the third item!');
+            console.log('The data for this circle is: ' + d);
+
+
         }
     }
 ]

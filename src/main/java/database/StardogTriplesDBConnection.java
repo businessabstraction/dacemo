@@ -93,7 +93,8 @@ public class StardogTriplesDBConnection implements TriplesDBConnection {
     @Override
     public String nodeDescribeQuery(String iri) {
         SelectQuery selectQuery = connection.select("" +
-                "SELECT ?description" +
+                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
+                "SELECT ?description " +
                 "WHERE {" +
                 "    ?subject rdfs:description ?description" +
                 "}"

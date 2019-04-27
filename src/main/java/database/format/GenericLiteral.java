@@ -15,7 +15,7 @@ public class GenericLiteral extends GenericValue {
 
     @Override
     public String get() {
-        return literal;
+        return literal.substring(0, literal.lastIndexOf("^^"));
     }
 
     @Override

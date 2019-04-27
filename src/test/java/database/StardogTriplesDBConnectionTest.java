@@ -72,6 +72,16 @@ public class StardogTriplesDBConnectionTest {
     }
 
     /**
+     * Tests finding a descriptive node.
+     */
+    @Test public void singleNodeDescribeTest(){
+        String actual = connection.nodeDescribeQuery("http://something.org/Person");
+        String expected = "\"This is a person!\"";
+
+        assertEquals(expected, actual);
+    }
+
+    /**
      * Helper method for loading the expected results of a SPARQL query.
      * @param fileName the fileName to load from.
      * @return a matrix of GenericValues, similar to a SPARQLResultsTable

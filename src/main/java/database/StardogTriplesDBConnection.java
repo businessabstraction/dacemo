@@ -102,8 +102,10 @@ public class StardogTriplesDBConnection implements TriplesDBConnection {
         selectQuery.parameter("subject", Values.iri(iri));
 
         SPARQLResultTable table = executeQuery(selectQuery);
+        String description = table.getValuesOfAttribute("description").get(0).get();
+        int endOfStringIndex = description.lastIndexOf("\"");
 
-        return table.getValuesOfAttribute("description").get(0).get();
+        return description.substring(1, endOfStringIndex);
     }
 
     /**

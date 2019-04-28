@@ -304,16 +304,19 @@ function buildGraph(graphics,graphicsid,linkss)
 
     const rect = document.getElementById("d3-container").getBoundingClientRect();
 
-    console.log(rect.width);
-    console.log(rect.height);
-    console.log(this.width);
-    console.log(this.height);
+    console.log("rect width: " + rect.width);
+    console.log("rect height: " + rect.height);
+    console.log("this width: " + this.width);
+    console.log("this height: " + this.height);
     //define the
     const svg = d3.select(graphicsid)
         .append('svg')
         .attr("preserveAspectRatio", "xMidYMid meet")
         //.attr("viewBox",rect.x + " " +rect.x +" "+ rect.width +" "+ 500)
         .attr("viewBox", "130 -250 600 600");
+        // .attr("width", 1000)
+        // .attr("height", 600);
+
 
     svg.on("mousedown", function () {
         if (d3.event.defaultPrevented) {
@@ -491,6 +494,16 @@ function buildGraph(graphics,graphicsid,linkss)
             }
         });
 
+    d3.select('#saveButton').on('click', function(){
+        console.log("Print button clicked!");
+        var svgString = getSVGString(d3.select('svg').node());
+        svgString2Image( svgString, width, height, 'png', save ); // passes Blob and filesize String to the callback
+
+        function save( dataBlob, filesize ){
+            saveAs( dataBlob, 'D3 Graph.png' ); // FileSaver.js function
+        }
+    });
+
 
     function tick() {
         circle.attr("transform", transform1);
@@ -530,7 +543,12 @@ function buildGraph(graphics,graphicsid,linkss)
     function transform2(d) {
         return "translate(" + (d.x) + "," + d.y + ")";
     }
+    function printGraph() {
+        console.log("printGraph() is called!");
+    }
 }
+
+
 
 /*==================================execute the whole script=======================================*/
 
@@ -576,6 +594,8 @@ d3.contextMenu = function (menu, openCallback) {
 
         d3.event.preventDefault();
     };
+
+
 };
 
 // Define the Menu

@@ -303,7 +303,7 @@ function buildGraph(graphics,graphicsid,linkss)
     rect.height = 1030;
 
     console.log(rect.width);
-
+    console.log(rect.height);
     console.log(this.width);
     console.log(this.height);
     //define the
@@ -488,11 +488,10 @@ function buildGraph(graphics,graphicsid,linkss)
                     });
             }
         });
-    console.log("div height: " + div.clientHeight);
     d3.select('#saveButton').on('click', function(){
         console.log("Print button clicked!");
         var svgString = getSVGString(d3.select('svg').node());
-        svgString2Image( svgString, width, rect.height, 'png', save ); // passes Blob and filesize String to the callback
+        svgString2Image( svgString, div.clientWidth, div.clientHeight, 'png', save ); // passes Blob and filesize String to the callback
 
         function save( dataBlob, filesize ){
             saveAs( dataBlob, 'D3 Graph.png' ); // FileSaver.js function

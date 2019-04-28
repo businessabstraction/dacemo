@@ -1,31 +1,139 @@
 let getJson;
 let linkss;
-
+let linkinit;
 
 /*=========================parse node===========================*/
 //get the node from json file
 function updateNode() {
 
     const jsonObjects = JSON.parse(getJson);
-    console.log(jsonObjects[0][0].label);
-    linkss = new Array(jsonObjects[1].length);
+    console.log(jsonObjects);
+    console.log(jsonObjects["index0"]);
+    console.log(JSONLength(jsonObjects));
+
+    const indexchar = "index";
+
+    linkss = new Array(jsonObjects.length);
+
 
     //parse the json to array
-    for(let i =0; i<jsonObjects[1].length; i++){
+    for(let i =0; i<JSONLength(jsonObjects); i++){
 
+        const name = indexchar + i;
+        console.log(name);
         linkss[i] = {};
-        linkss[i].target = jsonObjects[2][i].label;
-        linkss[i].targerid = jsonObjects[2][i].id;
-        linkss[i].source = jsonObjects[0][0].label;
-        linkss[i].sourceid = jsonObjects[0][0].id;
-        linkss[i].rela = jsonObjects[1][i].label;
-        linkss[i].relaid = jsonObjects[1][i].id;
+        console.log(jsonObjects[name]["s"].label);
+        linkss[i].target = jsonObjects[name]["s"].label;
+        linkss[i].targerid = jsonObjects[name]["s"].id;
+        linkss[i].source = jsonObjects[name]["s"].label;
+        linkss[i].sourceid = jsonObjects[name]["s"].id;
+        linkss[i].rela = "";
+        linkss[i].relaid = name;
         linkss[i].type = "resolved";
-
+        console.log(linkss[i])
     }
+
+    //linkss = new Array(JSONLength(jsonObjects));
+
+
+    // //parse the json to array
+    // var object = "object";
+    // var predicate = "predicate";
+    // var subject = "subject";
+    //
+    //
+    // for(var i =0; i<JSONLength(jsonObjects);i++){
+    //
+    //     var name = indexchar + i;
+    //     console.log(name);
+    //
+    //     linkss[i] = new Object();
+    //     console.log(jsonObjects[name][object].label)
+    //
+    //     linkss[i].target = jsonObjects[name][object].label;
+    //     linkss[i].targerid = jsonObjects[name][object].id;
+    //     linkss[i].source = jsonObjects[name][subject].label;
+    //     linkss[i].sourceid = jsonObjects[name][subject].id;
+    //
+    //     linkss[i].rela = jsonObjects[name][predicate].label;
+    //     linkss[i].relaid = jsonObjects[name][predicate].id;
+    //     linkss[i].type = "resolved";
+    //
+    //
+    //     console.log(linkss[i]);
+    //
+    // }
+
 
 }
 
+/**
+ * @return {number}
+ */
+function JSONLength(obj) {
+    let size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+}
+
+
+function updateAdditionalNode(){
+    console.log("updateAddtional");
+    console.log(linkss);
+
+    const previousLinks = linkss;
+
+    const jsonObjects = JSON.parse(getJson);
+    console.log(jsonObjects);
+    console.log(jsonObjects["index0"]);
+    console.log(JSONLength(jsonObjects));
+
+    const indexchar = "index";
+
+
+    //parse the json to array
+    const linkadded = new Array(JSONLength(jsonObjects) + previousLinks.length);
+
+
+    //parse the json to array
+    const object = "object";
+    const predicate = "predicate";
+    const subject = "subject";
+
+    for(let l = 0; l < previousLinks.length; l++){
+        linkadded[l] = {};
+        linkadded[l] = previousLinks[l];
+    }
+
+
+    for(let i = previousLinks.length; i<JSONLength(jsonObjects) + previousLinks.length; i++){
+
+        const name = indexchar + (i - previousLinks.length);
+        console.log(name);
+
+        linkadded[i] = {};
+        console.log(jsonObjects[name][object].label);
+
+        linkadded[i].target = jsonObjects[name][object].label;
+        linkadded[i].targerid = jsonObjects[name][object].id;
+        linkadded[i].source = jsonObjects[name][subject].label;
+        linkadded[i].sourceid = jsonObjects[name][subject].id;
+
+        linkadded[i].rela = jsonObjects[name][predicate].label;
+        linkadded[i].relaid = jsonObjects[name][predicate].id;
+        linkadded[i].type = "resolved";
+
+
+        console.log(linkadded[i]);
+
+    }
+
+
+
+    return linkadded;
+}
 
 /*=========================calling server=============================*/
 
@@ -47,32 +155,62 @@ function callServer(methodType) {
 
     };
 
-    //let params = "comment=" + "value";
+    let params = "comment=" + "value";
+
+    const param = "nodename=https:/www./docemo.org/owl/examples/iteration-0/MoM";
     if(methodType === "GET"){
         xmlResruest.open("GET","/DaCeMo_war_exploded/Servlet/GraphServlet?"+params,true);
         xmlResruest.send();
 
     }else if(methodType === "POST"){
+        //xmlResruest.open("POST","/DaCeMo_war_exploded/Servlet/NodeExpandServlet?"+param,true);
         xmlResruest.open("POST","/DaCeMo_war_exploded/Servlet/GraphServlet",true);
         xmlResruest.setRequestHeader("req","req");
-        xmlResruest.send();
-
+        xmlResruest.send(null);
     }
 
 }
 
 /*============================receive and request=====================================*/
 //update every time when have a request
-function updateGraph() {
-    //todo: this function is for diving, adding the node
-}
+
 
 
 //send the request to the server
 function sendRequenst(node) {
     console.log(node.name);
     //todo: to transfer the node id to the server and return a json format
-    return
+
+    const param = "nodename=https:/www./docemo.org/owl/examples/iteration-0/" + node.name;
+
+    let xmlResruest;
+
+    if(window.XMLHttpRequest){
+        xmlResruest = new XMLHttpRequest();
+    }else if(window.ActiveXObject){
+        xmlResruest = new ActiveXObject("MICROSOFT.XMLHTTP");
+    }
+
+    xmlResruest.onreadystatechange = function(){
+        if(xmlResruest.readyState === 4 && xmlResruest.status === 200){
+            getJson = xmlResruest.responseText;
+
+            console.log(getJson);
+            d3.selectAll("svg").remove();
+            buildGraph('d3c','#d3c',updateAdditionalNode());
+        }
+
+    };
+
+    //xmlResruest.open("POST","/DaCeMo_war_exploded/Servlet/NodeExpandServlet?"+param,true);
+    xmlResruest.open("POST","/DaCeMo_war_exploded/Servlet/NodeExpandServlet?"+param,true);
+    xmlResruest.setRequestHeader("req","req");
+    xmlResruest.send(null);
+
+
+
+
+    return node.id;
 }
 
 
@@ -170,7 +308,7 @@ function buildGraph(graphics,graphicsid,linkss)
     console.log(rect.height);
     console.log(this.width);
     console.log(this.height);
-   //define the
+    //define the
     const svg = d3.select(graphicsid)
         .append('svg')
         .attr("preserveAspectRatio", "xMidYMid meet")
@@ -279,15 +417,17 @@ function buildGraph(graphics,graphicsid,linkss)
             return "#68AEDD";
         })
         .attr("r", 20)
+        .on('contextmenu', d3.contextMenu(menu))
         .on("click", function (node) {
-
+            console.log(node);
             sendRequenst(node);
+
             edges_line.style("stroke-width", function (line) {
 
                 console.log("click it");
                 //todo leave this part waiting for tranfering avaliable
 
-                if (line.source.name == node.name || line.target.name == node.name) {
+                if (line.source.name === node.name || line.target.name === node.name) {
                     return 4;
                 } else {
                     return 0.5;
@@ -299,7 +439,7 @@ function buildGraph(graphics,graphicsid,linkss)
 
     circle.append("svg:title")
         .text(function(node) {
-            return
+            //????
         });
 
     const text = svg.append("g").selectAll("text")
@@ -356,14 +496,13 @@ function buildGraph(graphics,graphicsid,linkss)
         circle.attr("transform", transform1);
         text.attr("transform", transform2);
         edges_line.attr('d', function(d) {
-            const path = 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
-            return path;
+            return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
         });
         edges_text.attr('transform',function(d,i){
             if (d.target.x<d.source.x){
-                bbox = this.getBBox();
-                rx = bbox.x+bbox.width/2;
-                ry = bbox.y+bbox.height/2;
+                let bbox = this.getBBox();
+                let rx = bbox.x+bbox.width/2;
+                let ry = bbox.y+bbox.height/2;
                 return 'rotate(180 '+rx+' '+ry+')';
             }
             else {
@@ -394,3 +533,66 @@ function buildGraph(graphics,graphicsid,linkss)
 }
 
 /*==================================execute the whole script=======================================*/
+
+// Menu Object
+d3.contextMenu = function (menu, openCallback) {
+
+    // create the div element that will hold the context menu
+    d3.selectAll('.d3-context-menu').data([1])
+        .enter()
+        .append('div')
+        .attr('class', 'd3-context-menu');
+
+    // close menu
+    d3.select('body').on('click.d3-context-menu', function() {
+        d3.select('.d3-context-menu').style('display', 'none');
+    });
+
+    // this gets executed when a contextmenu event occurs
+    return function(data, index) {
+        var elm = this;
+
+        d3.selectAll('.d3-context-menu').html('');
+        var list = d3.selectAll('.d3-context-menu').append('ul');
+        list.selectAll('li').data(menu).enter()
+            .append('li')
+            .html(function(d) {
+                return d.title;
+            })
+            .on('click', function(d, i) {
+                d.action(elm, data, index);
+                d3.select('.d3-context-menu').style('display', 'none');
+            });
+
+        // the openCallback allows an action to fire before the menu is displayed
+        // an example usage would be closing a tooltip
+        if (openCallback) openCallback(data, index);
+
+        // display context menu
+        d3.select('.d3-context-menu')
+            .style('left', (d3.event.pageX - 2) + 'px')
+            .style('top', (d3.event.pageY - 2) + 'px')
+            .style('display', 'block');
+
+        d3.event.preventDefault();
+    };
+};
+
+// Define the Menu
+var menu = [
+    {
+        title: 'Item #1',
+        action: function(d, i) {
+            console.log('Item #1 clicked!');
+            console.log('The data for this circle is: ' + d);
+        },
+        disabled: false // optional, defaults to false
+    },
+    {
+        title: 'Item #2',
+        action: function(d, i) {
+            console.log('You have clicked the second item!');
+            console.log('The data for this circle is: ' + d);
+        }
+    }
+]

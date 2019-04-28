@@ -1,5 +1,6 @@
 package Bean;
 
+import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,6 +12,8 @@ public class Node {
     private int group;
     private String label;
     private int level = 0;
+    public Node object;
+    public Link predicate;
 
     /**
      * The constructor of node object, only set the unique id and group
@@ -51,6 +54,22 @@ public class Node {
     }
 
     /**
+     * Add the object of the node as a variable
+     * @param obj the object of the node
+     */
+    public void addObj (Node obj) {
+        this.object= obj;
+    }
+
+    /**
+     * Add the predicate of the node as a variable
+     * @param pred the predicate of the node
+     */
+    public void addPred (Link pred) {
+        this.predicate = pred;
+    }
+
+    /**
      * Get the id of the node
      * @return The unique id of node
      */
@@ -80,11 +99,24 @@ public class Node {
         return level;
     }
 
+    /**
+     * Get the structure of node
+     * @return a map of node, only for JSON format conversion
+     */
+    public LinkedHashMap getMap() {
+        LinkedHashMap m = new LinkedHashMap();
+        m.put("id", id);
+        m.put("group", group);
+        m.put("label", label);
+        m.put("level", level);
+        return m;
+    }
+
     @Override
     /**
      * The toString function to convert node information to string type
      */
     public String toString() {
-        return "" + id +","+group +","+label +","+level;
+        return "id: "+ id + ", group: " + group + ", label: " + label + ", level: " + level;
     }
 }

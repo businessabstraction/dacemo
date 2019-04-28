@@ -1,42 +1,45 @@
 package Servlet;
 
-import Bean.D3Object;
-import Bean.Node;
+import DAO.Data2Json;
 import database.StardogTriplesDBConnection;
-import database.format.GenericValue;
 import database.format.SPARQLResultTable;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
-@WebServlet(name = "NodeExpandServlet",urlPatterns = "NodeExpand")
+@WebServlet(name = "NodeExpandServlet",urlPatterns = "/Servlet/NodeExpandServlet")
 public class NodeExpandServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String nodename = request.getParameter("");
+
+
+        String nodename = request.getParameter("nodename");
+
         StardogTriplesDBConnection connection = new StardogTriplesDBConnection("iteration0", "http://localhost:5820", "admin", "admin");
         if (connection.canConnect()){
             SPARQLResultTable result = connection.describeQuery(nodename);
             /*
-             * Creatd the node arraylist and created the node object based on the SPARQL reqults
+             * Get the SPARQL result by nodename, then convert the result into JSON Object and send it to server
              */
-            ArrayList<Node> nodes = new ArrayList<>();
-            for (GenericValue value : result.getValuesOfAttribute("s")){ // TODO: 6/04/2019 Don't forget that there are different attributes!
-                Node node = new Node(value.get(), 1);
-                nodes.add(node);
-            }
-            //D3Object d3Object = new D3Object(nodes);    // Translate result into JSON format
+            Data2Json data2Json = new Data2Json(result);
+            try {
+                JSONObject jsonObject = data2Json.getJsonData();
+                response.getOutputStream().print(jsonObject.toString());
 
-            //TODO currently I use the String to transfer the data to the frontend. More Json things need to be done.
-            //String stringFormat = d3Object.toString();
-            //response.getOutputStream().print(stringFormat);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {}
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+
+    }
 }

@@ -1,5 +1,6 @@
 package Bean;
 
+import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,7 +36,6 @@ public class Link {
             this.label = id.substring(idx + 1);
         }
     }
-
     /**
      * The overwrite node constructor which required more information about links
      * @param id The unique id of link
@@ -77,12 +77,23 @@ public class Link {
     public int getLevel() {
         return level;
     }
-
+    /**
+     * Get the structure of link
+     * @return a map of link, only for JSON format conversion
+     */
+    public LinkedHashMap getMap() {
+        LinkedHashMap m = new LinkedHashMap();
+        m.put("id", id);
+        m.put("group", group);
+        m.put("label", label);
+        m.put("level", level);
+        return m;
+    }
     @Override
     /**
      * The toString function to convert link information to string type
      */
     public String toString() {
-        return "" + id +", "+group +", "+label +", "+level;
+        return "id: "+ id + ", group: " + group + ", label: " + label + ", level: " + level;
     }
 }

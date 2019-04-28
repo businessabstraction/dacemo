@@ -2,7 +2,7 @@ package Bean;
 
 /**
  * The graph class is a entity class for the data transfer on the backend and frontend
- * which have been used for the iteration 1, I will be used for the next iteration
+ * which have not been used for the iteration 1, I will be used for the next iteration
  */
 public class Graph {
     private String Name;

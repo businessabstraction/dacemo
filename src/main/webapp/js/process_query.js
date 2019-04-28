@@ -10,5 +10,5 @@ function undo() {
 }
 
 function printGraph() {
-    //todo print current pragh
+    //todo print current graph
 }

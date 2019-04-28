@@ -20,7 +20,7 @@ body{
 
 .svg-container{
     width: 80%;
-    heigh: 80%;
+    height: 80%;
 }
 
 .svg{
@@ -193,9 +193,8 @@ footer #info{
 }
 
 #banner h1{
-    color: #7FDBFF;
-    margin-top:50px;
-    margin-bottom: 10px;
+  color: #7FDBFF;
+  margin-top:50px;
 }
 
 
@@ -263,5 +262,34 @@ ul#projects li{
     width: 100%;
 }
 
+/**************menu********************/
+.d3-context-menu {
+    position: absolute;
+    display: none;
+    background-color: #f2f2f2;
+    border-radius: 4px;
 
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    min-width: 150px;
+    border: 1px solid #d4d4d4;
+
+    z-index:1200;
+}
+
+.d3-context-menu ul {
+    list-style-type: none;
+    margin: 4px 0px;
+    padding: 0px;
+    cursor: default;
+}
+
+.d3-context-menu ul li {
+    padding: 4px 16px;
+}
+
+.d3-context-menu ul li:hover {
+    background-color: #4677f8;
+    color: #fefefe;
+}
 

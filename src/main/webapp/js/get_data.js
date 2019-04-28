@@ -303,7 +303,7 @@ function buildGraph(graphics,graphicsid,linkss)
 
 
     const rect = document.getElementById("d3-container").getBoundingClientRect();
-
+    // rect.height = 1030;
     console.log("rect width: " + rect.width);
     console.log("rect height: " + rect.height);
     console.log("this width: " + this.width);
@@ -497,7 +497,8 @@ function buildGraph(graphics,graphicsid,linkss)
     d3.select('#saveButton').on('click', function(){
         console.log("Print button clicked!");
         var svgString = getSVGString(d3.select('svg').node());
-        svgString2Image( svgString, width, height, 'png', save ); // passes Blob and filesize String to the callback
+        console.log("size on click: " + div.clientHeight);
+        svgString2Image( svgString, div.clientWidth, div.clientHeight, 'png', save ); // passes Blob and filesize String to the callback
 
         function save( dataBlob, filesize ){
             saveAs( dataBlob, 'D3 Graph.png' ); // FileSaver.js function

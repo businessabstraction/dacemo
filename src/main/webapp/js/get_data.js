@@ -408,37 +408,25 @@ function buildGraph(graphics,graphicsid,linkss)
     const circle = svg.append("g").selectAll("circle")
         .data(force.nodes())
         .enter().append("circle")
-        .style("fill", function (node) {
-            return "#68BDF6";
-        })
-        .style('stroke', function (node) {
-            return "#68AEDD";
-        })
+        .style("fill", () => "#68BDF6")
+        .style('stroke', () => "#68AEDD")
         .attr("r", 20)
         .on('contextmenu', d3.contextMenu(menu))
         .on("click", function (node) {
-            console.log(node);
+            console.log("On left click, node is: " + node.name);
             sendRequenst(node);
-
-            edges_line.style("stroke-width", function (line) {
-
-                console.log("click it");
-                //todo leave this part waiting for tranfering avaliable
-
+            edges_line.style("stroke-width", line => {
                 if (line.source.name === node.name || line.target.name === node.name) {
                     return 4;
                 } else {
                     return 0.5;
                 }
             });
-            //d3.select(this).style('stroke-width',2);
         })
-        .call(force.drag);//
+        .call(force.drag);
 
     circle.append("svg:title")
-        .text(function(node) {
-            //????
-        });
+        .text(node => {});
 
     const text = svg.append("g").selectAll("text")
         .data(force.nodes())
@@ -456,41 +444,31 @@ function buildGraph(graphics,graphicsid,linkss)
                 d3.select(this).append('tspan')
                     .attr('x', 0)
                     .attr('y', 2)
-                    .text(function () {
-                        return d.name;
-                    });
+                    .text(() => d.name);
             }
             //less than 4
             else if (d.name.length <= 4) {
                 d3.select(this).append('tspan')
                     .attr('x', 0)
                     .attr('y', 2)
-                    .text(function () {
-                        return d.name;
-                    });
+                    .text(() => d.name);
             } else {
                 const top = d.name.substring(0, 4);
                 const bot = d.name.substring(4, d.name.length);
-                d3.select(this).text(function () {
-                    return '';
-                });
+                d3.select(this).text(() => '');
                 d3.select(this).append('tspan')
                     .attr('x', 0)
                     .attr('y', -7)
-                    .text(function () {
-                        return top;
-                    });
+                    .text(() => top);
                 d3.select(this).append('tspan')
                     .attr('x', 0)
                     .attr('y', 10)
-                    .text(function () {
-                        return bot;
-                    });
+                    .text(() => bot);
             }
         });
     d3.select('#saveButton').on('click', function(){
         console.log("Print button clicked!");
-        var svgString = getSVGString(d3.select('svg').node());
+        const svgString = getSVGString(d3.select('svg').node());
         svgString2Image( svgString, div.clientWidth, div.clientHeight, 'png', save ); // passes Blob and filesize String to the callback
 
         function save( dataBlob, filesize ){
@@ -542,7 +520,7 @@ function buildGraph(graphics,graphicsid,linkss)
 
 // Menu Object
 d3.contextMenu = function (menu, openCallback) {
-
+    console.log("Got into Menu objecy")
     // create the div element that will hold the context menu
     d3.selectAll('.d3-context-menu').data([1])
         .enter()
@@ -550,16 +528,16 @@ d3.contextMenu = function (menu, openCallback) {
         .attr('class', 'd3-context-menu');
 
     // close menu
-    d3.select('body').on('click.d3-context-menu', function() {
+    d3.select('body').on('click.d3-context-menu', () => {
         d3.select('.d3-context-menu').style('display', 'none');
     });
 
     // this gets executed when a contextmenu event occurs
     return function(data, index) {
-        var elm = this;
+        const elm = this;
 
         d3.selectAll('.d3-context-menu').html('');
-        var list = d3.selectAll('.d3-context-menu').append('ul');
+        const list = d3.selectAll('.d3-context-menu').append('ul');
         list.selectAll('li').data(menu).enter()
             .append('li')
             .html(function(d) {
@@ -584,11 +562,6 @@ d3.contextMenu = function (menu, openCallback) {
     };
 };
 
-
-function diveInNode(node){
-    sendDive(node);
-}
-
 function sendDive(node) {
     console.log(node.name);
     //todo: to transfer the node id to the server and return a json format
@@ -607,14 +580,13 @@ function sendDive(node) {
         if(xmlResruest.readyState === 4 && xmlResruest.status === 200){
             getJson = xmlResruest.responseText;
 
-            console.log(getJson);
+            console.log("In sendDive got " + getJson);
             d3.selectAll("svg").remove();
             buildGraph('d3c','#d3c',addDiveNode());
         }
 
     };
 
-    //xmlResruest.open("POST","/DaCeMo_war_exploded/Servlet/NodeExpandServlet?"+param,true);
     xmlResruest.open("POST","/DaCeMo_war_exploded/Servlet/NodeExpandServlet?"+param,true);
     xmlResruest.setRequestHeader("req","req");
     xmlResruest.send(null);
@@ -669,16 +641,16 @@ var menu = [
     {
         title: 'Dive in',
         action: function(d, i) {
-            console.log('Item #1 clicked!');
-            console.log('The data for this circle is: ' + d);
-            diveInNode(d);
+            console.log('Clicked \'Dive in\'');
+            console.log('The data for this circle is: ' + d.name);
+            sendDive(d);
         },
         disabled: false // optional, defaults to false
     },
     {
         title: 'Add',
         action: function(d, i) {
-            console.log('You have clicked the second item!');
+            console.log('Clicked \'Add\'!');
             console.log('The data for this circle is: ' + d);
 
         }
@@ -686,10 +658,8 @@ var menu = [
     {
         title: 'Delete',
         action: function(d, i) {
-            console.log('You have clicked the third item!');
+            console.log('Clicked \'Delete\'!');
             console.log('The data for this circle is: ' + d);
-
-
         }
     }
-]
+];

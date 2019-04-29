@@ -14,42 +14,42 @@ function undo() {
 // }
 function getSVGString( svgNode ) {
     svgNode.setAttribute('xlink', 'http://www.w3.org/1999/xlink');
-    var cssStyleText = getCSSStyles( svgNode );
+    const cssStyleText = getCSSStyles(svgNode);
     appendCSS( cssStyleText, svgNode );
 
-    var serializer = new XMLSerializer();
-    var svgString = serializer.serializeToString(svgNode);
+    const serializer = new XMLSerializer();
+    let svgString = serializer.serializeToString(svgNode);
     svgString = svgString.replace(/(\w+)?:?xlink=/g, 'xmlns:xlink='); // Fix root xlink without namespace
     svgString = svgString.replace(/NS\d+:href/g, 'xlink:href'); // Safari NS namespace fix
 
     return svgString;
 
     function getCSSStyles( parentElement ) {
-        var selectorTextArr = [];
+        const selectorTextArr = [];
 
         // Add Parent element Id and Classes to the list
         selectorTextArr.push( '#'+parentElement.id );
-        for (var c = 0; c < parentElement.classList.length; c++)
+        for (let c = 0; c < parentElement.classList.length; c++)
             if ( !contains('.'+parentElement.classList[c], selectorTextArr) )
                 selectorTextArr.push( '.'+parentElement.classList[c] );
 
         // Add Children element Ids and Classes to the list
-        var nodes = parentElement.getElementsByTagName("*");
-        for (var i = 0; i < nodes.length; i++) {
-            var id = nodes[i].id;
+        const nodes = parentElement.getElementsByTagName("*");
+        for (let i = 0; i < nodes.length; i++) {
+            const id = nodes[i].id;
             if ( !contains('#'+id, selectorTextArr) )
                 selectorTextArr.push( '#'+id );
 
-            var classes = nodes[i].classList;
-            for (var c = 0; c < classes.length; c++)
+            const classes = nodes[i].classList;
+            for (let c = 0; c < classes.length; c++)
                 if ( !contains('.'+classes[c], selectorTextArr) )
                     selectorTextArr.push( '.'+classes[c] );
         }
 
         // Extract CSS Rules
-        var extractedCSSText = "";
-        for (var i = 0; i < document.styleSheets.length; i++) {
-            var s = document.styleSheets[i];
+        let extractedCSSText = "";
+        for (let i = 0; i < document.styleSheets.length; i++) {
+            const s = document.styleSheets[i];
 
             try {
                 if(!s.cssRules) continue;
@@ -58,8 +58,8 @@ function getSVGString( svgNode ) {
                 continue;
             }
 
-            var cssRules = s.cssRules;
-            for (var r = 0; r < cssRules.length; r++) {
+            const cssRules = s.cssRules;
+            for (let r = 0; r < cssRules.length; r++) {
                 if ( contains( cssRules[r].selectorText, selectorTextArr ) )
                     extractedCSSText += cssRules[r].cssText;
             }
@@ -69,16 +69,16 @@ function getSVGString( svgNode ) {
         return extractedCSSText;
 
         function contains(str,arr) {
-            return arr.indexOf( str ) === -1 ? false : true;
+            return arr.indexOf(str) !== -1;
         }
 
     }
 
     function appendCSS( cssText, element ) {
-        var styleElement = document.createElement("style");
+        const styleElement = document.createElement("style");
         styleElement.setAttribute("type","text/css");
         styleElement.innerHTML = cssText;
-        var refNode = element.hasChildNodes() ? element.children[0] : null;
+        const refNode = element.hasChildNodes() ? element.children[0] : null;
         element.insertBefore( styleElement, refNode );
     }
 }
@@ -86,22 +86,22 @@ function getSVGString( svgNode ) {
 function svgString2Image( svgString, width, height, format, callback ) {
     var format = format ? format : 'png';
 
-    var imgsrc = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgString))); // Convert SVG string to data URL
+    const imgsrc = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgString))); // Convert SVG string to data URL
     console.log("imgsrc: " + imgsrc);
 
-    var canvas = document.createElement("canvas");
-    var context = canvas.getContext("2d");
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
 
     canvas.width = width;
     canvas.height = height;
 
-    var image = new Image();
+    const image = new Image();
     image.onload = function () {
         context.clearRect(0, 0, width, height);
         context.drawImage(image, 0, 0, width, height);
 
         canvas.toBlob(function (blob) {
-            var filesize = Math.round(blob.length / 1024) + ' KB';
+            const filesize = Math.round(blob.length / 1024) + ' KB';
             if (callback) callback(blob, filesize);
         });
 

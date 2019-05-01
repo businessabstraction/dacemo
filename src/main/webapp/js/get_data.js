@@ -520,7 +520,6 @@ function buildGraph(graphics,graphicsid,linkss)
 
 // Menu Object
 d3.contextMenu = function (menu, openCallback) {
-    console.log("Got into Menu objecy")
     // create the div element that will hold the context menu
     d3.selectAll('.d3-context-menu').data([1])
         .enter()
@@ -640,7 +639,7 @@ function addDiveNode(){
 var menu = [
     {
         title: 'Dive in',
-        action: function(d, i) {
+        action: function(elm, d) {
             console.log('Clicked \'Dive in\'');
             console.log('The data for this circle is: ' + d.name);
             sendDive(d);
@@ -649,7 +648,7 @@ var menu = [
     },
     {
         title: 'Add',
-        action: function(d, i) {
+        action: function(elm, d) {
             console.log('Clicked \'Add\'!');
             console.log('The data for this circle is: ' + d);
 
@@ -657,7 +656,7 @@ var menu = [
     },
     {
         title: 'Delete',
-        action: function(d, i) {
+        action: function(elm, d) {
             console.log('Clicked \'Delete\'!');
             console.log('The data for this circle is: ' + d);
         }

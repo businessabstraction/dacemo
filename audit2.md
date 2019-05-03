@@ -11,7 +11,7 @@ DaCeMo is an approach to modelling Enterprise as a set of OWL (Web Ontology Lang
 [DaCeMo Visualisation Requirements](https://docs.google.com/spreadsheets/d/1ORTDyarfT0Tznf53bk4ienKKjSjThpoBEyUlCMrRNPA/edit#gid=0)
 This file contains all the requirements from the client for this semester. We marked the tasks we have done. Further explanation of tasks is found in the delivery/acceptance plan. 
 
-## ROLE AND ACTIVITYIES 
+## ROLE AND ACTIVITIES 
 Task ID	|Task Name|	Task Details|Owners|	Deadline
 ---|---|---|---|---
 1	|Setup Server|	Setup the Tomcat server so that other members can begin deploying code |	LifU|	15/3
@@ -41,10 +41,10 @@ I have built a Node class and D3Object class for constructing the format of the 
 The webpages are responsive now, which means it matches multi-platforms with different window sizes. In addition, the draggable plugin has been completed which can be added to the project when the images are ready. The progress is following the time schedule now.
 
  #### Tommy Gatti (Triplestore Engineer)
-I have set up the triplestore server (Stardog) and can run predefined queries over a given ontology (such as getting all top-level concepts, and getting a nodes description). 
+I have set up the local triplestore server (Stardog) and can run queries over a given ontology (such as getting all top-level concepts, getting a nodes description, and getting all related nodes of a particular node). Value is delivered to the client through queries that reaffirm the client vision of a navigable and understandable graph represesentation of an Enterprise. 
 
  #### Wenrui Li (D3 and Frontend Developer)
-I have investigated the D3 force graph plugin, which is used to demostrate the ontology graph. I used javascript to implement a demo for presenting the data structure from the Stardog via Servlet. I also wrote code for processing the topological logic. I designed the style of webpage of the site by using CSS and HTML. which includes an index and a visuualisation page.
+I have investigated the D3 force graph plugin, which is used to demostrate the ontology graph. I used javascript to implement a demo for presenting the data structure from the Stardog via Servlet. I also wrote code for processing the topological logic. I designed the style of webpage of the site by using CSS and HTML. which includes an index and a visualisation page.
 
 #### Taizhou Wang(Test engineer) 
 So far, as for the frontend, I have processed test of the website’s functions. Such as the responsive design, movement of the picture through the mouse and the pressure test. As for the backend, I have tested the translate function of the servlet and the data transferring between frontend and backend.

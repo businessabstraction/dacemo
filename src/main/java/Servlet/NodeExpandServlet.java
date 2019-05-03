@@ -14,17 +14,20 @@ import java.io.IOException;
 
 @WebServlet(name = "NodeExpandServlet",urlPatterns = "/Servlet/NodeExpandServlet")
 public class NodeExpandServlet extends HttpServlet {
+    /**
+     * Servlet responsible for getting all outgoing nodes of the given node and sending them to the frontend.
+     * @param request the http request the servlet recieved.
+     * @param response the http response the servlet will send back.
+     * @throws IOException if the request/response is malformed.
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-
         String nodename = request.getParameter("nodename");
 
         StardogTriplesDBConnection connection = new StardogTriplesDBConnection("iteration0", "http://localhost:5820", "admin", "admin");
         if (connection.canConnect()){
             SPARQLResultTable result = connection.describeQuery(nodename);
-            /*
-             * Get the SPARQL result by nodename, then convert the result into JSON Object and send it to server
-             */
+
+            //Get the SPARQL result by nodename, then convert the result into JSON Object and send it to server
             Data2Json data2Json = new Data2Json(result);
             try {
                 JSONObject jsonObject = data2Json.getJsonData();
@@ -33,13 +36,6 @@ public class NodeExpandServlet extends HttpServlet {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
-    }
-
-
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
-
     }
 }

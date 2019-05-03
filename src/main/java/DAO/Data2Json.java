@@ -13,7 +13,7 @@ import java.util.LinkedHashMap;
  * Data to JSON class. It is implemented for converting SPARQL result into JSON format.
  */
 public class Data2Json {
-    SPARQLResultTable description;
+    private SPARQLResultTable description;
 
     /**
      * The constructor, set the result from SPARQL
@@ -41,7 +41,7 @@ public class Data2Json {
             m.put("subject", subj.getMap());
             m.put("predicate", pred.getMap());
             m.put("object", obj.getMap());
-            jsonObject.put("index"+String.valueOf(i), m);
+            jsonObject.put("index"+ i, m);
         }
         return jsonObject;
     }
@@ -57,7 +57,7 @@ public class Data2Json {
             Node node = new Node(description.getValuesOfAttribute("s").get(i).get(), 1);
             LinkedHashMap m = new LinkedHashMap();
             m.put("s", node.getMap());
-            jsonObject.put("index"+String.valueOf(i), m);
+            jsonObject.put("index"+ i, m);
         }
 
         return jsonObject;

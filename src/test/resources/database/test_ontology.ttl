@@ -13,7 +13,8 @@
 
 :Person rdf:type owl:Class ;
   rdfs:subClassOf :Thing ;
-  rdfs:label "Person" .
+  rdfs:label "Person" ;
+  rdfs:description "This is a person!" .
 
 :Book rdf:type owl:Class ;
   rdfs:subClassOf :Thing .

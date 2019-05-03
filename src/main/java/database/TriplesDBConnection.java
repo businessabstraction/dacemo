@@ -35,4 +35,11 @@ interface TriplesDBConnection {
      *    ------------------------------------------------
      */
     SPARQLResultTable describeQuery(String iri);
+
+    /**
+     * Executes a SPARQL query that gives the rdfs:describe of a given iri.
+     * @param iri the iri to be described.
+     * @return the description as a String.
+     */
+    String nodeDescribeQuery(String iri);
 }

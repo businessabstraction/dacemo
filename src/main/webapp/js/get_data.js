@@ -16,7 +16,7 @@ function updateNode() {
 
         linkss[i] = {};
         linkss[i].target = jsonObjects[name]["s"].label;
-        linkss[i].targerid = jsonObjects[name]["s"].id;
+        linkss[i].targetid = jsonObjects[name]["s"].id;
         linkss[i].source = jsonObjects[name]["s"].label;
         linkss[i].sourceid = jsonObjects[name]["s"].id;
         linkss[i].rela = "";
@@ -71,7 +71,7 @@ function updateAdditionalNode(){
         console.log(jsonObjects[name][object].label);
 
         linkadded[i].target = jsonObjects[name][object].label;
-        linkadded[i].targerid = jsonObjects[name][object].id;
+        linkadded[i].targetid = jsonObjects[name][object].id;
         linkadded[i].source = jsonObjects[name][subject].label;
         linkadded[i].sourceid = jsonObjects[name][subject].id;
 
@@ -89,17 +89,17 @@ function updateAdditionalNode(){
 /*=========================calling server=============================*/
 
 function callServer(methodType) {
-    let xmlResruest;
+    let result;
 
     if(window.XMLHttpRequest){
-        xmlResruest = new XMLHttpRequest();
+        result = new XMLHttpRequest();
     }else if(window.ActiveXObject){
-        xmlResruest = new ActiveXObject("MICROSOFT.XMLHTTP");
+        result = new ActiveXObject("MICROSOFT.XMLHTTP");
     }
 
-    xmlResruest.onreadystatechange = function(){
-        if(xmlResruest.readyState === 4 && xmlResruest.status === 200){
-            getJson = xmlResruest.responseText;
+    result.onreadystatechange = function(){
+        if(result.readyState === 4 && result.status === 200){
+            getJson = result.responseText;
             updateNode();
             buildGraph('d3c','#d3c',linkss);
         }
@@ -108,14 +108,13 @@ function callServer(methodType) {
 
     let params = "comment=" + "value";
     if(methodType === "GET"){
-        xmlResruest.open("GET","/DaCeMo_war_exploded/Servlet/GraphServlet?"+params,true);
-        xmlResruest.send();
+        result.open("GET","/DaCeMo_war_exploded/Servlet/GraphServlet?"+params,true);
+        result.send();
 
     }else if(methodType === "POST"){
-        //xmlResruest.open("POST","/DaCeMo_war_exploded/Servlet/NodeExpandServlet?"+param,true);
-        xmlResruest.open("POST","/DaCeMo_war_exploded/Servlet/GraphServlet",true);
-        xmlResruest.setRequestHeader("req","req");
-        xmlResruest.send(null);
+        result.open("POST","/DaCeMo_war_exploded/Servlet/GraphServlet",true);
+        result.setRequestHeader("req","req");
+        result.send(null);
     }
 
 }
@@ -126,37 +125,44 @@ function callServer(methodType) {
 
 
 //send the request to the server
-function sendRequest(node) {
+/**
+ * Sends a request to the backend with the name of the clicked node.
+ * @param node the Node to send to the frontend.
+ * @param clickType the type of operation to perform on the existing nodes:
+ *          "expand" : expands the subnodes of the given node
+ *          "dive" : removes all nodes except the given node and then expands it
+ */
+function sendRequest(node, clickType) {
     console.log(node.name);
     //todo: to transfer the node id to the server and return a json format
 
     // todo: not generic enough.
     const param = "nodename=https:/www./docemo.org/owl/examples/iteration-0/" + node.name;
 
-    let xmlResruest;
+    let result;
 
     if(window.XMLHttpRequest){
-        xmlResruest = new XMLHttpRequest();
+        result = new XMLHttpRequest();
     }else if(window.ActiveXObject){
-        xmlResruest = new ActiveXObject("MICROSOFT.XMLHTTP");
+        result = new ActiveXObject("MICROSOFT.XMLHTTP");
     }
 
-    xmlResruest.onreadystatechange = function(){
-        if(xmlResruest.readyState === 4 && xmlResruest.status === 200){
-            getJson = xmlResruest.responseText;
-
-            console.log(getJson);
+    result.onreadystatechange = function(){
+        if(result.readyState === 4 && result.status === 200){
+            getJson = result.responseText;
             d3.selectAll("svg").remove();
+            if (clickType === "dive"){
+                //todo: refactor linkss to contain all details
+                linkss = [{target:node.name, source:node.name, type:"resolved"}];
+            }
             buildGraph('d3c','#d3c',updateAdditionalNode());
         }
 
     };
 
-    xmlResruest.open("POST","/DaCeMo_war_exploded/Servlet/NodeExpandServlet?"+param,true);
-    xmlResruest.setRequestHeader("req","req");
-    xmlResruest.send(null);
-
-    return node.id;
+    result.open("POST","/DaCeMo_war_exploded/Servlet/NodeExpandServlet?"+param,true);
+    result.setRequestHeader("req","req");
+    result.send(null);
 }
 
 /*===========================parameters for currant node displaying==============================*/
@@ -298,7 +304,7 @@ function buildGraph(graphics,graphicsid,linkss){
         .on('contextmenu', d3.contextMenu(menu))
         .on("click", function (node) {
             console.log("On left click, node is: " + node.name);
-            sendRequest(node);
+            sendRequest(node, "expand");
             edges_line.style("stroke-width", function (line) {
                 if (line.source.name === node.name || line.target.name === node.name) {
                     return 4;
@@ -430,71 +436,6 @@ d3.contextMenu = function (menu, openCallback) {
         d3.event.preventDefault();
     };
 };
-
-function sendDive(node) {
-    const param = "nodename=https:/www./docemo.org/owl/examples/iteration-0/" + node.name;
-
-    let xmlResruest;
-
-    if(window.XMLHttpRequest){
-        xmlResruest = new XMLHttpRequest();
-    }else if(window.ActiveXObject){
-        xmlResruest = new ActiveXObject("MICROSOFT.XMLHTTP");
-    }
-
-    xmlResruest.onreadystatechange = function(){
-        if(xmlResruest.readyState === 4 && xmlResruest.status === 200){
-            getJson = xmlResruest.responseText;
-
-            d3.selectAll("svg").remove();
-            buildGraph('d3c','#d3c',addDiveNode());
-        }
-
-    };
-
-    xmlResruest.open("POST","/DaCeMo_war_exploded/Servlet/NodeExpandServlet?"+param,true);
-    xmlResruest.setRequestHeader("req","req");
-    xmlResruest.send(null);
-
-    return node.id;
-}
-
-function addDiveNode(){
-    const jsonObjects = JSON.parse(getJson);
-    const indexchar = "index";
-
-    //parse the json to array
-    const linkadded = new Array(JSONLength(jsonObjects));
-
-
-    //parse the json to array
-    const object = "object";
-    const predicate = "predicate";
-    const subject = "subject";
-
-    console.log("In Dive, found the following:");
-    for(let i = 0; i<JSONLength(jsonObjects); i++) {
-
-        const name = indexchar + i;
-
-        linkadded[i] = {};
-        console.log(jsonObjects[name][object].label);
-
-        linkadded[i].target = jsonObjects[name][object].label;
-        linkadded[i].targerid = jsonObjects[name][object].id;
-        linkadded[i].source = jsonObjects[name][subject].label;
-        linkadded[i].sourceid = jsonObjects[name][subject].id;
-
-        linkadded[i].rela = jsonObjects[name][predicate].label;
-        linkadded[i].relaid = jsonObjects[name][predicate].id;
-        linkadded[i].type = "resolved";
-
-        console.log(linkadded[i]);
-    }
-    return linkadded;
-}
-
-
 // Define the Menu
 const menu = [
     {
@@ -502,7 +443,7 @@ const menu = [
         action: function(elm, d) {
             console.log('Clicked \'Dive in\'');
             console.log('The data for this circle is: ' + d.name);
-            sendDive(d);
+            sendRequest(d, "dive");
         },
         disabled: false // optional, defaults to false
     },

@@ -1,304 +1,465 @@
-let getString;
-let nodeArray;
-let baseNodes;
-let baseLinks;
-let nodes;
-let links;
+let getJson;
+let linkss;
 
-
+/*=========================parse node===========================*/
+//get the node from json file
 function updateNode() {
-    console.log(getString);
-    nodeArray = getString.split(',');
+    const jsonObjects = JSON.parse(getJson);
+    const indexchar = "index";
 
-    console.log(nodeArray);
-    baseNodes = new Array(parseInt(nodeArray.length/4));
+    linkss = new Array(jsonObjects.length);
 
-    for(let i =0; i<parseInt(nodeArray.length/4);i++){
-        console.log(nodeArray[0]);
-        baseNodes[i] = {};
-        baseNodes[i].id = nodeArray[4 *i];
-        baseNodes[i].group = parseInt(nodeArray[4 *i +1]);
-        baseNodes[i].label = nodeArray[4 *i +2];
-        baseNodes[i].level = parseInt(nodeArray[4 *i +3]);
+    //parse the json to array
+    for(let i =0; i<JSONLength(jsonObjects); i++){
+        const name = indexchar + i;
 
+
+        linkss[i] = {};
+        linkss[i].target = jsonObjects[name]["s"].label;
+        linkss[i].targetid = jsonObjects[name]["s"].id;
+        linkss[i].source = jsonObjects[name]["s"].label;
+        linkss[i].sourceid = jsonObjects[name]["s"].id;
+        linkss[i].rela = "";
+        linkss[i].relaid = name;
+        linkss[i].type = "resolved";
+        console.log(linkss[i])
     }
+}
 
-
-
-    baseLinks = new Array(parseInt(baseNodes.length/2));
-
-    for(let i =0;i<baseLinks.length;i++){
-        const link = {};
-        link.target = baseNodes[i].id;
-        link.source = baseNodes[i+1].id;
-        link.strength = 0.1;
-        baseLinks[i] = link;
+/**
+ * @return {number}
+ */
+function JSONLength(obj) {
+    let size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
     }
-
-
-
-    nodes = [...baseNodes];
-    links = [...baseLinks]
+    return size;
 }
 
 
-function callServer(methodType) {
-    let xmlResruest;
+function updateAdditionalNode(){
+    console.log("updateAddtional");
+    console.log(linkss);
 
-    if(window.XMLHttpRequest){
-        xmlResruest = new XMLHttpRequest();
-    }else if(window.ActiveXObject){
-        xmlResruest = new ActiveXObject("MICROSOFT.XMLHTTP");
+    const previousLinks = linkss;
+    const jsonObjects = JSON.parse(getJson);
+    const indexchar = "index";
+
+
+    //parse the json to array
+    const linkadded = new Array(JSONLength(jsonObjects) + previousLinks.length);
+
+
+    //parse the json to array
+    const object = "object";
+    const predicate = "predicate";
+    const subject = "subject";
+
+    for(let l = 0; l < previousLinks.length; l++){
+        linkadded[l] = {};
+        linkadded[l] = previousLinks[l];
     }
 
-    xmlResruest.onreadystatechange = function(){
-        if(xmlResruest.readyState === 4 && xmlResruest.status === 200){
-            document.getElementById("myDiv").innerHTML = "button down";
-            getString = xmlResruest.responseText;
-            document.getElementById("myDiv").innerHTML = getString;
+
+    for(let i = previousLinks.length; i<JSONLength(jsonObjects) + previousLinks.length; i++){
+
+        const name = indexchar + (i - previousLinks.length);
+        console.log(name);
+
+        linkadded[i] = {};
+        console.log(jsonObjects[name][object].label);
+
+        linkadded[i].target = jsonObjects[name][object].label;
+        linkadded[i].targetid = jsonObjects[name][object].id;
+        linkadded[i].source = jsonObjects[name][subject].label;
+        linkadded[i].sourceid = jsonObjects[name][subject].id;
+
+        linkadded[i].rela = jsonObjects[name][predicate].label;
+        linkadded[i].relaid = jsonObjects[name][predicate].id;
+        linkadded[i].type = "resolved";
+
+
+        console.log(linkadded[i]);
+    }
+
+    return linkadded;
+}
+
+/*=========================calling server=============================*/
+
+function callServer(methodType) {
+    let result;
+
+    if(window.XMLHttpRequest){
+        result = new XMLHttpRequest();
+    }else if(window.ActiveXObject){
+        result = new ActiveXObject("MICROSOFT.XMLHTTP");
+    }
+
+    result.onreadystatechange = function(){
+        if(result.readyState === 4 && result.status === 200){
+            getJson = result.responseText;
             updateNode();
-            updateSimulation();
+            buildGraph('d3c','#d3c',linkss);
         }
 
     };
 
     let params = "comment=" + "value";
     if(methodType === "GET"){
-        xmlResruest.open("GET","/DaCeMo_war_exploded/getGraph?"+params,true);
-        xmlResruest.send();
+        result.open("GET","/DaCeMo_war_exploded/Servlet/GraphServlet?"+params,true);
+        result.send();
 
     }else if(methodType === "POST"){
-        xmlResruest.open("POST","/DaCeMo_war_exploded/getGraph",true);
-        xmlResruest.setRequestHeader("req","req");
-        xmlResruest.send(params);
-
+        result.open("POST","/DaCeMo_war_exploded/Servlet/GraphServlet",true);
+        result.setRequestHeader("req","req");
+        result.send(null);
     }
 
 }
 
+/*============================receive and request=====================================*/
+//update every time when have a request
 
-function getNeighbors(node) {
-    return baseLinks.reduce(function (neighbors, link) {
-            if (link.target.id === node.id) {
-                neighbors.push(link.source.id)
-            } else if (link.source.id === node.id) {
-                neighbors.push(link.target.id)
+
+
+//send the request to the server
+/**
+ * Sends a request to the backend with the name of the clicked node.
+ * @param node the Node to send to the frontend.
+ * @param clickType the type of operation to perform on the existing nodes:
+ *          "expand" : expands the subnodes of the given node
+ *          "dive" : removes all nodes except the given node and then expands it
+ */
+function sendRequest(node, clickType) {
+    console.log(node.name);
+    //todo: to transfer the node id to the server and return a json format
+
+    // todo: not generic enough.
+    const param = "nodename=https:/www./docemo.org/owl/examples/iteration-0/" + node.name;
+
+    let result;
+
+    if(window.XMLHttpRequest){
+        result = new XMLHttpRequest();
+    }else if(window.ActiveXObject){
+        result = new ActiveXObject("MICROSOFT.XMLHTTP");
+    }
+
+    result.onreadystatechange = function(){
+        if(result.readyState === 4 && result.status === 200){
+            getJson = result.responseText;
+            d3.selectAll("svg").remove();
+            if (clickType === "dive"){
+                //todo: refactor linkss to contain all details
+                linkss = [{target:node.name, source:node.name, type:"resolved"}];
             }
-            return neighbors
-        },
-        [node.id]
-    )
+            buildGraph('d3c','#d3c',updateAdditionalNode());
+        }
+
+    };
+
+    result.open("POST","/DaCeMo_war_exploded/Servlet/NodeExpandServlet?"+param,true);
+    result.setRequestHeader("req","req");
+    result.send(null);
 }
 
-function isNeighborLink(node, link) {
-    return link.target.id === node.id || link.source.id === node.id
-}
+/*===========================parameters for currant node displaying==============================*/
+//store the links
+const links = [];
+//store the nodes
+let nodes = {};
 
 
-function getNodeColor(node, neighbors) {
-    if (Array.isArray(neighbors) && neighbors.indexOf(node.id) > -1) {
-        return node.level === 1 ? 'blue' : 'green'
+/*====================================drawing graph========================================*/
+//parse the node and link into node and links
+function processLink(linkss) {
+
+    for (let i = 0; i < linkss.length; i++) {
+        links[i] = {
+            source: linkss[i].source,
+            target: linkss[i].target,
+            rela:linkss[i].rela
+        };
     }
-
-    return node.level === 1 ? 'red' : 'gray'
+    nodes = {};
+    links.forEach(function(link) {
+        link.source = nodes[link.source] || (nodes[link.source] = {name: link.source});
+        link.target = nodes[link.target] || (nodes[link.target] = {name: link.target});
+    });
 }
 
 
-function getLinkColor(node, link) {
-    return isNeighborLink(node, link) ? 'green' : '#E5E5E5'
-}
 
-function getTextColor(node, neighbors) {
-    return Array.isArray(neighbors) && neighbors.indexOf(node.id) > -1 ? 'green' : 'black'
-}
 
-const width = window.innerWidth;
-const height = window.innerHeight;
+//build the graph, draw the existed request nodes from server
+function buildGraph(graphics,graphicsid,linkss){
+    processLink(linkss);
 
-const svg = d3.select('svg');
-svg.attr('width', width).attr('height', height);
+    const div = document.getElementById(graphics);
+    const height = div.clientHeight;
+    const width = div.clientWidth;
+    let curPos_x, curPos_y, mousePos_x, mousePos_y;
+    let isMouseDown = false;
+    let viewBox_x = 0, viewBox_y = 0;
 
-let linkElements,
-    nodeElements,
-    textElements;
+    const force = d3.layout.force()
+        .nodes(d3.values(nodes))//set array of nodes
+        .links(links)
+        .size([width, height])
+        .linkDistance(180)
+        .charge(-1500)
+        .on("tick", tick)
+        .start();
 
-// we use svg groups to logically group the elements together
-const linkGroup = svg.append('g').attr('class', 'links');
-const nodeGroup = svg.append('g').attr('class', 'nodes');
-const textGroup = svg.append('g').attr('class', 'texts');
+    const rect = document.getElementById("d3-container").getBoundingClientRect();
+    rect.height = 1030;
 
-// we use this reference to select/deselect
-// after clicking the same element twice
-let selectedId;
+    console.log(rect.width);
+    console.log(rect.height);
+    console.log(this.width);
+    console.log(this.height);
+    //define the
+    const svg = d3.select(graphicsid)
+        .append('svg')
+        .attr("preserveAspectRatio", "xMidYMid meet")
+        .attr("viewBox", "130 -250 600 600");
 
-// simulation setup with all forces
-const linkForce = d3
-    .forceLink()
-    .id(function (link) {
-        return link.id
-    })
-    .strength(function (link) {
-        return link.strength
+    svg.on("mousedown", function () {
+        if (d3.event.defaultPrevented) {
+            return;
+        }
+        isMouseDown = true;
+        mousePos_x = d3.mouse(this)[0];
+        mousePos_y = d3.mouse(this)[1];
     });
 
-const simulation = d3
-    .forceSimulation()
-    .force('link', linkForce)
-    .force('charge', d3.forceManyBody().strength(-120))
-    .force('center', d3.forceCenter(width / 2, height / 2));
-
-const dragDrop = d3.drag().on('start', function (node) {
-    node.fx = node.x;
-    node.fy = node.y
-}).on('drag', function (node) {
-    simulation.alphaTarget(0.7).restart();
-    node.fx = d3.event.x;
-    node.fy = d3.event.y
-}).on('end', function (node) {
-    if (!d3.event.active) {
-        simulation.alphaTarget(0)
-    }
-    node.fx = null;
-    node.fy = null
-});
-
-// select node is called on every click
-// we either update the data according to the selection
-// or reset the data if the same node is clicked twice
-function selectNode(selectedNode) {
-    if (selectedId === selectedNode.id) {
-        selectedId = undefined;
-        resetData();
-        updateSimulation()
-    } else {
-        selectedId = selectedNode.id;
-        updateData(selectedNode);
-        updateSimulation()
-    }
-
-    const neighbors = getNeighbors(selectedNode);
-
-    // we modify the styles to highlight selected nodes
-    nodeElements.attr('fill', function (node) { return getNodeColor(node, neighbors) });
-    textElements.attr('fill', function (node) { return getTextColor(node, neighbors) });
-    linkElements.attr('stroke', function (link) { return getLinkColor(selectedNode, link) })
-}
-
-// this helper simple adds all nodes and links
-// that are missing, to recreate the initial state
-function resetData() {
-    const nodeIds = nodes.map(function (node) {
-        return node.id
+    svg.on("mouseup", function () {
+        if (d3.event.defaultPrevented) {
+            return;
+        }
+        isMouseDown = false;
     });
 
-    baseNodes.forEach(function (node) {
-        if (nodeIds.indexOf(node.id) === -1) {
-            nodes.push(node)
+    svg.on("mousemove", function () {
+        if (d3.event.defaultPrevented) {
+            return;
+        }
+        curPos_x = d3.mouse(this)[0];
+        curPos_y = d3.mouse(this)[1];
+        if (isMouseDown) {
+            viewBox_x = viewBox_x - d3.mouse(this)[0] + mousePos_x;
+            viewBox_y = viewBox_y - d3.mouse(this)[1] + mousePos_y;
         }
     });
 
-    links = baseLinks
-}
-
-// diffing and mutating the data
-function updateData(selectedNode) {
-    const neighbors = getNeighbors(selectedNode);
-    const newNodes = baseNodes.filter(function (node) {
-        return neighbors.indexOf(node.id) > -1 || node.level === 1
-    });
-
-    const diff = {
-        removed: nodes.filter(function (node) {
-            return newNodes.indexOf(node) === -1
-        }),
-        added: newNodes.filter(function (node) {
-            return nodes.indexOf(node) === -1
+    //set link
+    const edges_line = svg.selectAll(".edgepath")
+        .data(force.links())
+        .enter()
+        .append("path")
+        .attr({
+            'd': function (d) {
+                return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y
+            },
+            'class': 'edgepath',
+            'id': function (d, i) {
+                return 'edgepath' + i;
+            }
         })
-    };
+        .style("stroke", "#BBB")
+        .style("pointer-events", "none")
+        .style("stroke-width", 0.5)//storke of lines
+        .attr("marker-end", "url(#resolved)");//arrow
 
-    diff.removed.forEach(function (node) { nodes.splice(nodes.indexOf(node), 1) });
-    diff.added.forEach(function (node) { nodes.push(node) });
-
-    links = baseLinks.filter(function (link) {
-        return link.target.id === selectedNode.id || link.source.id === selectedNode.id
-    })
-}
-
-function updateGraph() {
-    // links
-    linkElements = linkGroup.selectAll('line')
-        .data(links, function (link) {
-            return link.target.id + link.source.id
+    const edges_text = svg.append("g").selectAll(".edgelabel")
+        .data(force.links())
+        .enter()
+        .append("text")
+        .style("pointer-events", "none")
+        //.attr("class","linetext")
+        .attr({
+            'class': 'edgelabel',
+            'id': function (d, i) {
+                return 'edgepath' + i;
+            },
+            'dx': 80,
+            'dy': 0
         });
 
-    linkElements.exit().remove();
+    //set text on link
+    edges_text.append('textPath')
+        .attr('xlink:href',function(d,i) {return '#edgepath'+i})
+        .style("pointer-events", "none")
+        .text(function(d){return d.rela;});
 
-    const linkEnter = linkElements
-        .enter().append('line')
-        .attr('stroke-width', 1)
-        .attr('stroke', 'rgba(50, 50, 50, 0.2)');
-
-    linkElements = linkEnter.merge(linkElements);
-
-    // nodes
-    nodeElements = nodeGroup.selectAll('circle')
-        .data(nodes, function (node) { return node.id });
-
-    nodeElements.exit().remove();
-
-    const nodeEnter = nodeElements
-        .enter()
-        .append('circle')
-        .attr('r', 10)
-        .attr('fill', function (node) {
-            return node.level === 1 ? 'red' : 'gray'
+    //draw node
+    const circle = svg.append("g").selectAll("circle")
+        .data(force.nodes())
+        .enter().append("circle")
+        .style("fill", "#68BDF6")
+        .style('stroke', "#68AEDD")
+        .attr("r", 20)
+        .on('contextmenu', d3.contextMenu(menu))
+        .on("click", function (node) {
+            console.log("On left click, node is: " + node.name);
+            sendRequest(node, "expand");
+            edges_line.style("stroke-width", function (line) {
+                if (line.source.name === node.name || line.target.name === node.name) {
+                    return 4;
+                } else {
+                    return 0.5;
+                }
+            });
         })
-        .call(dragDrop)
-        // we link the selectNode method here
-        // to update the graph on every click
-        .on('click', selectNode);
+        .call(force.drag);
 
-    nodeElements = nodeEnter.merge(nodeElements);
+    circle.append("svg:title")
+        .text(node => {});
 
-    // texts
-    textElements = textGroup.selectAll('text')
-        .data(nodes, function (node) { return node.id });
-
-    textElements.exit().remove();
-
-    const textEnter = textElements
+    const text = svg.append("g").selectAll("text")
+        .data(force.nodes())
         .enter()
-        .append('text')
-        .text(function (node) {
-            return node.label
-        })
-        .attr('font-size', 15)
-        .attr('dx', 15)
-        .attr('dy', 4);
+        .append("text")
+        .attr("dy", ".35em")
+        .attr("text-anchor", "middle")
+        .style('fill', "#000")
+        .attr('x', function (d) {
+            const re_en = /[a-zA-Z]+/g;
+            //if english
+            if (d.name.match(re_en)) {
+                d3.select(this).append('tspan')
+                    .attr('x', 0)
+                    .attr('y', 2)
+                    .text(d.name);
+            }
+            //less than 4
+            else if (d.name.length <= 4) {
+                d3.select(this).append('tspan')
+                    .attr('x', 0)
+                    .attr('y', 2)
+                    .text(d.name);
+            } else {
+                const top = d.name.substring(0, 4);
+                const bot = d.name.substring(4, d.name.length);
+                d3.select(this).text(() => '');
+                d3.select(this).append('tspan')
+                    .attr('x', 0)
+                    .attr('y', -7)
+                    .text(top);
+                d3.select(this).append('tspan')
+                    .attr('x', 0)
+                    .attr('y', 10)
+                    .text(bot);
+            }
+        });
+    d3.select('#saveButton').on('click', function(){
+        console.log("Print button clicked!");
+        const svgString = getSVGString(d3.select('svg').node());
+        svgString2Image( svgString, div.clientWidth, div.clientHeight, 'png', save ); // passes Blob and filesize String to the callback
 
-    textElements = textEnter.merge(textElements)
-}
-
-function updateSimulation() {
-    updateGraph();
-
-    simulation.nodes(nodes).on('tick', () => {
-        nodeElements
-        .attr('cx', function (node) { return node.x })
-            .attr('cy', function (node) { return node.y });
-        textElements
-        .attr('x', function (node) { return node.x })
-            .attr('y', function (node) { return node.y });
-        linkElements
-        .attr('x1', function (link) { return link.source.x })
-            .attr('y1', function (link) { return link.source.y })
-            .attr('x2', function (link) { return link.target.x })
-            .attr('y2', function (link) { return link.target.y })
+        function save(dataBlob){
+            saveAs( dataBlob, 'D3 Graph.png' ); // FileSaver.js function
+        }
     });
 
-    simulation.force('link').links(links);
-    simulation.alphaTarget(0.7).restart()
+    function tick() {
+        circle.attr("transform", transform1);
+        text.attr("transform", transform2);
+        edges_line.attr('d', function(d) {
+            return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
+        });
+        edges_text.attr('transform',function(d){
+            if (d.target.x<d.source.x){
+                let bbox = this.getBBox();
+                let rx = bbox.x+bbox.width/2;
+                let ry = bbox.y+bbox.height/2;
+                return 'rotate(180 '+rx+' '+ry+')';
+            }
+            else {
+                return 'rotate(0)';
+            }
+        });
+    }
+
+    function transform1(d) {
+        return "translate(" + d.x + "," + d.y + ")";
+    }
+
+    function transform2(d) {
+        return "translate(" + (d.x) + "," + d.y + ")";
+    }
 }
 
-// last but not least, we call updateSimulation
-// to trigger the initial render
+/*==================================execute the whole script=======================================*/
+
+// Menu Object
+d3.contextMenu = function (menu, openCallback) {
+    // create the div element that will hold the context menu
+    d3.selectAll('.d3-context-menu').data([1])
+        .enter()
+        .append('div')
+        .attr('class', 'd3-context-menu');
+
+    // close menu
+    d3.select('body').on('click.d3-context-menu', () => {
+        d3.select('.d3-context-menu').style('display', 'none');
+    });
+
+    // this gets executed when a contextmenu event occurs
+    return function(data, index) {
+        const elm = this;
+
+        d3.selectAll('.d3-context-menu').html('');
+        const list = d3.selectAll('.d3-context-menu').append('ul');
+        list.selectAll('li').data(menu).enter()
+            .append('li')
+            .html(function(d) {
+                return d.title;
+            })
+            .on('click', d => {
+                d.action(elm, data, index);
+                d3.select('.d3-context-menu').style('display', 'none');
+            });
+
+        // the openCallback allows an action to fire before the menu is displayed
+        // an example usage would be closing a tooltip
+        if (openCallback) openCallback(data, index);
+
+        // display context menu
+        d3.select('.d3-context-menu')
+            .style('left', (d3.event.pageX - 2) + 'px')
+            .style('top', (d3.event.pageY - 2) + 'px')
+            .style('display', 'block');
+
+        d3.event.preventDefault();
+    };
+};
+// Define the Menu
+const menu = [
+    {
+        title: 'Dive in',
+        action: function(elm, d) {
+            console.log('Clicked \'Dive in\'');
+            console.log('The data for this circle is: ' + d.name);
+            sendRequest(d, "dive");
+        },
+        disabled: false // optional, defaults to false
+    },
+    {
+        title: 'Add',
+        action: function(elm, d) {
+            console.log('Clicked \'Add\'!');
+            console.log('The data for this circle is: ' + d);
+
+        }
+    },
+    {
+        title: 'Delete',
+        action: function(elm, d) {
+            console.log('Clicked \'Delete\'!');
+            console.log('The data for this circle is: ' + d);
+        }
+    }
+];

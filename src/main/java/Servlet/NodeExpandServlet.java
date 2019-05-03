@@ -12,37 +12,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "GraphServlet",urlPatterns = "/Servlet/GraphServlet")
-public class GraphServlet extends HttpServlet {
+@WebServlet(name = "NodeExpandServlet",urlPatterns = "/Servlet/NodeExpandServlet")
+public class NodeExpandServlet extends HttpServlet {
     /**
-     * Servlet responsible for initializing the graph, getting the most important concepts of the ontology and sending
-     *     them to the front end.
+     * Servlet responsible for getting all outgoing nodes of the given node and sending them to the frontend.
      * @param request the http request the servlet recieved.
      * @param response the http response the servlet will send back.
      * @throws IOException if the request/response is malformed.
      */
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String nodename = request.getParameter("nodename");
+
         StardogTriplesDBConnection connection = new StardogTriplesDBConnection("iteration0", "http://localhost:5820", "admin", "admin");
         if (connection.canConnect()){
-            SPARQLResultTable result = connection.selectQuery(
-                    "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
-                    "PREFIX dcm: <http://www.dacemo.org/dacemo/>" +
-                    "PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>" +
-                    "SELECT ?s WHERE {" +
-                    "    ?s dcm:isTopConcept \"true\"^^xsd:boolean" +
-                    "}"
-            );
+            SPARQLResultTable result = connection.describeQuery(nodename);
 
-            //Graph initialization
+            //Get the SPARQL result by nodename, then convert the result into JSON Object and send it to server
             Data2Json data2Json = new Data2Json(result);
-            JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject = data2Json.initializeGraph();
+                JSONObject jsonObject = data2Json.getJsonData();
+                response.getOutputStream().print(jsonObject.toString());
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            response.getOutputStream().print(jsonObject.toString());
         }
     }
 }

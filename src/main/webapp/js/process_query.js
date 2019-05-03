@@ -9,9 +9,6 @@ function undo() {
     //todo undo the operation
 }
 
-// function printGraph() {
-//     //todo print current graph
-// }
 function getSVGString( svgNode ) {
     svgNode.setAttribute('xlink', 'http://www.w3.org/1999/xlink');
     const cssStyleText = getCSSStyles(svgNode);

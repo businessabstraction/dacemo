@@ -207,13 +207,13 @@ function sendDescriptionRequest(node) {
     else if (window.ActiveXObject) result = new ActiveXObject("MICROSOFT.XMLHTTP");
 
     result.onreadystatechange = function() {
-        if (result.readyState === 4 && result.status === 200) {
-            console.log("Got response: " + result.responseText);
-
-            tooltip.transition().duration(50).attr("opacity", 1);
+        if (result.readyState === 4 && result.status === 200 && result.responseText !== "") {
+            tooltip.transition().duration(5).style("opacity", 1);
             tooltip.html(result.responseText)
                 .style("left", (d3.event.pageX + 10) + "px")
                 .style("top", (d3.event.pageY - 15) + "px");
+        } else if (result.readyState === 4 && result.status === 200){
+            tooltip.transition().duration(5).style("opacity", 0)
         }
     };
 
@@ -333,7 +333,7 @@ function buildGraph(graphics,graphicsid,linkss){
         .on('contextmenu', d3.contextMenu(menu))
         .on('mouseover', function (node){
             tooltip.transition()
-                .duration(200)
+                .duration(5)
                 .style("opacity", 1);
             tooltip.html("...")
                 .style("left", (d3.event.pageX + 10) + "px")

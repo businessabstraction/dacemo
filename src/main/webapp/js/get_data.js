@@ -1,5 +1,8 @@
 let getJson;
 let linkss;
+let tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
 
 /*=========================parse node===========================*/
 //get the node from json file
@@ -132,7 +135,7 @@ function callServer(methodType) {
  *          "expand" : expands the subnodes of the given node
  *          "dive" : removes all nodes except the given node and then expands it
  */
-function sendRequest(node, clickType) {
+function sendNodeRequest(node, clickType) {
     console.log(node.name);
     //todo: to transfer the node id to the server and return a json format
 
@@ -191,7 +194,33 @@ function processLink(linkss) {
 }
 
 
+/**
+ *
+ * @param node
+ * @returns {string}
+ */
+function sendDescriptionRequest(node) {
+    let result;
+    let param = "nodename=https:/www./docemo.org/owl/examples/iteration-0/" + node.name;
 
+    if (window.XMLHttpRequest) result = new XMLHttpRequest();
+    else if (window.ActiveXObject) result = new ActiveXObject("MICROSOFT.XMLHTTP");
+
+    result.onreadystatechange = function() {
+        if (result.readyState === 4 && result.status === 200 && result.responseText !== "") {
+            tooltip.transition().duration(5).style("opacity", 1);
+            tooltip.html(result.responseText)
+                .style("left", (d3.event.pageX + 10) + "px")
+                .style("top", (d3.event.pageY - 15) + "px");
+        } else if (result.readyState === 4 && result.status === 200){
+            tooltip.transition().duration(5).style("opacity", 0)
+        }
+    };
+
+    result.open("POST","/DaCeMo_war_exploded/Servlet/NodeDescriptionServlet?"+param,true);
+    result.setRequestHeader("req","req");
+    result.send(null);
+}
 
 //build the graph, draw the existed request nodes from server
 function buildGraph(graphics,graphicsid,linkss){
@@ -302,9 +331,23 @@ function buildGraph(graphics,graphicsid,linkss){
         .style('stroke', "#68AEDD")
         .attr("r", 20)
         .on('contextmenu', d3.contextMenu(menu))
+        .on('mouseover', function (node){
+            tooltip.transition()
+                .duration(5)
+                .style("opacity", 1);
+            tooltip.html("...")
+                .style("left", (d3.event.pageX + 10) + "px")
+                .style("top", (d3.event.pageY - 15) + "px");
+
+            sendDescriptionRequest(node);
+        })
+        .on('mouseout', function(){
+            tooltip.transition()
+                .style("opacity", 0);
+        })
         .on("click", function (node) {
             console.log("On left click, node is: " + node.name);
-            sendRequest(node, "expand");
+            sendNodeRequest(node, "expand");
             edges_line.style("stroke-width", function (line) {
                 if (line.source.name === node.name || line.target.name === node.name) {
                     return 4;
@@ -443,7 +486,7 @@ const menu = [
         action: function(elm, d) {
             console.log('Clicked \'Dive in\'');
             console.log('The data for this circle is: ' + d.name);
-            sendRequest(d, "dive");
+            sendNodeRequest(d, "dive");
         },
         disabled: false // optional, defaults to false
     },

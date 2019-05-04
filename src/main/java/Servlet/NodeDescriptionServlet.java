@@ -18,11 +18,12 @@ public class NodeDescriptionServlet extends HttpServlet {
      * @throws IOException if the request/response is malformed.
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String divenode = request.getParameter("divenodename");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String node = request.getParameter("nodename");
         StardogTriplesDBConnection connection = new StardogTriplesDBConnection("iteration0", "http://localhost:5820", "admin", "admin");
+
         if (connection.canConnect()){
-            String result = connection.nodeDescribeQuery(divenode);
+            String result = connection.nodeDescribeQuery(node);
             response.getOutputStream().print(result);
         }
     }

@@ -32,7 +32,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>NodeDescriptionServlet</servlet-name>
-        <url-pattern>/Servlet/NodeDiveServlet</url-pattern>
+        <url-pattern>/Servlet/NodeDescriptionServlet</url-pattern>
     </servlet-mapping>
 
 </web-app>

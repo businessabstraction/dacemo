@@ -93,19 +93,25 @@ public class StardogTriplesDBConnection implements TriplesDBConnection {
     @Override
     public String nodeDescribeQuery(String iri) {
         SelectQuery selectQuery = connection.select("" +
-                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
+                "PREFIX dcm: <http://www.dacemo.org/dacemo/>" +
                 "SELECT ?description " +
                 "WHERE {" +
-                "    ?subject rdfs:description ?description" +
+                "    ?subject dcm:description ?description" +
                 "}"
         );
         selectQuery.parameter("subject", Values.iri(iri));
 
         SPARQLResultTable table = executeQuery(selectQuery);
-        String description = table.getValuesOfAttribute("description").get(0).get();
-        int endOfStringIndex = description.lastIndexOf("\"");
 
-        return description.substring(1, endOfStringIndex);
+        List<GenericValue> descriptions = table.getValuesOfAttribute("description");
+
+        if (descriptions.size() == 0) return "";
+        else {
+            String description = descriptions.get(0).get();
+            int endOfStringIndex = description.lastIndexOf("\"");
+
+            return description.substring(1, endOfStringIndex);
+        }
     }
 
     /**

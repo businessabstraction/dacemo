@@ -13,7 +13,8 @@ function updateNode() {
     linkss = new Array(jsonObjects.length);
 
     //parse the json to array
-    for(let i =0; i<JSONLength(jsonObjects); i++){
+    const lengthJSON = JSONLength(jsonObjects);
+    for(let i = 0; i < lengthJSON; i++){
         const name = indexchar + i;
 
 
@@ -64,8 +65,8 @@ function updateAdditionalNode(){
         linkadded[l] = previousLinks[l];
     }
 
-
-    for(let i = previousLinks.length; i<JSONLength(jsonObjects) + previousLinks.length; i++){
+    const totalLength = JSONLength(jsonObjects) + previousLinks.length;
+    for(let i = previousLinks.length; i < totalLength; i++){
 
         const name = indexchar + (i - previousLinks.length);
         console.log(name);
@@ -81,11 +82,9 @@ function updateAdditionalNode(){
         linkadded[i].rela = jsonObjects[name][predicate].label;
         linkadded[i].relaid = jsonObjects[name][predicate].id;
         linkadded[i].type = "resolved";
-
-
-        console.log(linkadded[i]);
     }
 
+    linkss = linkadded;
     return linkadded;
 }
 

@@ -103,8 +103,8 @@ public class Node {
      * Get the structure of node
      * @return a map of node, only for JSON format conversion
      */
-    public LinkedHashMap getMap() {
-        LinkedHashMap m = new LinkedHashMap();
+    public LinkedHashMap<String, Object> getMap() {
+        LinkedHashMap<String, Object> m = new LinkedHashMap<>();
         m.put("id", id);
         m.put("group", group);
         m.put("label", label);
@@ -113,7 +113,7 @@ public class Node {
     }
 
     @Override
-    /**
+    /*
      * The toString function to convert node information to string type
      */
     public String toString() {

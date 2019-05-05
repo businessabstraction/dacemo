@@ -81,8 +81,8 @@ public class Link {
      * Get the structure of link
      * @return a map of link, only for JSON format conversion
      */
-    public LinkedHashMap getMap() {
-        LinkedHashMap m = new LinkedHashMap();
+    public LinkedHashMap<String, Object> getMap() {
+        LinkedHashMap<String, Object> m = new LinkedHashMap<>();
         m.put("id", id);
         m.put("group", group);
         m.put("label", label);

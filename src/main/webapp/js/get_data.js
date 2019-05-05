@@ -153,12 +153,14 @@ function sendNodeRequest(node, clickType) {
     result.onreadystatechange = function(){
         if(result.readyState === 4 && result.status === 200){
             getJson = result.responseText;
-            d3.selectAll("svg").remove();
-            if (clickType === "dive"){
-                //todo: refactor linkss to contain all details
-                linkss = [{target:node.name, source:node.name, type:"resolved"}];
+            if (getJson !== "{}"){ // if there are no more subnodes to add, do nothing.
+                d3.selectAll("svg").remove();
+                if (clickType === "dive"){
+                    //todo: refactor linkss to contain all details
+                    linkss = [{target:node.name, source:node.name, type:"resolved"}];
+                }
+                buildGraph('d3c','#d3c',updateAdditionalNode());
             }
-            buildGraph('d3c','#d3c',updateAdditionalNode());
         }
 
     };

@@ -1,4 +1,4 @@
-package Bean;
+package model;
 
 import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
@@ -18,7 +18,7 @@ public class Link {
      * @param id the unique id about the link
      * @param group the group about link should belongs to
      */
-    public Link(String id, int group){
+    Link(String id, int group){
         this.id = id;
         this.group = group;
         int idx = id.lastIndexOf("/");
@@ -81,7 +81,7 @@ public class Link {
      * Get the structure of link
      * @return a map of link, only for JSON format conversion
      */
-    public LinkedHashMap<String, Object> getMap() {
+    LinkedHashMap<String, Object> getMap() {
         LinkedHashMap<String, Object> m = new LinkedHashMap<>();
         m.put("id", id);
         m.put("group", group);
@@ -90,7 +90,7 @@ public class Link {
         return m;
     }
     @Override
-    /**
+    /*
      * The toString function to convert link information to string type
      */
     public String toString() {

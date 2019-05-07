@@ -1,4 +1,4 @@
-package Servlet;
+package servlet;
 
 import database.StardogTriplesDBConnection;
 
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "NodeDescriptionServlet",urlPatterns = "/Servlet/NodeDescriptionServlet")
+@WebServlet(name = "NodeDescriptionServlet",urlPatterns = "/servlet/NodeDescriptionServlet")
 public class NodeDescriptionServlet extends HttpServlet {
 
     /**
@@ -20,7 +20,7 @@ public class NodeDescriptionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String node = request.getParameter("nodename");
-        StardogTriplesDBConnection connection = new StardogTriplesDBConnection("iteration0", "http://localhost:5820", "admin", "admin");
+        StardogTriplesDBConnection connection = new StardogTriplesDBConnection("multilink", "http://localhost:5820", "admin", "admin");
 
         if (connection.canConnect()){
             String result = connection.nodeDescribeQuery(node);

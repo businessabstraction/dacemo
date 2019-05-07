@@ -43,9 +43,6 @@ function JSONLength(obj) {
 
 
 function updateAdditionalNode(){
-    console.log("updateAddtional");
-    console.log(linkss);
-
     const previousLinks = linkss;
     const jsonObjects = JSON.parse(getJson);
     const indexchar = "index";
@@ -110,11 +107,11 @@ function callServer(methodType) {
 
     let params = "comment=" + "value";
     if(methodType === "GET"){
-        result.open("GET","/DaCeMo_war_exploded/Servlet/GraphServlet?"+params,true);
+        result.open("GET","/DaCeMo_war_exploded/servlet/GraphServlet?"+params,true);
         result.send();
 
     }else if(methodType === "POST"){
-        result.open("POST","/DaCeMo_war_exploded/Servlet/GraphServlet",true);
+        result.open("POST","/DaCeMo_war_exploded/servlet/GraphServlet",true);
         result.setRequestHeader("req","req");
         result.send(null);
     }
@@ -164,7 +161,7 @@ function sendNodeRequest(node, clickType) {
 
     };
 
-    result.open("POST","/DaCeMo_war_exploded/Servlet/NodeExpandServlet?"+param,true);
+    result.open("POST","/DaCeMo_war_exploded/servlet/NodeExpandServlet?"+param,true);
     result.setRequestHeader("req","req");
     result.send(null);
 }
@@ -218,7 +215,7 @@ function sendDescriptionRequest(node) {
         }
     };
 
-    result.open("POST","/DaCeMo_war_exploded/Servlet/NodeDescriptionServlet?"+param,true);
+    result.open("POST","/DaCeMo_war_exploded/servlet/NodeDescriptionServlet?"+param,true);
     result.setRequestHeader("req","req");
     result.send(null);
 }
@@ -485,8 +482,6 @@ const menu = [
     {
         title: 'Dive in',
         action: function(elm, d) {
-            console.log('Clicked \'Dive in\'');
-            console.log('The data for this circle is: ' + d.name);
             sendNodeRequest(d, "dive");
         },
         disabled: false // optional, defaults to false
@@ -494,16 +489,13 @@ const menu = [
     {
         title: 'Add',
         action: function(elm, d) {
-            console.log('Clicked \'Add\'!');
-            console.log('The data for this circle is: ' + d);
 
         }
     },
     {
         title: 'Delete',
         action: function(elm, d) {
-            console.log('Clicked \'Delete\'!');
-            console.log('The data for this circle is: ' + d);
+
         }
     }
 ];

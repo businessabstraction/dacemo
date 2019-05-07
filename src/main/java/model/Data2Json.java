@@ -1,7 +1,5 @@
-package DAO;
+package model;
 
-import Bean.Link;
-import Bean.Node;
 import database.format.SPARQLResultTable;
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -10,29 +10,29 @@
 
     <servlet>
         <servlet-name>GraphServlet</servlet-name>
-        <servlet-class>Servlet.GraphServlet</servlet-class>
+        <servlet-class>servlet.GraphServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GraphServlet</servlet-name>
-        <url-pattern>/Servlet/GraphServlet</url-pattern>
+        <url-pattern>/servlet/GraphServlet</url-pattern>
     </servlet-mapping>
 
     <servlet>
         <servlet-name>NodeExpandServlet</servlet-name>
-        <servlet-class>Servlet.NodeExpandServlet</servlet-class>
+        <servlet-class>servlet.NodeExpandServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NodeExpandServlet</servlet-name>
-        <url-pattern>/Servlet/NodeExpandServlet</url-pattern>
+        <url-pattern>/servlet/NodeExpandServlet</url-pattern>
     </servlet-mapping>
 
     <servlet>
         <servlet-name>NodeDescriptionServlet</servlet-name>
-        <servlet-class>Servlet.NodeDescriptionServlet</servlet-class>
+        <servlet-class>servlet.NodeDescriptionServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>NodeDescriptionServlet</servlet-name>
-        <url-pattern>/Servlet/NodeDescriptionServlet</url-pattern>
+        <url-pattern>/servlet/NodeDescriptionServlet</url-pattern>
     </servlet-mapping>
 
 </web-app>

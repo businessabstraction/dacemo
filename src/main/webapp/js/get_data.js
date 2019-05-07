@@ -356,9 +356,6 @@ function buildGraph(graphics,graphicsid,linkss){
         })
         .call(force.drag);
 
-    circle.append("svg:title")
-        .text(node => {});
-
     const text = svg.append("g").selectAll("text")
         .data(force.nodes())
         .enter()

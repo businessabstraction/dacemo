@@ -26,8 +26,9 @@ function updateNode() {
         linkss[i].rela = "";
         linkss[i].relaid = name;
         linkss[i].type = "resolved";
-        console.log(linkss[i])
     }
+
+    return linkss;
 }
 
 /**
@@ -64,18 +65,13 @@ function updateAdditionalNode(){
 
     const totalLength = JSONLength(jsonObjects) + previousLinks.length;
     for(let i = previousLinks.length; i < totalLength; i++){
-
         const name = indexchar + (i - previousLinks.length);
-        console.log(name);
 
         linkadded[i] = {};
-        console.log(jsonObjects[name][object].label);
-
         linkadded[i].target = jsonObjects[name][object].label;
         linkadded[i].targetid = jsonObjects[name][object].id;
         linkadded[i].source = jsonObjects[name][subject].label;
         linkadded[i].sourceid = jsonObjects[name][subject].id;
-
         linkadded[i].rela = jsonObjects[name][predicate].label;
         linkadded[i].relaid = jsonObjects[name][predicate].id;
         linkadded[i].type = "resolved";
@@ -85,44 +81,8 @@ function updateAdditionalNode(){
     return linkadded;
 }
 
-/*=========================calling server=============================*/
-
-function callServer(methodType) {
-    let result;
-
-    if(window.XMLHttpRequest){
-        result = new XMLHttpRequest();
-    }else if(window.ActiveXObject){
-        result = new ActiveXObject("MICROSOFT.XMLHTTP");
-    }
-
-    result.onreadystatechange = function(){
-        if(result.readyState === 4 && result.status === 200){
-            getJson = result.responseText;
-            updateNode();
-            buildGraph('d3c','#d3c',linkss);
-        }
-
-    };
-
-    let params = "comment=" + "value";
-    if(methodType === "GET"){
-        result.open("GET","/DaCeMo_war_exploded/servlet/GraphServlet?"+params,true);
-        result.send();
-
-    }else if(methodType === "POST"){
-        result.open("POST","/DaCeMo_war_exploded/servlet/GraphServlet",true);
-        result.setRequestHeader("req","req");
-        result.send(null);
-    }
-
-}
-
 /*============================receive and request=====================================*/
 //update every time when have a request
-
-
-
 //send the request to the server
 /**
  * Sends a request to the backend with the name of the clicked node.
@@ -130,14 +90,9 @@ function callServer(methodType) {
  * @param clickType the type of operation to perform on the existing nodes:
  *          "expand" : expands the subnodes of the given node
  *          "dive" : removes all nodes except the given node and then expands it
+ *          "init" : get the top-level concepts
  */
 function sendNodeRequest(node, clickType) {
-    console.log(node.name);
-    //todo: to transfer the node id to the server and return a json format
-
-    // todo: not generic enough.
-    const param = "nodename=https:/www./docemo.org/owl/examples/iteration-0/" + node.name;
-
     let result;
 
     if(window.XMLHttpRequest){
@@ -149,19 +104,29 @@ function sendNodeRequest(node, clickType) {
     result.onreadystatechange = function(){
         if(result.readyState === 4 && result.status === 200){
             getJson = result.responseText;
-            if (getJson !== "{}"){ // if there are no more subnodes to add, do nothing.
+
+            if (clickType === "init"){
+                buildGraph('d3c','#d3c', updateNode());
+
+            } else if (clickType === "dive" && getJson !== "{}" ){ // if there are no more subnodes to add, do nothing.
+                linkss = [{target:node.name, source:node.name, type:"resolved"}]; //todo: refactor linkss to contain all details
                 d3.selectAll("svg").remove();
-                if (clickType === "dive"){
-                    //todo: refactor linkss to contain all details
-                    linkss = [{target:node.name, source:node.name, type:"resolved"}];
-                }
                 buildGraph('d3c','#d3c',updateAdditionalNode());
+
+            } else if (clickType === "expand" && getJson !== "{}"){
+                d3.selectAll("svg").remove();
+                buildGraph('d3c', '#d3c', updateAdditionalNode());
             }
         }
-
     };
 
-    result.open("POST","/DaCeMo_war_exploded/servlet/NodeExpandServlet?"+param,true);
+    // if the function is initalizing the graph, there is no need to send a node parameter.
+    if (clickType === "init") {
+        result.open("POST", "/DaCeMo_war_exploded/servlet/GraphServlet", true);
+    } else {
+        const param = "nodename=https:/www./docemo.org/owl/examples/iteration-0/" + node.name; //todo: not generic enough.
+        result.open("POST", "/DaCeMo_war_exploded/servlet/NodeExpandServlet?" + param, true);
+    }
     result.setRequestHeader("req","req");
     result.send(null);
 }
@@ -242,11 +207,6 @@ function buildGraph(graphics,graphicsid,linkss){
 
     const rect = document.getElementById("d3-container").getBoundingClientRect();
     rect.height = 1030;
-
-    console.log(rect.width);
-    console.log(rect.height);
-    console.log(this.width);
-    console.log(this.height);
     //define the
     const svg = d3.select(graphicsid)
         .append('svg')
@@ -393,7 +353,6 @@ function buildGraph(graphics,graphicsid,linkss){
             }
         });
     d3.select('#saveButton').on('click', function(){
-        console.log("Print button clicked!");
         const svgString = getSVGString(d3.select('svg').node());
         svgString2Image( svgString, div.clientWidth, div.clientHeight, 'png', save ); // passes Blob and filesize String to the callback
 

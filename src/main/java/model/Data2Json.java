@@ -48,9 +48,9 @@ public class Data2Json {
      * @return JSON Object of the top level concept node.
      */
     public JSONObject initializeGraph() throws JSONException {
-
         JSONObject jsonObject = new JSONObject();
-        for (int i = 0; i < 4; i++) {
+
+        for (int i = 0; i < description.size(); i++) {
             Node node = new Node(description.getValuesOfAttribute("s").get(i).get(), 1);
             LinkedHashMap<String, LinkedHashMap<String, Object>> m = new LinkedHashMap<>();
             m.put("s", node.getMap());

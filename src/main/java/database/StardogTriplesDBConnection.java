@@ -85,17 +85,20 @@ public class StardogTriplesDBConnection implements TriplesDBConnection {
         return executeQuery(selectQuery);
     }
 
-    public SPARQLResultTable describeQueryWithoutDescription(String iri){
+    /**
+     * Executes a SPARQL query that describes an iri with less information (such as description and type).
+     * @param iri the iri to be described
+     * @return the table of SPARQL results.
+     */
+    public SPARQLResultTable describeQueryMinimal(String iri){
         SelectQuery selectQuery = connection.select(
                 "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
+                   "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
                    "PREFIX dcm: <http://www.dacemo.org/dacemo/>" +
                    "SELECT ?subject ?predicate ?object " +
                    "WHERE {" +
-                   "    ?subject ?predicate ?object" +
-                   "    FILTER NOT EXISTS {" +
-                   "        ?subject rdfs:description ?object ." +
-                   "        ?subject dcm:description ?object ." +
-                   "    }" +
+                   "    ?subject ?predicate ?object " +
+                   "    MINUS { ?subject dcm:description ?object } " +
                    "}"
         );
         selectQuery.parameter("subject", Values.iri(iri));

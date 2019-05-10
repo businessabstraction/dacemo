@@ -29,7 +29,7 @@ public class Link {
         if (lastSeperatorIndex == -1){
             this.label = id;
         } else if (id.matches("\".*\".*")){
-            this.label = id.split("\".*?\"")[0];
+            this.label = id.split("\\^\\^")[0];
         } else {
             this.label = id.substring(lastSeperatorIndex + 1);
         }

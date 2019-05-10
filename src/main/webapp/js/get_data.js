@@ -3,6 +3,7 @@ let linkss;
 let tooltip = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
+let expandedNodes = [];
 
 /*=========================parse node===========================*/
 //get the node from json file
@@ -164,7 +165,7 @@ function processLink(linkss) {
  */
 function sendDescriptionRequest(node) {
     let result;
-    let param = "nodename=https:/www./docemo.org/owl/examples/iteration-0/" + node.name;
+    let param = "nodename=https:/www./docemo.org/owl/examples/iteration-0/" + node.name; //todo: not generic enough.
 
     if (window.XMLHttpRequest) result = new XMLHttpRequest();
     else if (window.ActiveXObject) result = new ActiveXObject("MICROSOFT.XMLHTTP");
@@ -205,7 +206,7 @@ function buildGraph(graphics,graphicsid,linkss){
         .on("tick", tick)
         .start();
 
-    const rect = document.getElementById("d3-container").getBoundingClientRect();
+    let rect = document.getElementById("d3-container").getBoundingClientRect();
     rect.height = 1030;
     //define the
     const svg = d3.select(graphicsid)
@@ -304,8 +305,13 @@ function buildGraph(graphics,graphicsid,linkss){
                 .style("opacity", 0);
         })
         .on("click", function (node) {
-            console.log("On left click, node is: " + node.name);
-            sendNodeRequest(node, "expand");
+            // if the node has already been expanded, don't send a request.
+            if (!expandedNodes.includes(node.name)) {
+                console.log("!Expanding" + node.toString());
+                expandedNodes.push(node.name);
+                sendNodeRequest(node, "expand");
+            } else console.log("Expanded " + node.toString());
+
             edges_line.style("stroke-width", function (line) {
                 if (line.source.name === node.name || line.target.name === node.name) {
                     return 4;

@@ -111,8 +111,9 @@ function sendNodeRequest(node, clickType) {
 
             } else if (clickType === "dive" && getJson !== "{}" ){ // if there are no more subnodes to add, do nothing.
                 linkss = [{target:node.name, source:node.name, type:"resolved"}]; //todo: refactor linkss to contain all details
+                expandedNodes = [];
                 d3.selectAll("svg").remove();
-                buildGraph('d3c','#d3c',updateAdditionalNode());
+                buildGraph('d3c','#d3c', updateAdditionalNode());
 
             } else if (clickType === "expand" && getJson !== "{}"){
                 d3.selectAll("svg").remove();

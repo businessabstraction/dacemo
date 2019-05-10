@@ -23,19 +23,17 @@ public class Node {
     public Node(String id, int group){
         this.id = id;
         this.group = group;
-        int idx = id.lastIndexOf("/");
-        if (id.matches("\".*\".*")){
-            Pattern p = Pattern.compile("\"(.*?)\"");
-            Matcher m = p.matcher(id);
-            while (m.find()){
-                this.label = m.group(1);
-            }
-            int idx1 = id.indexOf("<");
-            int idx2 = id.indexOf(">");
-            id = id.substring(idx1+1, idx2);
-            this.id = id;
+
+        int lastSeperatorIndex = id.lastIndexOf("/") > id.lastIndexOf("#") ?
+                id.lastIndexOf("/") :
+                id.lastIndexOf("#");
+
+        if (lastSeperatorIndex == -1){
+            this.label = id;
+        } else if (id.matches("\".*\".*")){
+            this.label = id.split("\".*?\"")[0];
         } else {
-            this.label = id.substring(idx + 1);
+            this.label = id.substring(lastSeperatorIndex + 1);
         }
     }
 

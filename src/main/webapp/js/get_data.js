@@ -237,6 +237,20 @@ function buildGraph(graphics,graphicsid,linkss){
             }
         });
 
+    svg.append("marker")
+        .attr("id", "resolved")
+        .attr("markerUnits", "userSpaceOnUse")
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", 38)
+        .attr("refY", -1)
+        .attr("markerWidth", 10)
+        .attr("markerHeight", 10)
+        .attr("orient", "auto")
+        .attr("stroke-width", 2)
+        .append("path")
+        .attr("d", "M0,-5L10,0L0,5")
+        .attr('fill', '#5F5654');
+
     //set link
     const edges_line = svg.selectAll(".edgepath")
         .data(force.links())

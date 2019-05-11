@@ -202,46 +202,40 @@ function buildGraph(graphics,graphicsid,linkss){
         .nodes(d3.values(nodes))//set array of nodes
         .links(links)
         .size([width, height])
-        .linkDistance(180)
-        .charge(-1500)
+        .linkDistance(190)
+        .charge(-1200)
         .on("tick", tick)
         .start();
 
-    let rect = document.getElementById("d3-container").getBoundingClientRect();
-    rect.height = 1030;
-    //define the
     const svg = d3.select(graphicsid)
         .append('svg')
         .attr("preserveAspectRatio", "xMidYMid meet")
-        .attr("viewBox", "130 -250 600 600");
-
-    svg.on("mousedown", function () {
-        if (d3.event.defaultPrevented) {
-            return;
-        }
-        isMouseDown = true;
-        mousePos_x = d3.mouse(this)[0];
-        mousePos_y = d3.mouse(this)[1];
-    });
-
-    svg.on("mouseup", function () {
-        if (d3.event.defaultPrevented) {
-            return;
-        }
-        isMouseDown = false;
-    });
-
-    svg.on("mousemove", function () {
-        if (d3.event.defaultPrevented) {
-            return;
-        }
-        curPos_x = d3.mouse(this)[0];
-        curPos_y = d3.mouse(this)[1];
-        if (isMouseDown) {
-            viewBox_x = viewBox_x - d3.mouse(this)[0] + mousePos_x;
-            viewBox_y = viewBox_y - d3.mouse(this)[1] + mousePos_y;
-        }
-    });
+        .attr("viewBox", "300 -300 600 600") //todo: check if this works on all screens
+        .on("mousedown", function () {
+            if (d3.event.defaultPrevented) {
+                return;
+            }
+            isMouseDown = true;
+            mousePos_x = d3.mouse(this)[0];
+            mousePos_y = d3.mouse(this)[1]
+        })
+        .on("mouseup", function () {
+            if (d3.event.defaultPrevented) {
+                return;
+            }
+            isMouseDown = false;
+        })
+        .on("mousemove", function () {
+            if (d3.event.defaultPrevented) {
+                return;
+            }
+            curPos_x = d3.mouse(this)[0];
+            curPos_y = d3.mouse(this)[1];
+            if (isMouseDown) {
+                viewBox_x = viewBox_x - d3.mouse(this)[0] + mousePos_x;
+                viewBox_y = viewBox_y - d3.mouse(this)[1] + mousePos_y;
+            }
+        });
 
     //set link
     const edges_line = svg.selectAll(".edgepath")
@@ -257,7 +251,7 @@ function buildGraph(graphics,graphicsid,linkss){
                 return 'edgepath' + i;
             }
         })
-        .style("stroke", "#BBB")
+        .style("stroke", "#5F5654")
         .style("pointer-events", "none")
         .style("stroke-width", 0.5)//storke of lines
         .attr("marker-end", "url(#resolved)");//arrow
@@ -267,7 +261,6 @@ function buildGraph(graphics,graphicsid,linkss){
         .enter()
         .append("text")
         .style("pointer-events", "none")
-        //.attr("class","linetext")
         .attr({
             'class': 'edgelabel',
             'id': function (d, i) {
@@ -281,7 +274,7 @@ function buildGraph(graphics,graphicsid,linkss){
     edges_text.append('textPath')
         .attr('xlink:href',function(d,i) {return '#edgepath'+i})
         .style("pointer-events", "none")
-        .text(function(d){return d.rela;});
+        .text(d => d.rela);
 
     //draw node
     const circle = svg.append("g").selectAll("circle")
@@ -308,17 +301,13 @@ function buildGraph(graphics,graphicsid,linkss){
         .on("click", function (node) {
             // if the node has already been expanded, don't send a request.
             if (!expandedNodes.includes(node.name)) {
-                console.log("!Expanding" + node.toString());
                 expandedNodes.push(node.name);
                 sendNodeRequest(node, "expand");
-            } else console.log("Expanded " + node.toString());
+            }
 
             edges_line.style("stroke-width", function (line) {
-                if (line.source.name === node.name || line.target.name === node.name) {
-                    return 4;
-                } else {
-                    return 0.5;
-                }
+                if (line.source.name === node.name || line.target.name === node.name) return 4;
+                else return 0.5;
             });
         })
         .call(force.drag);
@@ -419,9 +408,7 @@ d3.contextMenu = function (menu, openCallback) {
         const list = d3.selectAll('.d3-context-menu').append('ul');
         list.selectAll('li').data(menu).enter()
             .append('li')
-            .html(function(d) {
-                return d.title;
-            })
+            .html(d => d.title)
             .on('click', d => {
                 d.action(elm, data, index);
                 d3.select('.d3-context-menu').style('display', 'none');
@@ -451,14 +438,10 @@ const menu = [
     },
     {
         title: 'Add',
-        action: function(elm, d) {
-
-        }
+        action: function(elm, d) {}
     },
     {
         title: 'Delete',
-        action: function(elm, d) {
-
-        }
+        action: function(elm, d) {}
     }
 ];

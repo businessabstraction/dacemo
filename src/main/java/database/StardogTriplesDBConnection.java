@@ -86,6 +86,27 @@ public class StardogTriplesDBConnection implements TriplesDBConnection {
     }
 
     /**
+     * Executes a SPARQL query that describes an iri with less information (such as description and type).
+     * @param iri the iri to be described
+     * @return the table of SPARQL results.
+     */
+    public SPARQLResultTable describeQueryMinimal(String iri){
+        SelectQuery selectQuery = connection.select(
+                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
+                   "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>" +
+                   "PREFIX dcm: <http://www.dacemo.org/dacemo/>" +
+                   "SELECT ?subject ?predicate ?object " +
+                   "WHERE {" +
+                   "    ?subject ?predicate ?object " +
+                   "    MINUS { ?subject dcm:description ?object } " +
+                   "}"
+        );
+        selectQuery.parameter("subject", Values.iri(iri));
+
+        return executeQuery(selectQuery);
+    }
+
+    /**
      * Executes a SPARQL query that gives the rdfs:describe of a given iri.
      * @param iri the iri to be described.
      * @return the description as a String.
@@ -93,19 +114,25 @@ public class StardogTriplesDBConnection implements TriplesDBConnection {
     @Override
     public String nodeDescribeQuery(String iri) {
         SelectQuery selectQuery = connection.select("" +
-                "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +
+                "PREFIX dcm: <http://www.dacemo.org/dacemo/>" +
                 "SELECT ?description " +
                 "WHERE {" +
-                "    ?subject rdfs:description ?description" +
+                "    ?subject dcm:description ?description" +
                 "}"
         );
         selectQuery.parameter("subject", Values.iri(iri));
 
         SPARQLResultTable table = executeQuery(selectQuery);
-        String description = table.getValuesOfAttribute("description").get(0).get();
-        int endOfStringIndex = description.lastIndexOf("\"");
 
-        return description.substring(1, endOfStringIndex);
+        List<GenericValue> descriptions = table.getValuesOfAttribute("description");
+
+        if (descriptions.size() == 0) return "";
+        else {
+            String description = descriptions.get(0).get();
+            int endOfStringIndex = description.lastIndexOf("\"");
+
+            return description.substring(1, endOfStringIndex);
+        }
     }
 
     /**

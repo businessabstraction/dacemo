@@ -1,6 +1,6 @@
-package Servlet;
+package servlet;
 
-import DAO.Data2Json;
+import model.Data2Json;
 import database.StardogTriplesDBConnection;
 import database.format.SPARQLResultTable;
 import org.json.JSONException;
@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "NodeExpandServlet",urlPatterns = "/Servlet/NodeExpandServlet")
+@WebServlet(name = "NodeExpandServlet",urlPatterns = "/servlet/NodeExpandServlet")
 public class NodeExpandServlet extends HttpServlet {
     /**
-     * Servlet responsible for getting all outgoing nodes of the given node and sending them to the frontend.
+     * servlet responsible for getting all outgoing nodes of the given node and sending them to the frontend.
      * @param request the http request the servlet recieved.
      * @param response the http response the servlet will send back.
      * @throws IOException if the request/response is malformed.
@@ -23,9 +23,9 @@ public class NodeExpandServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String nodename = request.getParameter("nodename");
 
-        StardogTriplesDBConnection connection = new StardogTriplesDBConnection("iteration0", "http://localhost:5820", "admin", "admin");
+        StardogTriplesDBConnection connection = new StardogTriplesDBConnection("xyzcompany", "http://localhost:5820", "admin", "admin");
         if (connection.canConnect()){
-            SPARQLResultTable result = connection.describeQuery(nodename);
+            SPARQLResultTable result = connection.describeQueryMinimal(nodename);
 
             //Get the SPARQL result by nodename, then convert the result into JSON Object and send it to server
             Data2Json data2Json = new Data2Json(result);

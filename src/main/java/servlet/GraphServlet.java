@@ -1,6 +1,6 @@
-package Servlet;
+package servlet;
 
-import DAO.Data2Json;
+import model.Data2Json;
 import database.StardogTriplesDBConnection;
 import database.format.SPARQLResultTable;
 import org.json.JSONException;
@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "GraphServlet",urlPatterns = "/Servlet/GraphServlet")
+@WebServlet(name = "GraphServlet",urlPatterns = "/servlet/GraphServlet")
 public class GraphServlet extends HttpServlet {
     /**
-     * Servlet responsible for initializing the graph, getting the most important concepts of the ontology and sending
+     * servlet responsible for initializing the graph, getting the most important concepts of the ontology and sending
      *     them to the front end.
      * @param request the http request the servlet recieved.
      * @param response the http response the servlet will send back.
@@ -23,7 +23,7 @@ public class GraphServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        StardogTriplesDBConnection connection = new StardogTriplesDBConnection("iteration0", "http://localhost:5820", "admin", "admin");
+        StardogTriplesDBConnection connection = new StardogTriplesDBConnection("xyzcompany", "http://localhost:5820", "admin", "admin");
         if (connection.canConnect()){
             SPARQLResultTable result = connection.selectQuery(
                     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +

@@ -82,6 +82,13 @@ public class SPARQLResultTable {
     }
 
     /**
+     * @return the number of records in the table.
+     */
+    public int size(){
+        return table.size();
+    }
+
+    /**
      * @return the String representation of the table.
      */
     @Override

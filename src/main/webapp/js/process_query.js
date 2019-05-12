@@ -81,8 +81,6 @@ function getSVGString( svgNode ) {
 }
 
 function svgString2Image( svgString, width, height, format, callback ) {
-    var format = format ? format : 'png';
-
     const imgsrc = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgString))); // Convert SVG string to data URL
     console.log("imgsrc: " + imgsrc);
 
@@ -101,8 +99,6 @@ function svgString2Image( svgString, width, height, format, callback ) {
             const filesize = Math.round(blob.length / 1024) + ' KB';
             if (callback) callback(blob, filesize);
         });
-
-
     };
 
     image.src = imgsrc;

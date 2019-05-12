@@ -9,7 +9,7 @@ import com.stardog.stark.io.RDFFormats;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class StardogTriplesDBAdminConnection {
+class StardogTriplesDBAdminConnection {
     private AdminConnection adminConnection;
 
     private String dbURL, user, pass;

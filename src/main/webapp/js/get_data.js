@@ -1,5 +1,9 @@
 let getJson;
 let linkss;
+let tooltip = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+let expandedNodes = [];
 
 /*=========================parse node===========================*/
 //get the node from json file
@@ -10,7 +14,8 @@ function updateNode() {
     linkss = new Array(jsonObjects.length);
 
     //parse the json to array
-    for(let i =0; i<JSONLength(jsonObjects); i++){
+    const lengthJSON = JSONLength(jsonObjects);
+    for(let i = 0; i < lengthJSON; i++){
         const name = indexchar + i;
 
 
@@ -22,8 +27,9 @@ function updateNode() {
         linkss[i].rela = "";
         linkss[i].relaid = name;
         linkss[i].type = "resolved";
-        console.log(linkss[i])
     }
+
+    return linkss;
 }
 
 /**
@@ -39,9 +45,6 @@ function JSONLength(obj) {
 
 
 function updateAdditionalNode(){
-    console.log("updateAddtional");
-    console.log(linkss);
-
     const previousLinks = linkss;
     const jsonObjects = JSON.parse(getJson);
     const indexchar = "index";
@@ -61,69 +64,26 @@ function updateAdditionalNode(){
         linkadded[l] = previousLinks[l];
     }
 
-
-    for(let i = previousLinks.length; i<JSONLength(jsonObjects) + previousLinks.length; i++){
-
+    const totalLength = JSONLength(jsonObjects) + previousLinks.length;
+    for(let i = previousLinks.length; i < totalLength; i++){
         const name = indexchar + (i - previousLinks.length);
-        console.log(name);
 
         linkadded[i] = {};
-        console.log(jsonObjects[name][object].label);
-
         linkadded[i].target = jsonObjects[name][object].label;
         linkadded[i].targetid = jsonObjects[name][object].id;
         linkadded[i].source = jsonObjects[name][subject].label;
         linkadded[i].sourceid = jsonObjects[name][subject].id;
-
         linkadded[i].rela = jsonObjects[name][predicate].label;
         linkadded[i].relaid = jsonObjects[name][predicate].id;
         linkadded[i].type = "resolved";
-
-
-        console.log(linkadded[i]);
     }
 
+    linkss = linkadded;
     return linkadded;
-}
-
-/*=========================calling server=============================*/
-
-function callServer(methodType) {
-    let result;
-
-    if(window.XMLHttpRequest){
-        result = new XMLHttpRequest();
-    }else if(window.ActiveXObject){
-        result = new ActiveXObject("MICROSOFT.XMLHTTP");
-    }
-
-    result.onreadystatechange = function(){
-        if(result.readyState === 4 && result.status === 200){
-            getJson = result.responseText;
-            updateNode();
-            buildGraph('d3c','#d3c',linkss);
-        }
-
-    };
-
-    let params = "comment=" + "value";
-    if(methodType === "GET"){
-        result.open("GET","/DaCeMo_war_exploded/Servlet/GraphServlet?"+params,true);
-        result.send();
-
-    }else if(methodType === "POST"){
-        result.open("POST","/DaCeMo_war_exploded/Servlet/GraphServlet",true);
-        result.setRequestHeader("req","req");
-        result.send(null);
-    }
-
 }
 
 /*============================receive and request=====================================*/
 //update every time when have a request
-
-
-
 //send the request to the server
 /**
  * Sends a request to the backend with the name of the clicked node.
@@ -131,14 +91,9 @@ function callServer(methodType) {
  * @param clickType the type of operation to perform on the existing nodes:
  *          "expand" : expands the subnodes of the given node
  *          "dive" : removes all nodes except the given node and then expands it
+ *          "init" : get the top-level concepts
  */
-function sendRequest(node, clickType) {
-    console.log(node.name);
-    //todo: to transfer the node id to the server and return a json format
-
-    // todo: not generic enough.
-    const param = "nodename=https:/www./docemo.org/owl/examples/iteration-0/" + node.name;
-
+function sendNodeRequest(node, clickType) {
     let result;
 
     if(window.XMLHttpRequest){
@@ -150,17 +105,30 @@ function sendRequest(node, clickType) {
     result.onreadystatechange = function(){
         if(result.readyState === 4 && result.status === 200){
             getJson = result.responseText;
-            d3.selectAll("svg").remove();
-            if (clickType === "dive"){
-                //todo: refactor linkss to contain all details
-                linkss = [{target:node.name, source:node.name, type:"resolved"}];
-            }
-            buildGraph('d3c','#d3c',updateAdditionalNode());
-        }
 
+            if (clickType === "init"){
+                buildGraph('d3c','#d3c', updateNode());
+
+            } else if (clickType === "dive" && getJson !== "{}" ){ // if there are no more subnodes to add, do nothing.
+                linkss = [{target:node.name, source:node.name, type:"resolved"}]; //todo: refactor linkss to contain all details
+                expandedNodes = [];
+                d3.selectAll("svg").remove();
+                buildGraph('d3c','#d3c', updateAdditionalNode());
+
+            } else if (clickType === "expand" && getJson !== "{}"){
+                d3.selectAll("svg").remove();
+                buildGraph('d3c', '#d3c', updateAdditionalNode());
+            }
+        }
     };
 
-    result.open("POST","/DaCeMo_war_exploded/Servlet/NodeExpandServlet?"+param,true);
+    // if the function is initalizing the graph, there is no need to send a node parameter.
+    if (clickType === "init") {
+        result.open("POST", "/DaCeMo_war_exploded/servlet/GraphServlet", true);
+    } else {
+        const param = "nodename=https:/www./docemo.org/owl/examples/iteration-0/" + node.name; //todo: not generic enough.
+        result.open("POST", "/DaCeMo_war_exploded/servlet/NodeExpandServlet?" + param, true);
+    }
     result.setRequestHeader("req","req");
     result.send(null);
 }
@@ -191,7 +159,33 @@ function processLink(linkss) {
 }
 
 
+/**
+ *
+ * @param node
+ * @returns {string}
+ */
+function sendDescriptionRequest(node) {
+    let result;
+    let param = "nodename=https:/www./docemo.org/owl/examples/iteration-0/" + node.name; //todo: not generic enough.
 
+    if (window.XMLHttpRequest) result = new XMLHttpRequest();
+    else if (window.ActiveXObject) result = new ActiveXObject("MICROSOFT.XMLHTTP");
+
+    result.onreadystatechange = function() {
+        if (result.readyState === 4 && result.status === 200 && result.responseText !== "") {
+            tooltip.transition().duration(5).style("opacity", 1);
+            tooltip.html(result.responseText)
+                .style("left", (d3.event.pageX + 10) + "px")
+                .style("top", (d3.event.pageY - 15) + "px");
+        } else if (result.readyState === 4 && result.status === 200){
+            tooltip.transition().duration(5).style("opacity", 0)
+        }
+    };
+
+    result.open("POST","/DaCeMo_war_exploded/servlet/NodeDescriptionServlet?"+param,true);
+    result.setRequestHeader("req","req");
+    result.send(null);
+}
 
 //build the graph, draw the existed request nodes from server
 function buildGraph(graphics,graphicsid,linkss){
@@ -208,51 +202,54 @@ function buildGraph(graphics,graphicsid,linkss){
         .nodes(d3.values(nodes))//set array of nodes
         .links(links)
         .size([width, height])
-        .linkDistance(180)
-        .charge(-1500)
+        .linkDistance(190)
+        .charge(-1200)
         .on("tick", tick)
         .start();
 
-    const rect = document.getElementById("d3-container").getBoundingClientRect();
-    rect.height = 1030;
-
-    console.log(rect.width);
-    console.log(rect.height);
-    console.log(this.width);
-    console.log(this.height);
-    //define the
     const svg = d3.select(graphicsid)
         .append('svg')
         .attr("preserveAspectRatio", "xMidYMid meet")
-        .attr("viewBox", "130 -250 600 600");
+        .attr("viewBox", "300 -300 600 600") //todo: check if this works on all screens
+        .on("mousedown", function () {
+            if (d3.event.defaultPrevented) {
+                return;
+            }
+            isMouseDown = true;
+            mousePos_x = d3.mouse(this)[0];
+            mousePos_y = d3.mouse(this)[1]
+        })
+        .on("mouseup", function () {
+            if (d3.event.defaultPrevented) {
+                return;
+            }
+            isMouseDown = false;
+        })
+        .on("mousemove", function () {
+            if (d3.event.defaultPrevented) {
+                return;
+            }
+            curPos_x = d3.mouse(this)[0];
+            curPos_y = d3.mouse(this)[1];
+            if (isMouseDown) {
+                viewBox_x = viewBox_x - d3.mouse(this)[0] + mousePos_x;
+                viewBox_y = viewBox_y - d3.mouse(this)[1] + mousePos_y;
+            }
+        });
 
-    svg.on("mousedown", function () {
-        if (d3.event.defaultPrevented) {
-            return;
-        }
-        isMouseDown = true;
-        mousePos_x = d3.mouse(this)[0];
-        mousePos_y = d3.mouse(this)[1];
-    });
-
-    svg.on("mouseup", function () {
-        if (d3.event.defaultPrevented) {
-            return;
-        }
-        isMouseDown = false;
-    });
-
-    svg.on("mousemove", function () {
-        if (d3.event.defaultPrevented) {
-            return;
-        }
-        curPos_x = d3.mouse(this)[0];
-        curPos_y = d3.mouse(this)[1];
-        if (isMouseDown) {
-            viewBox_x = viewBox_x - d3.mouse(this)[0] + mousePos_x;
-            viewBox_y = viewBox_y - d3.mouse(this)[1] + mousePos_y;
-        }
-    });
+    svg.append("marker")
+        .attr("id", "resolved")
+        .attr("markerUnits", "userSpaceOnUse")
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", 38)
+        .attr("refY", -1)
+        .attr("markerWidth", 10)
+        .attr("markerHeight", 10)
+        .attr("orient", "auto")
+        .attr("stroke-width", 2)
+        .append("path")
+        .attr("d", "M0,-5L10,0L0,5")
+        .attr('fill', '#5F5654');
 
     //set link
     const edges_line = svg.selectAll(".edgepath")
@@ -268,7 +265,7 @@ function buildGraph(graphics,graphicsid,linkss){
                 return 'edgepath' + i;
             }
         })
-        .style("stroke", "#BBB")
+        .style("stroke", "#5F5654")
         .style("pointer-events", "none")
         .style("stroke-width", 0.5)//storke of lines
         .attr("marker-end", "url(#resolved)");//arrow
@@ -278,7 +275,6 @@ function buildGraph(graphics,graphicsid,linkss){
         .enter()
         .append("text")
         .style("pointer-events", "none")
-        //.attr("class","linetext")
         .attr({
             'class': 'edgelabel',
             'id': function (d, i) {
@@ -292,7 +288,7 @@ function buildGraph(graphics,graphicsid,linkss){
     edges_text.append('textPath')
         .attr('xlink:href',function(d,i) {return '#edgepath'+i})
         .style("pointer-events", "none")
-        .text(function(d){return d.rela;});
+        .text(d => d.rela);
 
     //draw node
     const circle = svg.append("g").selectAll("circle")
@@ -302,21 +298,33 @@ function buildGraph(graphics,graphicsid,linkss){
         .style('stroke', "#68AEDD")
         .attr("r", 20)
         .on('contextmenu', d3.contextMenu(menu))
+        .on('mouseover', function (node){
+            tooltip.transition()
+                .duration(5)
+                .style("opacity", 1);
+            tooltip.html("...")
+                .style("left", (d3.event.pageX + 10) + "px")
+                .style("top", (d3.event.pageY - 15) + "px");
+
+            sendDescriptionRequest(node);
+        })
+        .on('mouseout', function(){
+            tooltip.transition()
+                .style("opacity", 0);
+        })
         .on("click", function (node) {
-            console.log("On left click, node is: " + node.name);
-            sendRequest(node, "expand");
+            // if the node has already been expanded, don't send a request.
+            if (!expandedNodes.includes(node.name)) {
+                expandedNodes.push(node.name);
+                sendNodeRequest(node, "expand");
+            }
+
             edges_line.style("stroke-width", function (line) {
-                if (line.source.name === node.name || line.target.name === node.name) {
-                    return 4;
-                } else {
-                    return 0.5;
-                }
+                if (line.source.name === node.name || line.target.name === node.name) return 4;
+                else return 0.5;
             });
         })
         .call(force.drag);
-
-    circle.append("svg:title")
-        .text(node => {});
 
     const text = svg.append("g").selectAll("text")
         .data(force.nodes())
@@ -355,7 +363,6 @@ function buildGraph(graphics,graphicsid,linkss){
             }
         });
     d3.select('#saveButton').on('click', function(){
-        console.log("Print button clicked!");
         const svgString = getSVGString(d3.select('svg').node());
         svgString2Image( svgString, div.clientWidth, div.clientHeight, 'png', save ); // passes Blob and filesize String to the callback
 
@@ -415,9 +422,7 @@ d3.contextMenu = function (menu, openCallback) {
         const list = d3.selectAll('.d3-context-menu').append('ul');
         list.selectAll('li').data(menu).enter()
             .append('li')
-            .html(function(d) {
-                return d.title;
-            })
+            .html(d => d.title)
             .on('click', d => {
                 d.action(elm, data, index);
                 d3.select('.d3-context-menu').style('display', 'none');
@@ -441,25 +446,16 @@ const menu = [
     {
         title: 'Dive in',
         action: function(elm, d) {
-            console.log('Clicked \'Dive in\'');
-            console.log('The data for this circle is: ' + d.name);
-            sendRequest(d, "dive");
+            sendNodeRequest(d, "dive");
         },
         disabled: false // optional, defaults to false
     },
     {
         title: 'Add',
-        action: function(elm, d) {
-            console.log('Clicked \'Add\'!');
-            console.log('The data for this circle is: ' + d);
-
-        }
+        action: function(elm, d) {}
     },
     {
         title: 'Delete',
-        action: function(elm, d) {
-            console.log('Clicked \'Delete\'!');
-            console.log('The data for this circle is: ' + d);
-        }
+        action: function(elm, d) {}
     }
 ];

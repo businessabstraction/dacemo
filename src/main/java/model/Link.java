@@ -1,4 +1,4 @@
-package Bean;
+package model;
 
 import java.util.LinkedHashMap;
 import java.util.regex.Matcher;
@@ -18,22 +18,20 @@ public class Link {
      * @param id the unique id about the link
      * @param group the group about link should belongs to
      */
-    public Link(String id, int group){
+    Link(String id, int group){
         this.id = id;
         this.group = group;
-        int idx = id.lastIndexOf("/");
-        if (id.matches("\".*\".*")){
-            Pattern p = Pattern.compile("\"(.*?)\"");
-            Matcher m = p.matcher(id);
-            while (m.find()){
-                this.label = m.group(1);
-            }
-            int idx1 = id.indexOf("<");
-            int idx2 = id.indexOf(">");
-            id = id.substring(idx1+1, idx2);
-            this.id = id;
+
+        int lastSeperatorIndex = id.lastIndexOf("/") > id.lastIndexOf("#") ?
+                id.lastIndexOf("/") :
+                id.lastIndexOf("#");
+
+        if (lastSeperatorIndex == -1){
+            this.label = id;
+        } else if (id.matches("\".*\".*")){
+            this.label = id.split("\\^\\^")[0];
         } else {
-            this.label = id.substring(idx + 1);
+            this.label = id.substring(lastSeperatorIndex + 1);
         }
     }
     /**
@@ -81,8 +79,8 @@ public class Link {
      * Get the structure of link
      * @return a map of link, only for JSON format conversion
      */
-    public LinkedHashMap getMap() {
-        LinkedHashMap m = new LinkedHashMap();
+    LinkedHashMap<String, Object> getMap() {
+        LinkedHashMap<String, Object> m = new LinkedHashMap<>();
         m.put("id", id);
         m.put("group", group);
         m.put("label", label);
@@ -90,7 +88,7 @@ public class Link {
         return m;
     }
     @Override
-    /**
+    /*  
      * The toString function to convert link information to string type
      */
     public String toString() {

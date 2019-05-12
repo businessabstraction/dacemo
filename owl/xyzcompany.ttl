@@ -1,0 +1,29 @@
+@base <https:/www./docemo.org/owl/examples/iteration-0/> .
+@prefix : <https:/www./docemo.org/owl/examples/iteration-0/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcm: <http://www.dacemo.org/dacemo/> .
+
+<https:/www./docemo.org/owl/examples/iteration-0/> rdf:type owl:Ontology ;
+    owl:versionIRI <https:/www./docemo.org/owl/examples/iteration-0/> ;
+    owl:imports dcm: .
+
+:XYZCompany rdf:type owl:Class ;
+    dcm:hasDept
+        :Finance ,
+        :Legal ;
+    rdfs:label "XYZ Company Pty. Ltd." ;
+    dcm:description "A representation of the XYZ Company" ;
+    dcm:isTopConcept "true"^^xsd:boolean .
+
+:Finance rdf:type owl:Class ;
+    dcm:hasSubDept
+        :Reporting ,
+        :Expenses ;
+    dcm:description "Deparment concerned with monetary expenses." .
+
+:Legal rdf:type owl:Class ;
+    dcm:description "Department concerned with legal matters."

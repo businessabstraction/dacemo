@@ -20,7 +20,7 @@ public class NodeDescriptionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String node = request.getParameter("nodename");
-        StardogTriplesDBConnection connection = new StardogTriplesDBConnection("multilink", "http://localhost:5820", "admin", "admin");
+        StardogTriplesDBConnection connection = new StardogTriplesDBConnection("xyzcompany", "http://localhost:5820", "admin", "admin");
 
         if (connection.canConnect()){
             String result = connection.nodeDescribeQuery(node);

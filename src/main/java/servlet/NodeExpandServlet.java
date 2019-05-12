@@ -23,9 +23,9 @@ public class NodeExpandServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String nodename = request.getParameter("nodename");
 
-        StardogTriplesDBConnection connection = new StardogTriplesDBConnection("multilink", "http://localhost:5820", "admin", "admin");
+        StardogTriplesDBConnection connection = new StardogTriplesDBConnection("xyzcompany", "http://localhost:5820", "admin", "admin");
         if (connection.canConnect()){
-            SPARQLResultTable result = connection.describeQuery(nodename);
+            SPARQLResultTable result = connection.describeQueryMinimal(nodename);
 
             //Get the SPARQL result by nodename, then convert the result into JSON Object and send it to server
             Data2Json data2Json = new Data2Json(result);

@@ -23,7 +23,7 @@ public class GraphServlet extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        StardogTriplesDBConnection connection = new StardogTriplesDBConnection("multilink", "http://localhost:5820", "admin", "admin");
+        StardogTriplesDBConnection connection = new StardogTriplesDBConnection("xyzcompany", "http://localhost:5820", "admin", "admin");
         if (connection.canConnect()){
             SPARQLResultTable result = connection.selectQuery(
                     "PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>" +

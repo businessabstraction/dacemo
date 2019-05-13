@@ -8,7 +8,7 @@ The Google Drive (where we host our documentation) can be found [here](https://d
 The most up-to-date revision of the acceptance criteria can be found [here](https://docs.google.com/document/d/1SHdLQG55HGzwzkL80NOvoNet_rAlMJIhJWk7JNr0DqY/edit).
 
 ### Record of Progress towards Delivery
-The record of our progress can be found in the Working Log, found [here](https://docs.google.com/spreadsheets/d/1Ld3Ziu2T2C4DCUQwo0_lre00Tai1cHAcKVvPsWi6pKw/edit?usp=sharing). 
+The record of our progress can be found in the Working Log, found [here](https://drive.google.com/drive/folders/1F0TVDVpqSTOunYVmz1H9TRxEegeC2uEU). 
 
 ## Decision Making
 Major decisions are voted on by the team such that the majority decision passes. Team members are able to give feedback to one another through private or public channels on Slack. 

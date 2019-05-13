@@ -6,7 +6,10 @@ let tooltip = d3.select("body").append("div")
 let expandedNodes = [];
 
 /*=========================parse node===========================*/
-//get the node from json file
+/**
+ *
+ * @returns {any[]}
+ */
 function updateNode() {
     const jsonObjects = JSON.parse(getJson);
     const indexchar = "index";
@@ -43,7 +46,10 @@ function JSONLength(obj) {
     return size;
 }
 
-
+/**
+ *
+ * @returns {any[]}
+ */
 function updateAdditionalNode(){
     const previousLinks = linkss;
     const jsonObjects = JSON.parse(getJson);
@@ -110,8 +116,9 @@ function sendNodeRequest(node, clickType) {
                 buildGraph('d3c','#d3c', updateNode());
 
             } else if (clickType === "dive" && getJson !== "{}" ){ // if there are no more subnodes to add, do nothing.
-                linkss = [{target:node.name, source:node.name, type:"resolved"}]; //todo: refactor linkss to contain all details
+                linkss = [{target:node.name, source:node.name, rela:"", type:"resolved"}]; //todo: refactor linkss to contain all details
                 expandedNodes = [];
+                links = [];
                 d3.selectAll("svg").remove();
                 buildGraph('d3c','#d3c', updateAdditionalNode());
 
@@ -135,13 +142,16 @@ function sendNodeRequest(node, clickType) {
 
 /*===========================parameters for currant node displaying==============================*/
 //store the links
-const links = [];
+let links = [];
 //store the nodes
 let nodes = {};
 
 
 /*====================================drawing graph========================================*/
-//parse the node and link into node and links
+/**
+ * parse the node and link into node and links
+ * @param linkss
+ */
 function processLink(linkss) {
 
     for (let i = 0; i < linkss.length; i++) {
@@ -187,7 +197,12 @@ function sendDescriptionRequest(node) {
     result.send(null);
 }
 
-//build the graph, draw the existed request nodes from server
+/**
+ * build the graph, draw the existed request nodes from server
+ * @param graphics
+ * @param graphicsid
+ * @param linkss
+ */
 function buildGraph(graphics,graphicsid,linkss){
     processLink(linkss);
 
@@ -198,6 +213,7 @@ function buildGraph(graphics,graphicsid,linkss){
     let isMouseDown = false;
     let viewBox_x = 0, viewBox_y = 0;
 
+    // todo: add in description of force
     const force = d3.layout.force()
         .nodes(d3.values(nodes))//set array of nodes
         .links(links)
@@ -207,10 +223,11 @@ function buildGraph(graphics,graphicsid,linkss){
         .on("tick", tick)
         .start();
 
+    //todo: add in description of svg
     const svg = d3.select(graphicsid)
         .append('svg')
         .attr("preserveAspectRatio", "xMidYMid meet")
-        .attr("viewBox", "300 -300 600 600") //todo: check if this works on all screens
+        .attr("viewBox", "300 -300 600 600")
         .on("mousedown", function () {
             if (d3.event.defaultPrevented) {
                 return;
@@ -237,6 +254,7 @@ function buildGraph(graphics,graphicsid,linkss){
             }
         });
 
+    // Defines and adds the attributes of the arrow marker on each edge.
     svg.append("marker")
         .attr("id", "resolved")
         .attr("markerUnits", "userSpaceOnUse")
@@ -251,7 +269,7 @@ function buildGraph(graphics,graphicsid,linkss){
         .attr("d", "M0,-5L10,0L0,5")
         .attr('fill', '#5F5654');
 
-    //set link
+    //set attributes of lines between nodes.
     const edges_line = svg.selectAll(".edgepath")
         .data(force.links())
         .enter()
@@ -270,6 +288,7 @@ function buildGraph(graphics,graphicsid,linkss){
         .style("stroke-width", 0.5)//storke of lines
         .attr("marker-end", "url(#resolved)");//arrow
 
+    // set attributes of text of lines between nodes.
     const edges_text = svg.append("g").selectAll(".edgelabel")
         .data(force.links())
         .enter()
@@ -290,7 +309,7 @@ function buildGraph(graphics,graphicsid,linkss){
         .style("pointer-events", "none")
         .text(d => d.rela);
 
-    //draw node
+    // draw node and define it's attributes and mouse events.
     const circle = svg.append("g").selectAll("circle")
         .data(force.nodes())
         .enter().append("circle")
@@ -326,6 +345,7 @@ function buildGraph(graphics,graphicsid,linkss){
         })
         .call(force.drag);
 
+    //todo: add description of text const
     const text = svg.append("g").selectAll("text")
         .data(force.nodes())
         .enter()
@@ -363,6 +383,10 @@ function buildGraph(graphics,graphicsid,linkss){
             }
         });
 
+    //todo: add description of tick method.
+    /**
+     *
+     */
     function tick() {
         circle.attr("transform", transform1);
         text.attr("transform", transform2);
@@ -382,10 +406,22 @@ function buildGraph(graphics,graphicsid,linkss){
         });
     }
 
+    //todo: add description of transform1 method (how is it different from transform2? What does it do?
+    /**
+     *
+     * @param d
+     * @returns {string}
+     */
     function transform1(d) {
         return "translate(" + d.x + "," + d.y + ")";
     }
 
+    //todo: add description of transform1 method (how is it different from transform1? What does it do?
+    /**
+     *
+     * @param d
+     * @returns {string}
+     */
     function transform2(d) {
         return "translate(" + (d.x) + "," + d.y + ")";
     }
@@ -394,6 +430,12 @@ function buildGraph(graphics,graphicsid,linkss){
 /*==================================execute the whole script=======================================*/
 
 // Menu Object
+/**
+ *
+ * @param menu
+ * @param openCallback
+ * @returns {Function}
+ */
 d3.contextMenu = function (menu, openCallback) {
     // create the div element that will hold the context menu
     d3.selectAll('.d3-context-menu').data([1])
@@ -433,7 +475,11 @@ d3.contextMenu = function (menu, openCallback) {
         d3.event.preventDefault();
     };
 };
-// Define the Menu
+
+/**
+ * Define the Menu
+ * @type {*[]}
+ */
 const menu = [
     {
         title: 'Dive in',

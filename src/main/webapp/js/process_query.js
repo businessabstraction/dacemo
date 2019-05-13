@@ -9,6 +9,16 @@ function undo() {
     //todo undo the operation
 }
 
+function printGraph() {
+    const div = document.getElementById("d3c"); // get the div
+    const svgString = getSVGString(d3.select('svg').node());
+    svgString2Image( svgString, div.clientWidth, div.clientHeight, 'png', save ); // passes Blob and filesize String to the callback
+
+    function save(dataBlob){
+        saveAs( dataBlob, 'D3 Graph.png' ); // FileSaver.js function
+    }
+}
+
 function getSVGString( svgNode ) {
     svgNode.setAttribute('xlink', 'http://www.w3.org/1999/xlink');
     const cssStyleText = getCSSStyles(svgNode);

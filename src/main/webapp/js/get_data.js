@@ -362,14 +362,6 @@ function buildGraph(graphics,graphicsid,linkss){
                     .text(bot);
             }
         });
-    d3.select('#saveButton').on('click', function(){
-        const svgString = getSVGString(d3.select('svg').node());
-        svgString2Image( svgString, div.clientWidth, div.clientHeight, 'png', save ); // passes Blob and filesize String to the callback
-
-        function save(dataBlob){
-            saveAs( dataBlob, 'D3 Graph.png' ); // FileSaver.js function
-        }
-    });
 
     function tick() {
         circle.attr("transform", transform1);

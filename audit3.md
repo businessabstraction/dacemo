@@ -2,6 +2,22 @@
 An intranet application that displays queryable, navigable and understandable graph representations of Enterprise, using Data-Centric Modelling. 
 
 The Google Drive (where we host our documentation) can be found [here](https://drive.google.com/drive/folders/1WjYbFm8Bo-LiOVIUo5V1L1T3OA2NqrcU?usp=sharing). The most relevant parts of the documentation are linked below.
+## ROLE AND ACTIVITIES 
+Task ID	|Task Name|	Task Details|Owners|	Deadline
+---|---|---|---|---
+1	|Set up the node expanding servlet|	Setup the node expanding servlet |	Lifu|	5/4
+2	|The menu |Working on the functions menu for the right click	|Yu|	6/4
+3	|Working on D3.js|	Parsing the links and nodes json to the graph with link d3.js	|Wenrui|	16/4
+4	|Exploring other open source triplestore |	Investigation and report on other open source TripleStores, potential migration from Stardog to other open source triplestore.	|Tommy|	17/4
+5	|Config the abstraction|	Querying data from the ontology based on the level of abstraction	|Lifu|	21/4
+6	|Config Server|	Connects the frontend to the server via API	|Wenrui|	21/4
+7	|Docker|	Investigation and report into feasibility of packaging up the backend into an OS-independent container called Docker	|Lifu|	23/4
+8	|Node description adjustment|	Determination of whether the description will be sent over but not displayed, or taken from the backend upon hovering over the node	|Lifu, Wenrui|	24/4
+9	|Graph saving| Determination of how images are stored in ontologies	|Tommy|	26/4
+10	|Graph printing|Exporting the graph as a PDF, Image, or printing.	|Min| 	1/5
+11	|Website resizing|	Appropriate resizing of images based on the size of the node 	|Wenrui|	2/5
+12	|Refactor the structure of the frontend|	Add diagrammatic paradigms to the graph, further abstracting away the details depending 	|Wenrui|3/5
+13	|Low priority UI tasks|	Update the webpage to improve UI	|Yu|	7/5
 
 ## Delivery and Acceptance Criteria
 ### Acceptance Criteria

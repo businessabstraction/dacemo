@@ -215,7 +215,7 @@ function buildGraph(graphics,graphicsid,linkss){
     let isMouseDown = false;
     let viewBox_x = 0, viewBox_y = 0;
 
-    // todo: add in description of force
+    // force objects can be dragged and added links.
     const force = d3.layout.force()
         .nodes(d3.values(nodes))//set array of nodes
         .links(links)
@@ -225,7 +225,7 @@ function buildGraph(graphics,graphicsid,linkss){
         .on("tick", tick)
         .start();
 
-    //todo: add in description of svg
+    // define the shape of nodes and draw links
     const svg = d3.select(graphicsid)
         .append('svg')
         .attr("preserveAspectRatio", "xMidYMid meet")
@@ -347,7 +347,7 @@ function buildGraph(graphics,graphicsid,linkss){
         })
         .call(force.drag);
 
-    //todo: add description of text const
+    // set attributes of the text
     const text = svg.append("g").selectAll("text")
         .data(force.nodes())
         .enter()

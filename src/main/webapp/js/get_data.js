@@ -1,4 +1,3 @@
-//todo: add descriptions of each global variable here.
 let getJson;
 let linkss;
 let tooltip = d3.select("body").append("div")
@@ -37,7 +36,6 @@ function updateNode() {
 }
 
 /**
- * The length of the given JSON file.
  * @return {number}
  */
 function JSONLength(obj) {
@@ -384,15 +382,6 @@ function buildGraph(graphics,graphicsid,linkss){
                     .text(bot);
             }
         });
-
-    d3.select('#saveButton').on('click', function(){
-        const svgString = getSVGString(d3.select('svg').node());
-        svgString2Image( svgString, div.clientWidth, div.clientHeight, 'png', save ); // passes Blob and filesize String to the callback
-
-        function save(dataBlob){
-            saveAs( dataBlob, 'D3 Graph.png' ); // FileSaver.js function
-        }
-    });
 
     //todo: add description of tick method.
     /**

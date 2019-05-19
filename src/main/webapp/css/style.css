@@ -33,6 +33,18 @@ ul{
     padding: 0;
 }
 
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: .5rem;
+    background: #FFFFFF;
+    color: #313639;
+    border: 1px solid #313639;
+    border-radius: 8px;
+    pointer-events: none;
+    font-size: 1.3rem;
+}
+
 .button_1{
     height: 38px;
     background: #7FDBFF;
@@ -279,8 +291,8 @@ ul#projects li{
 
 .d3-context-menu ul {
     list-style-type: none;
-    margin: 4px 0px;
-    padding: 0px;
+    margin: 4px 0;
+    padding: 0;
     cursor: default;
 }
 

@@ -76,7 +76,7 @@ public class StardogTriplesDBConnectionTest {
      */
     @Test public void singleNodeDescribeTest(){
         String actual = connection.nodeDescribeQuery("http://something.org/Person");
-        String expected = "\"This is a person!\"";
+        String expected = "This is a person!";
 
         assertEquals(expected, actual);
     }

@@ -27,12 +27,12 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>NodeDiveServlet</servlet-name>
-        <servlet-class>Servlet.NodeDiveServlet</servlet-class>
+        <servlet-name>NodeDescriptionServlet</servlet-name>
+        <servlet-class>Servlet.NodeDescriptionServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>NodeDiveServlet</servlet-name>
-        <url-pattern>/Servlet/NodeDiveServlet</url-pattern>
+        <servlet-name>NodeDescriptionServlet</servlet-name>
+        <url-pattern>/Servlet/NodeDescriptionServlet</url-pattern>
     </servlet-mapping>
 
 </web-app>

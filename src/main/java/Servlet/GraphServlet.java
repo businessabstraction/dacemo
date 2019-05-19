@@ -14,20 +14,15 @@ import java.io.IOException;
 
 @WebServlet(name = "GraphServlet",urlPatterns = "/Servlet/GraphServlet")
 public class GraphServlet extends HttpServlet {
-
+    /**
+     * Servlet responsible for initializing the graph, getting the most important concepts of the ontology and sending
+     *     them to the front end.
+     * @param request the http request the servlet recieved.
+     * @param response the http response the servlet will send back.
+     * @throws IOException if the request/response is malformed.
+     */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
-        String testout = "id111,1,label111,1";
-        response.getOutputStream().print(testout);
-
-    }
-
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
-
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         StardogTriplesDBConnection connection = new StardogTriplesDBConnection("iteration0", "http://localhost:5820", "admin", "admin");
         if (connection.canConnect()){
             SPARQLResultTable result = connection.selectQuery(
@@ -39,9 +34,7 @@ public class GraphServlet extends HttpServlet {
                     "}"
             );
 
-            /*
-             * Graph initialization
-             */
+            //Graph initialization
             Data2Json data2Json = new Data2Json(result);
             JSONObject jsonObject = new JSONObject();
             try {
@@ -50,7 +43,6 @@ public class GraphServlet extends HttpServlet {
                 e.printStackTrace();
             }
             response.getOutputStream().print(jsonObject.toString());
-
         }
     }
 }

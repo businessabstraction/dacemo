@@ -1,4 +1,3 @@
-//todo: add descriptions of each global variable here.
 let getJson;
 let linkss;
 let tooltip = d3.select("body").append("div")
@@ -37,7 +36,6 @@ function updateNode() {
 }
 
 /**
- * The length of the given JSON file.
  * @return {number}
  */
 function JSONLength(obj) {
@@ -215,7 +213,7 @@ function buildGraph(graphics,graphicsid,linkss){
     let isMouseDown = false;
     let viewBox_x = 0, viewBox_y = 0;
 
-    // todo: add in description of force
+    // force objects can be dragged and added links.
     const force = d3.layout.force()
         .nodes(d3.values(nodes))//set array of nodes
         .links(links)
@@ -225,7 +223,7 @@ function buildGraph(graphics,graphicsid,linkss){
         .on("tick", tick)
         .start();
 
-    //todo: add in description of svg
+    // define the shape of nodes and draw links
     const svg = d3.select(graphicsid)
         .append('svg')
         .attr("preserveAspectRatio", "xMidYMid meet")
@@ -347,7 +345,7 @@ function buildGraph(graphics,graphicsid,linkss){
         })
         .call(force.drag);
 
-    //todo: add description of text const
+    // set attributes of the text
     const text = svg.append("g").selectAll("text")
         .data(force.nodes())
         .enter()
@@ -384,15 +382,6 @@ function buildGraph(graphics,graphicsid,linkss){
                     .text(bot);
             }
         });
-
-    d3.select('#saveButton').on('click', function(){
-        const svgString = getSVGString(d3.select('svg').node());
-        svgString2Image( svgString, div.clientWidth, div.clientHeight, 'png', save ); // passes Blob and filesize String to the callback
-
-        function save(dataBlob){
-            saveAs( dataBlob, 'D3 Graph.png' ); // FileSaver.js function
-        }
-    });
 
     //todo: add description of tick method.
     /**

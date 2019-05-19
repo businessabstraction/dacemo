@@ -16,7 +16,6 @@ function updateNode() {
     for(let i =0; i<JSONLength(jsonObjects); i++){
         const name = indexchar + i;
 
-
         linkss[i] = {};
         linkss[i].target = jsonObjects[name]["s"].label;
         linkss[i].targetid = jsonObjects[name]["s"].id;
@@ -40,10 +39,12 @@ function JSONLength(obj) {
     return size;
 }
 
-
+/**
+ * this function query for dive in, add new nodes and links to the current list
+*  @return updated list
+ */
 function updateAdditionalNode(){
-    console.log("updateAddtional");
-    console.log(linkss);
+
 
     const previousLinks = linkss;
     const jsonObjects = JSON.parse(getJson);
@@ -91,6 +92,12 @@ function updateAdditionalNode(){
 
 /*=========================calling server=============================*/
 
+//call servlet sever
+/**
+ * check the server status and send request.
+ * @param nethodType : post & get for calling doPost and doGet function.
+ */
+
 function callServer(methodType) {
     let result;
 
@@ -124,7 +131,6 @@ function callServer(methodType) {
 
 /*============================receive and request=====================================*/
 //update every time when have a request
-
 
 
 //send the request to the server
@@ -176,7 +182,11 @@ let nodes = {};
 
 
 /*====================================drawing graph========================================*/
-//parse the node and link into node and links
+/**
+ * parse the node and link into node and links
+ * @param linkss : list that record the relationship of objects and subjects.
+ */
+
 function processLink(linkss) {
 
     for (let i = 0; i < linkss.length; i++) {
@@ -222,7 +232,13 @@ function sendDescriptionRequest(node) {
     result.send(null);
 }
 
-//build the graph, draw the existed request nodes from server
+
+/**
+ * /build the graph, draw the existed request nodes from server
+ * @param graphics : the container of D3 graph
+ * @param graphicsid : the id of container of D3 graph
+ * @param linkss : the list that includes the information of the graph
+ */
 function buildGraph(graphics,graphicsid,linkss){
     processLink(linkss);
 
@@ -479,6 +495,7 @@ d3.contextMenu = function (menu, openCallback) {
         d3.event.preventDefault();
     };
 };
+
 // Define the Menu
 const menu = [
     {

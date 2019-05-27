@@ -7,8 +7,8 @@ let expandedNodes = [];
 
 /*=========================parse node===========================*/
 /**
- *
- * @returns {any[]}
+ * The function is used to parse the node when initialising the graph
+ * @returns {returns a list of relationship between objects and subject}
  */
 function updateNode() {
     const jsonObjects = JSON.parse(getJson);
@@ -36,6 +36,7 @@ function updateNode() {
 }
 
 /**
+ * get the numbers of objects in the json
  * @return {number}
  */
 function JSONLength(obj) {
@@ -47,8 +48,8 @@ function JSONLength(obj) {
 }
 
 /**
- *
- * @returns {any[]}
+ * use to add extra nodes when expanding the graph
+ * @returns the list that includes the added link information
  */
 function updateAdditionalNode(){
     const previousLinks = linkss;
@@ -149,8 +150,8 @@ let nodes = {};
 
 /*====================================drawing graph========================================*/
 /**
- * parse the node and link into node and links
- * @param linkss
+ * send the query name of node to the backend and update the lists.
+ * @param node
  */
 function processLink(linkss) {
 
@@ -383,16 +384,17 @@ function buildGraph(graphics,graphicsid,linkss){
             }
         });
 
-    //todo: add description of tick method.
+
     /**
-     *
+     * get the position of the nodes and draw node with text.
      */
     function tick() {
-        circle.attr("transform", transform1);
-        text.attr("transform", transform2);
+        circle.attr("transform", transform);
+        text.attr("transform", transform);
         edges_line.attr('d', function(d) {
             return 'M ' + d.source.x + ' ' + d.source.y + ' L ' + d.target.x + ' ' + d.target.y;
         });
+        //flip the text if the connection is inversed
         edges_text.attr('transform',function(d){
             if (d.target.x<d.source.x){
                 let bbox = this.getBBox();
@@ -406,25 +408,15 @@ function buildGraph(graphics,graphicsid,linkss){
         });
     }
 
-    //todo: add description of transform1 method (how is it different from transform2? What does it do?
     /**
-     *
+     * get the coordiniation of the translate point
      * @param d
      * @returns {string}
      */
-    function transform1(d) {
+    function transform(d) {
         return "translate(" + d.x + "," + d.y + ")";
     }
 
-    //todo: add description of transform1 method (how is it different from transform1? What does it do?
-    /**
-     *
-     * @param d
-     * @returns {string}
-     */
-    function transform2(d) {
-        return "translate(" + (d.x) + "," + d.y + ")";
-    }
 }
 
 /*==================================execute the whole script=======================================*/

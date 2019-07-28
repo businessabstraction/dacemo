@@ -17,11 +17,7 @@ Present Data-Centric, Ontology-based, integrated, qualitative models of enterpri
 * Imported Requirements, User Stories
 
 ## Audit-specific Landing page links:
-Audit 1: https://github.com/businessabstraction/dacemo/blob/master/audit1.md
-
-Audit 2: https://github.com/businessabstraction/dacemo/blob/master/audit2.md
-
-Audit 3 (Current): https://github.com/businessabstraction/dacemo/blob/master/audit3.md
+Audit 1: To be created.
 
 ## Local Build Instructions
 Link: https://github.com/businessabstraction/dacemo/blob/master/LocalBuildInstructions.md

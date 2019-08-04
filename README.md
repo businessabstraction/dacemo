@@ -25,10 +25,10 @@ Link: https://github.com/businessabstraction/dacemo/blob/master/LocalBuildInstru
 Name | Role(s) | Backup Roles(s)
 --- | --- | --- |
 Tommy Gatti - u6044453 | Project Manager, Ontology Engineer | Backend Developer 
-Liam Lightfoot - u6382079 |  | 
+Liam Lightfoot - u6382079 | QA Assurance, Frontend Developer | Backend Developer 
 Zizheng Wang - u6535518 |  | 
- |  | 
- |  | 
- |  | 
+Samuel Zemicael |  | 
+Joe Zheng |  | 
+Ao Yu |  | 
 
 

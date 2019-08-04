@@ -17,18 +17,18 @@ Present Data-Centric, Ontology-based, integrated, qualitative models of enterpri
 * Imported Requirements, User Stories
 
 ## Audit-specific Landing page links:
-Audit 1: To be created.
+Audit 1: https://github.com/businessabstraction/dacemo/blob/master/Audit1.md
 
 ## Local Build Instructions
 Link: https://github.com/businessabstraction/dacemo/blob/master/LocalBuildInstructions.md
 ## TEAM
 Name | Role(s) | Backup Roles(s)
 --- | --- | --- |
-Tommy Gatti - u6044453 | Project Manager, Backend/Triples Engineer | Tester
-Min Liu - u6339307 | Supporting Project Manager, Backend/Business Logic Programmer | Tester, Frontend Developer
-Lifu Zhao - u6534756 | Backend/Server Build Engineer | Tester, Docker
-Yu Yang - u6412985 | Frontend/Presentation Logic Programmer | Backend Development
-Wenrui Li - u6361099 | Frontend/D3.js Specialist | Backend Developer
-Taizhou Wang - u6273306 | Frontend/JS build & lifecycle | Tester
+Tommy Gatti - u6044453 | Project Manager, Ontology Engineer | Backend Developer 
+Liam Lightfoot - u6382079 |  | 
+Zizheng Wang - u6535518 |  | 
+ |  | 
+ |  | 
+ |  | 
 
 

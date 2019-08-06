@@ -1,26 +1,27 @@
 ## Audit 1 - Landing Page
 
 ### ___Vision___
-DaCeMo (Data-Centric Model) is an approach to modelling Enterprise as a set of OWL (Web Ontology Language) Ontologies. This project aims to build a website that displays a navigable, query-able, and understandable graph representation of a Data-Centric Model of an Enterprise. This is done to reduce the complexity of the modelling and provide a medium for both professional and unprofessional personel to understand the core concepts without an indepth knowledge of Ontology. 
+DaCeMo (Data-Centric Modelling) is an approach to modelling Enterprise as a set of OWL (Web Ontology Language) Ontologies. This project aims to build a website that displays a navigable, query-able, and understandable graph representation of a Data-Centric Model of an Enterprise, applicable to different Enterprise Audiences. The aim of this is to reduce the complexity of the model and provide a medium for both professional and unprofessional personell to understand their business without an in-depth knowledge of OWL Ontologies. 
 
 ### ___Team___
 Name | Role(s) | Backup Roles(s)
 --- | --- | --- |
 Tommy Gatti - u6044453 | Project Manager, Ontology Engineer | Backend Developer
 Liam Lightfoot - u6382079 | QA Assurance, Frontend Developer | Backend Developer
-Zizheng Wang - u6535518 | Frontend Developer | Tester
+Zizheng Wang - u6535518 | Frontend Developer | Tester 
 Samuel Zemicael - u5796901 | Tester | Frontend Developer
 Ao Yu - u6655031 | Frontend Developer, Tester | Backend Developer
 Boyuan(Joe) Zheng - u6522433 | Backend Developer | 
 
 ### Semester Deliverables
-+ Intranet application providing visualisation of an enterprise ontology
-+ Documented code and installation procedures. 
++ Intranet application providing visualisation of an enterprise ontology that is understandable to different enterprise audiences
++ Documented code and installation procedures
 + Examples and tests, documented
 + Documents on all decisions made through the projects, and technical facts discovered
 
 ### Timeline
-
+![Timeline 1](https://drive.google.com/uc?export=view&id=1CxDXua0HCP2IDE5mksnopHIUv_op4z60)
+![Timeline 2](https://drive.google.com/uc?export=view&id=1pc0Yv5nhN6J_WNPxoMdQgFmKxCi6c2h0)
 
 ### Stakeholders
 Primary: Alex Jornalev
@@ -52,8 +53,10 @@ Feedback Log can be found [here](https://docs.google.com/spreadsheets/d/1hnrFNdF
 ### Risks
 Risks will be maintained and updated in both the Risk Register located [here](https://docs.google.com/spreadsheets/d/1bWPk-rjz3pF5Nljia-tqSG8NuwP3TO2TsS4Qab-SvEM/edit#gid=0) and through Github Issues, which is navigable from the top bar.
 
-### Other Importent Documentation
+### Other Important Documentation
++ [All Documentation - Google Drive](https://drive.google.com/drive/folders/1UuBN1-FIv-E8V_J2vwpnziDlUAn6Jqr-?usp=sharing)
 + [Team Charter](https://docs.google.com/document/d/1a_s7zaf-PU9EiDgr7Z8aoaa7SwEvt-vJ411y3TN21bI/edit#)
 + [Statement Of Work](https://docs.google.com/document/d/1DxnwL0kK5-OCqQ7njEZY3P3jAQ5Z7Tn5YhbnFCPbrSo/edit)
 + [Story So Far](https://docs.google.com/document/d/1ok0W4jBmDu0YQ7kXrpw1pfMjUkeGkc2Xor_s1oYz65I/edit#heading=h.8pynvzt7avl3)
   
+

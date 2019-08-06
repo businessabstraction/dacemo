@@ -8,7 +8,7 @@ Name | Role(s) | Backup Roles(s)
 --- | --- | --- |
 Tommy Gatti - u6044453 | Project Manager, Ontology Engineer | Backend Developer
 Liam Lightfoot - u6382079 | QA Assurance, Frontend Developer | Backend Developer
-Zizheng Wang - u6535518 |  | 
+Zizheng Wang - u6535518 | Frontend Developer | Tester
 Samuel Zemicael - u5796901 | Tester | Frontend Developer
 Ao Yu - u6655031 | Frontend Developer, Tester | Backend Developer
 Boyuan(Joe) Zheng - u6522433 | Backend Developer | 
